@@ -7,12 +7,12 @@
 \begin{document}
 \pagestyle{headings}
 
-\def\typprace{Typ závěrečné práce}
+\def\typprace{Diplomová}
 
 % uvodni cast zaverecne prace
-\titul{Název závěrečné práce}{Bc. Martin Hnátek}{Ing. Jiří Lýsek, Ph.D.}{Brno, 2018}
+\titul{Řízení autonomního agenta pomocí neuroevoluce}{Bc. Martin Hnátek}{Ing. Jiří Lýsek, Ph.D.}{Brno, 2018}
 \podekovani{Test poděkování}
-\prohlasenimuz{místo a datum prohlášení}
+\prohlasenimuz{V Brně dne \today}
 
 \abstract{Citace práce v anglickém jazyce}{abstrakt práce v anglickém jazyce}
 
@@ -21,11 +21,14 @@
 \cislovat{2}
 
 % jednotlive kapitoly dokumentu
-%\input{uvodprace.tex}
+\input{uvod.tex}
+
 %\input{prvnicast.tex}
 %\input{druhacast.tex}
 %\input{zaverprace.tex}
-%\input{literatura.tex}
 
+\begin{literatura}
+	\input{literatura.tex}
+\end{literatura}
 \end{document}
 
