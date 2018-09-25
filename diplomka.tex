@@ -2,6 +2,7 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[czech]{babel}
+\usepackage{cite}
 \usepackage{dipp8,xltxtra,graphicx}
 
 \begin{document}
@@ -11,12 +12,12 @@
 
 % uvodni cast zaverecne prace
 \titul{Řízení autonomního agenta pomocí neuroevoluce}{Bc. Martin Hnátek}{Ing. Jiří Lýsek, Ph.D.}{Brno, 2018}
-\podekovani{Test poděkování}
+\podekovani{Rád bych zde poděkoval svému vedoucímu Ing. Jiří Lýskovi, Ph.D. za jeho rady a čas, který mi věnoval při řešení této práce.}
 \prohlasenimuz{V Brně dne \today}
 
-\abstract{Citace práce v anglickém jazyce}{abstrakt práce v anglickém jazyce}
-
-\abstrakt{Citace práce v českém jazyce}{abstrakt práce v českém jazyce}
+\abstract{Autonomous agent control using neuroevolution}{}
+% TODO: Lepší abstract
+\abstrakt{Řízení autonomního agenta pomocí neuroevoluce}{Tato práce se zabývá trénováním autonomního agenta - auta s pomocí algoritmu neuroevoluce. Toto zahrnuje tvorbu simulačního prostředí pro agenta, vhodným návrhem agenta (senzorů a řízení) a také návrhem fitness funkce}
 \obsah
 \cislovat{2}
 
@@ -26,9 +27,8 @@
 %\input{prvnicast.tex}
 %\input{druhacast.tex}
 %\input{zaverprace.tex}
+\bibliographystyle{plain}
+\bibliography{test}
 
-\begin{literatura}
-	\input{literatura.tex}
-\end{literatura}
 \end{document}
 
