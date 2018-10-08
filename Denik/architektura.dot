@@ -1,0 +1,6 @@
+digraph architektura {
+rankdir=TD;
+node [shape=box]
+simulace -> frontend;
+simulace -> backend;
+}

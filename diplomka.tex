@@ -3,7 +3,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[czech]{babel}
 \usepackage{cite}
-\usepackage{dipp8,xltxtra,graphicx}
+\usepackage[pdf]{graphviz}
+\usepackage{dipp8, xltxtra, graphicx}
 
 \begin{document}
 \pagestyle{headings}
@@ -23,12 +24,15 @@
 
 % jednotlive kapitoly dokumentu
 \input{uvod.tex}
-
+   \digraph{abc}{
+		rankdir=LR;
+		a -> b -> c;
+	}
 %\input{prvnicast.tex}
 %\input{druhacast.tex}
 %\input{zaverprace.tex}
-\bibliographystyle{plain}
+\newpage
+\bibliographystyle{alpha}
 \bibliography{test}
-
 \end{document}
 

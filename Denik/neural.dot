@@ -1,0 +1,10 @@
+digraph neural {
+rankdir=LR;
+Senzory -> NN;
+Natoceni -> NN;
+NN -> Dopredu;
+NN -> Dozadu;
+NN -> Brzda;
+NN -> Doprava;
+NN -> Doleva;
+}

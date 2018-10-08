@@ -1,0 +1,105 @@
+\documentclass[a4paper,11pt,twoside]{article}
+\usepackage{geometry}
+\usepackage{advdate}
+\geometry{a4paper, top=1.5cm, left=2.5cm, right=3.0cm, bottom=2.0cm, includehead, includefoot}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[pdf]{graphviz}
+\newcommand{\tomorrow}{{\AdvanceDate[1]\today}}
+\title{Konzultace}
+\date{\today}
+\begin{document}
+	\pagenumbering{gobble}
+	\maketitle
+	Témata k diskuzi
+	\begin{enumerate}
+		\item Jaká by měla být reakční doba vozidla?
+		\item Probrat ovládací schéma
+			\begin{enumerate}
+				\item Senzory
+				\item Ovládání neuronovou sítí
+			\end{enumerate}
+		\item Simulační prostředí
+			\begin{enumerate}
+				\item Statické vs dynamické
+				\item Délka evaluace
+				\item Rozšíření
+			\end{enumerate}
+		\item Javascript
+			\begin{enumerate}
+				\item ES6 import v knihovnách
+			\end{enumerate}
+	\end{enumerate}
+	
+	\newpage
+	\section{Poznámky}
+
+	\newpage
+	\section{Architektura aplikace}
+	\begin{figure}[h!]
+		\centering
+		\digraph{architektura}{
+			rankdir=TD;
+			node [shape=box]
+			simulace -> frontend;
+			simulace -> backend;
+		}
+		\caption{architektura}
+	\end{figure}
+	Aplikace se dá rozdělit do tří částí a to: 
+	\begin{enumerate}
+		\item Simulace - Kompletní kód simulátoru, který slouží k vyhodnocování jednotlivých genomů
+		\item Frontend - Webová aplikace pro zobrazování a simulaci
+		\item Backend - Pro velmi rychlou evaluaci na serveru
+	\end{enumerate}
+
+	\subsubsection{Pravidla simulace}
+	Simulace probíhá maximálně jednu minutu a končí v těchto případech:
+	\begin{enumerate}
+		\item Pokud se auto zastaví (má nulovou rychlost)
+		\item V případě nárazu (agent je penalizován stržením konstantní hodnoty od jeho fitness skóre)
+		\item Uplynutím časového limitu
+    \end{enumerate}
+
+	\subsection{Ovládání agenta}
+	Agent je ovládán s pomocí níže uvedené neuronové sítě
+
+	Kde neuronová síť volí mezi pohybem, což může být:
+	\begin{enumerate}
+		\item Dopredu plnou rychlostí vpřed
+		\item Dozadu 15\% normální rychlosti
+		\item Brzda zastavení / zpomalení
+	\end{enumerate}
+	a směrem, což může být:
+	\begin{enumerate}
+		\item Natočení volantu o 10 stupňů doleva
+		\item Natočení volantu o 10 stupňů doprava
+	\end{enumerate}
+	\begin{figure}[!h]
+		\centering
+		\digraph{neural}{
+			rankdir=LR;
+			Senzory -> NN;
+			Natoceni -> NN;
+			NN -> Dopredu;
+			NN -> Dozadu;
+			NN -> Brzda;
+			NN -> Doprava;
+			NN -> Doleva;
+		}
+		\caption{Neuronová síť}
+	\end{figure}
+	\section{Backend}
+	Backendová část běží s pomocí nodejs a pokouší se proces evaluace značně zrychlit rozložením simulace jednotlivých jedinců mezi fyzická jádra procesoru. Toto rozložení probíhá rovnoměrně a může tedy docházet k tomu, že jedno jádro čeká na zbytek (jelikož doba vyhodnocování je u jednotlivců různá).
+	\section{Další práce}
+	\begin{enumerate}
+		\item Lepší rozložení jednotlivců u backendu (fronta?)
+		\item Zrychlení a validace
+		\item Rozšíření simulačního prostředí dle dohody
+	\end{enumerate}
+	\begin{figure}[!b]
+		\flushright
+		Ing. Jiří Lýsek, Ph.D.\hspace{0.5cm} \makebox[1.5in]{\hrulefill}
+	\end{figure}
+\end{document}

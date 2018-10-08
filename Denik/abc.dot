@@ -1,0 +1,11 @@
+digraph abc {
+rankdir=LR;
+node [shape=box]
+Senzory -> NN;
+Nato\unhbox \voidb@x \bgroup \let \unhbox \voidb@x \setbox \@tempboxa \hbox {c\global \mathchardef \accent@spacefactor \spacefactor }\accent 20 c\egroup \spacefactor \accent@spacefactor en\unhbox \voidb@x \bgroup \let \unhbox \voidb@x \setbox \@tempboxa \hbox {\OT1\i \global \mathchardef \accent@spacefactor \spacefactor }\accent 19 \OT1\i \egroup \spacefactor \accent@spacefactor  -> NN;
+NN -> Dop\unhbox \voidb@x \bgroup \let \unhbox \voidb@x \setbox \@tempboxa \hbox {r\global \mathchardef \accent@spacefactor \spacefactor }\accent 20 r\egroup \spacefactor \accent@spacefactor edu;
+NN -> Dozadu;
+NN -> Brzda;
+NN -> Doprava;
+NN -> Doleva;
+}

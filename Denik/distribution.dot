@@ -1,0 +1,6 @@
+digraph distribution {
+rankdir=TD
+populace[label="populace 256"]
+populace->proces64
+populace->proces64
+}

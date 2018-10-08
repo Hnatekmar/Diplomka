@@ -1,0 +1,11 @@
+digraph neuralNet {
+rankdir=LR;
+node [shape=box]
+Senzory -> NN;
+Natocen\unhbox \voidb@x \bgroup \let \unhbox \voidb@x \setbox \@tempboxa \hbox {\OT1\i \global \mathchardef \accent@spacefactor \spacefactor }\accent 19 \OT1\i \egroup \spacefactor \accent@spacefactor  -> NN;
+NN -> Dopredu;
+NN -> Dozadu;
+NN -> Brzda;
+NN -> Doprava;
+NN -> Doleva;
+}
