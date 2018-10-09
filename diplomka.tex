@@ -4,6 +4,7 @@
 \usepackage[czech]{babel}
 \usepackage{cite}
 \usepackage[pdf]{graphviz}
+\usepackage{mathtools}
 \usepackage{dipp8, xltxtra, graphicx}
 
 \begin{document}
@@ -24,15 +25,9 @@
 
 % jednotlive kapitoly dokumentu
 \input{uvod.tex}
-   \digraph{abc}{
-		rankdir=LR;
-		a -> b -> c;
-	}
 %\input{prvnicast.tex}
 %\input{druhacast.tex}
 %\input{zaverprace.tex}
-\newpage
-\bibliographystyle{alpha}
-\bibliography{test}
+
 \end{document}
 

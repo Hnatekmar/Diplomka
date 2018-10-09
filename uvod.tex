@@ -1,3 +1,23 @@
 \kapitola{Úvod a cíl práce}
 \sekce{Úvod do problematiky}
-Test ~\cite[s.~52]{Češka1994}
+S růstem výpočetního výkonu a rozvojem \textbf{gpugpu} (paralelizace výpočtů na grafické kartě) se neuronové sítě ukázaly jako mocný nástroj pro řešení složitých problémů na které standardní metody umělé inteligence nestačily. Především díky jejích schopn
+
+
+\kapitola{Teorie}
+\sekce{Neuron}
+$$\sigma(\Sigma_{i=0}^{N} \theta \cdot x_{i} + b)$$
+\sekce{Aktivační funkce}
+Aktivační funkce se používá pro definování výstupu a zavedení nelinearity. 
+
+\sekce{Linearní funkce}
+$$f(x) = x$$
+\sekce{Sigmoid}
+$$f(x) = \frac{1}{1 + e^{-x}}$$
+\sekce{RELU}
+\[ 
+f(x) = 
+\begin{dcases*} 
+\text{$x>=0$,} & $x$ \\ 
+\text{$x<0$,} & 0 
+\end{dcases*} 
+\]
