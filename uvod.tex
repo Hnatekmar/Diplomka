@@ -6,6 +6,7 @@ K dalším možnostem
 
 \kapitola{Neuronové sítě}
 
+
 Neuronové sítě jsou model strojového učení, který je volně založený na principu zvířecího mozku.  \cite[s.~41]{fundementalsOfDeepLearning}
 \sekce{Druhy úloh neuronových sítí}
 Neuronové sítě se používají především pro řešení regresních a klasifikačních problémů.
@@ -14,6 +15,7 @@ Neuron je základní jednotka neuronových sítí, která je definovaná jako su
 	$$\sigma(\Sigma_{i=0}^{N} \theta \cdot x_{i} + b)$$
 
 \podsekce{Aktivační funkce}
+<<<<<<< HEAD
 Aktivační funkce se používá pro definování výstupu a zavedení nelinearity. Bez nich by byla neuronová síť schopna aproximovat pouze n-dimenzionální rovinu. \cite[s.~65]{fundementalsOfDeepLearning} \\
 Dalším využitím je omezení výstupních hodnot. Například aktivační funkce sigmoid se s oblibou používá u výstupní vrstvy neuronových sítí určených ke klasifikačním problémům, protože je to relace $\mathbb{R} \rightarrow \{0..1\}$, která se dá jednoduše jako "jistota" neuronu, že se jedná o výstup, který neuron reprezentuje. Podobně se dá uvažovat i o funkcích jako je například softmax a tanh, které také najdou hojné využití u klasifikačních problémů.
 
@@ -29,6 +31,7 @@ plot (\x, \x);
 $$f(x) = x$$
 \podsekce{Sigmoid}
 Sigmoid je aktivační funkce, která je schopná potlačit extrémní hodnoty 
+
 \begin{tikzpicture}
 \begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
 \addplot[blue, samples=100, smooth, unbounded coords=discard]{1 / (1 + e ^ (-\x))};
@@ -36,7 +39,9 @@ Sigmoid je aktivační funkce, která je schopná potlačit extrémní hodnoty
 \end{tikzpicture}
 $$f(x) = \frac{1}{1 + e^{-x}}$$
 \podsekce{Tanh}
+
 Tanh je funkce obdobná sigmoidu. Hlavní rozdíl mezi ní a sigmoidem je ten, že její obor je v rozmezí -1 a 1 hodí se proto i pro záporná výstupy, které vyžadují záporná čísla. \cite[s.~67]{fundementalsOfDeepLearning}
+
 \begin{tikzpicture}
 \begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
 \addplot[blue, samples=100, smooth, unbounded coords=discard]{tanh(x)};
@@ -45,6 +50,7 @@ Tanh je funkce obdobná sigmoidu. Hlavní rozdíl mezi ní a sigmoidem je ten, �
 $$f(x) = tanh(x)$$
 \podsekce{RELU}
 RELU je aktivační funkce, která je podobná lineární aktivační funkci s tím rozdílem, že pokud vstupní hodnota nepřesáhne určitého prahu výstupem je 0. Její hlavní výhodou je to, že zabraňuje problémům s takzvaným explodujícím gradientem \cite[s.~69]{fundementalsOfDeepLearning} \\
+
 \begin{tikzpicture}
 \begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
 \addplot[blue, samples=100, smooth, unbounded coords=discard]{max(0, x)};
