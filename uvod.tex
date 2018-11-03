@@ -12,10 +12,10 @@ Neuronové sítě jsou model strojového učení, který je volně založený na
 Neuronové sítě se používají především pro řešení regresních a klasifikačních problémů.
 \sekce{Neuron}
 Neuron je základní jednotka neuronových sítí, která je definovaná jako suma všech jejích vstupů a aplikace aktivační funkce.
+
 	$$\sigma(\Sigma_{i=0}^{N} \theta \cdot x_{i} + b)$$
 
 \podsekce{Aktivační funkce}
-<<<<<<< HEAD
 Aktivační funkce se používá pro definování výstupu a zavedení nelinearity. Bez nich by byla neuronová síť schopna aproximovat pouze n-dimenzionální rovinu. \cite[s.~65]{fundementalsOfDeepLearning} \\
 Dalším využitím je omezení výstupních hodnot. Například aktivační funkce sigmoid se s oblibou používá u výstupní vrstvy neuronových sítí určených ke klasifikačním problémům, protože je to relace $\mathbb{R} \rightarrow \{0..1\}$, která se dá jednoduše jako "jistota" neuronu, že se jedná o výstup, který neuron reprezentuje. Podobně se dá uvažovat i o funkcích jako je například softmax a tanh, které také najdou hojné využití u klasifikačních problémů.
 
@@ -64,4 +64,16 @@ f(x) =
 \end{dcases*} 
 \]
 \sekce{Genetické algoritmy}
+Genetické algoritmy slouží k řízenému prohledávání stavového prostoru založené na teorii evoluce. 
+\podsekce{Princip}
+Základní myšlenka spočívá ve vygenerování náhodných jedinců (řešení problému) a jejích postupné zlepšování s pomocí operací křížení a mutace.
+\podsekce{Kódování}
+Způsob zápisu řešení problému. Existuje mnoho různých kódování a každý má své výhody a nevýhody. Zde je seznam několika nejpoužívanějších kódování:
+\begin{enumerate}
+	\item Binární - řetězec bitů, který může například reprezentovat jednu nebo více numerických hodnot.
+	\item Numerické - Jedno nebo více čísel
+	\item Genetické kódování - řetězec znaků (A - G)
+\end{enumerate}
+\podsekce{Křížení}
+\podsekce{Mutace}
 \sekce{Neuroevoluce}
