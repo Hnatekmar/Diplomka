@@ -66,14 +66,34 @@ f(x) =
 \sekce{Genetické algoritmy}
 Genetické algoritmy slouží k řízenému prohledávání stavového prostoru založené na teorii evoluce. 
 \podsekce{Princip}
-Základní myšlenka spočívá ve vygenerování náhodných jedinců (řešení problému) a jejích postupné zlepšování s pomocí operací křížení a mutace.
-\podsekce{Kódování}
-Způsob zápisu řešení problému. Existuje mnoho různých kódování a každý má své výhody a nevýhody. Zde je seznam několika nejpoužívanějších kódování:
+Základní myšlenka spočívá ve vygenerování náhodných jedinců (řešení problému) a jejích postupné zlepšování s pomocí operací křížení a mutace. Proces zlepšování genomů probíhá na základě jeho hodnocení (fitness).
+
+Samotný algoritmus pak lze rozdělit na následující kroky \cite[s.~12]{geneticAlgorithms}
+
 \begin{enumerate}
-	\item Binární - řetězec bitů, který může například reprezentovat jednu nebo více numerických hodnot.
-	\item Numerické - Jedno nebo více čísel
-	\item Genetické kódování - řetězec znaků (A - G)
+	\item Vygeneruj náhodnou populaci o n chromozomech
+	\item Pro každý chromozom spočítej jeho fitness
+	\item Opakuj n krát
+	\begin{enumerate}
+		\item Vyber pár chromozomů na základě jejích ohodnocení (selekce)
+		\item S určitou pravděpodobností $p_c$ rozděl pár chromozomů na náhodném místě a jejích spojením.
+		\item S určitou pravděpodobností mutuj daného jedince
+	\end{enumerate}
+	\item Nahraď současnou populaci populací, která vznikla předchozím krokem
+	\item Jdi na krok 2
+\end{enumerate}
+
+\podsekce{Kódování}
+Způsob zápisu řešení problému. Existuje mnoho různých kódování a každý má své výhody a nevýhody. Zde je seznam několika nejpoužívanějších kódování \cite[s.~42-43]{geneticCZ}:
+\begin{enumerate}
+	\item Binární - řetězec bitů, který může například reprezentovat jednu nebo více numerických hodnot. 
+	\item Realná čísla - Jedno nebo více reálných čísel
+	\item Kombinatorické - Může být například seznam čísel označujících 
 \end{enumerate}
 \podsekce{Křížení}
+Křížení je operátor, který kombinuje dva jedince do jednoho. Jeho implementace je samozřejmě závislá na 
 \podsekce{Mutace}
+Mutace náhodně modifikuje chromozom a zavádí tak do populace variaci.
+\podsekce{Selekce}
+Selekce je proces výběru dvou jedinců na něž jsou později aplikovány genetické operátory jako je křížení a mutace.  
 \sekce{Neuroevoluce}
