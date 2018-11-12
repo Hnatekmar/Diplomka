@@ -4,6 +4,7 @@ Vlastní práce se skládá ze dvou částí klientská část, která slouží 
 \podsekce{Fitness funkce}
 Fitness funkce je důležitou součástí simulace, která zásadně ovlivňuje chování výsledných agentů.
 \sekce{Serverová část}
-Serverová část obaluje simulaci do jednoduchého REST api
+Serverová část obaluje simulaci do jednoduchého REST api. V rámci co největší rychlosti byl vytvořen i jednoduchý klient, který provádí algoritmus NEAT a pro vyhodnocení jednotlivých jedinců využívá toto API. API má jen jeden endpoint a to \bf{/evaluate}, který přebírá pole json objektů z nichž každý obsahuje informace o neuronové síti vygenerované s pomocí knihovny NEAT.
+Ačkoliv se může zdát, že tento přístup bude pomalejší díky přídavné režii, kterou s sebou nese síťová komunikace tento přístup má i své výhody. Hlavní výhodou je možnost rozložení samotných výpočtů mezi několik počítačů.
 \sekce{Klientská část}
 \sekce{Simulace}
