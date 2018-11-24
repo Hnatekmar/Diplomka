@@ -4,7 +4,52 @@ Vlastní práce se skládá ze dvou částí klientská část, která slouží 
 \podsekce{Fitness funkce}
 Fitness funkce je důležitou součástí simulace, která zásadně ovlivňuje chování výsledných agentů.
 \sekce{Serverová část}
-Serverová část obaluje simulaci do jednoduchého REST api. V rámci co největší rychlosti byl vytvořen i jednoduchý klient, který provádí algoritmus NEAT a pro vyhodnocení jednotlivých jedinců využívá toto API. API má jen jeden endpoint a to \bf{/evaluate}, který přebírá pole json objektů z nichž každý obsahuje informace o neuronové síti vygenerované s pomocí knihovny NEAT.
-Ačkoliv se může zdát, že tento přístup bude pomalejší díky přídavné režii, kterou s sebou nese síťová komunikace tento přístup má i své výhody. Hlavní výhodou je možnost rozložení samotných výpočtů mezi několik počítačů.
+Serverová část vyhodnocuje jednotlivé jedince distribuovaně s pomocí fronty úkolů. Frontu poskytuje knihovna \textbf{bull}, která používá \textbf{redis} pro správu údajů o jednotlivých úkolech.
+
+\podsekce{Výpočetní cluster}
+Ukázalo, že vyhodnocování simulace zabírá neúměrné množství času a to i na nejvýkonnějším dostupném počítači. 
+Například vyhodnocení jedné generace populace o 1024 jedincích zabralo ~290 s na nejsilnějším dostupném pc. Z tohoto důvodu bylo rozhodnuto o distribuce výpočetní zátěže mezi více počítačů. Byl vytvořen výpočetní cluster s následující specifikací:
+
+\begin{tabular}{|c|c|c|}
+	\hline 
+	Procesor & RAM & Počet \\ 
+	\hline 
+	S5P6818 Octa core & 1 GB & 2 \\ 
+	\hline 
+	Broadcom BCM2837B0 quad-core & 1 GB & 1 \\ 
+	\hline 
+	Phenom X4 965 & 8 GB & 1 \\ 
+	\hline 
+	Intel atom &  &  \\ 
+	\hline 
+\end{tabular} 
+
+Pro snadnou distribuci a správu byly všechny počítače zorganizovány do docker swarmu. Docker swarm obsahoval jednoho managera, který zároveň spouštěl klientskou aplikaci a další služby:
+
+\begin{enumerate}
+	\item \textbf{Portainer} pro správu clusteru
+	\item \textbf{Arena} pro správu \textbf{bull}
+	\item \textbf{redis} používaný knihovnou \textbf{bull}
+\end{enumerate}
+
+\podsekce{Průběh vyhodnocování}
+Serverová část pracuje dle diagramu \ref{Diagram}, kde je vidět, že klient zadává do fronty úkoly (genom a nastavení simulace) a jednotliví zpracovatelé (počítače v clusteru), kteří si je z ní vyberou, jednotlivé genomy vyhodnotí a hodnotu fitness funkce pošlou zpět na klienta, který jakmile dostane všechny hodnoty zpět provede genetický algoritmu (mutace, křížení, ...) a novou generaci pošle znovu na vyhodnocení.
+Tento přístup má několik výhod a to:
+\begin{enumerate}
+	\item Robustnost - Pokud jeden nebo více zpracovatelů selže (je například odpojen ze sítě) je možné pokračovat ve vyhodnocování (neúspěšný úkol se automaticky vrátí zpátky do fronty)
+	\item Dobré rozložení zátěže - Jelikož si zpracovatel vytahuje úkoly z fronty je vždy optimálně zatížen a není třeba řešit rozložení mezi různě výkonnými a zatíženými počítači.
+	\item Možnost vyhodnocení více úkolů zároveň - Jelikož se vyhodnocují jednotlivé genomy lze spustit i více simulací zároveň bez většího dopadu na výkon výpočtů.
+\end{enumerate}
+
+Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci se serverem, což může být zdrojem určitého zpomalení. Nicméně se toto zpomalení neprojevilo v průběhu testování clusteru.
+
+
 \sekce{Klientská část}
 \sekce{Simulace}
+\podsekce{Agent}
+Definice samotného agenta zásadně ovlivňuje výsledek simulace, protože stanovuje vstupy a výstupy do a z neuronové sítě. 
+
+\sekce{Experimenty}
+\kapitola{Závěr a zhodnocení} 
+
+https://snapshot.raintank.io/dashboard/snapshot/FmoHRo3sfdk8eAQlkRc4rfKK3YF043oE?orgId=2
