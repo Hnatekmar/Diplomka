@@ -10,18 +10,22 @@ Serverová část vyhodnocuje jednotlivé jedince distribuovaně s pomocí front
 Ukázalo, že vyhodnocování simulace zabírá neúměrné množství času a to i na nejvýkonnějším dostupném počítači. 
 Například vyhodnocení jedné generace populace o 1024 jedincích zabralo ~290 s na nejsilnějším dostupném pc. Z tohoto důvodu bylo rozhodnuto o distribuce výpočetní zátěže mezi více počítačů. Byl vytvořen výpočetní cluster s následující specifikací:
 
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|l|c|c|c|}
 	\hline 
-	Procesor & RAM & Počet \\ 
+	Procesor & RAM & Počet & Architektura\\ 
 	\hline 
-	S5P6818 Octa core & 1 GB & 2 \\ 
+	S5P6818 Octa core & 1 GB & 2 & arm64 \\ 
 	\hline 
-	Broadcom BCM2837B0 quad-core & 1 GB & 1 \\ 
+	Broadcom BCM2837B0 quad-core & 1 GB & 1 & arm32 \\ 
 	\hline 
-	Phenom X4 965 & 8 GB & 1 \\ 
+	Phenom X4 965 & 8 GB & 1 & x64 \\ 
+	\hline
+	Intel Core i5-2300 & 4 GB & 1 & x64 \\ 
+	\hline
+	AMD A4-4300M & 4 GB & 1 & x64 \\ 
 	\hline 
-	Intel atom &  &  \\ 
-	\hline 
+	Intel atom x5-Z8350 & 2 GB & 1 & x64 \\ 
+	\hline
 \end{tabular} 
 
 Pro snadnou distribuci a správu byly všechny počítače zorganizovány do docker swarmu. Docker swarm obsahoval jednoho managera, který zároveň spouštěl klientskou aplikaci a další služby:
@@ -48,7 +52,7 @@ Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci
 \sekce{Simulace}
 \podsekce{Agent}
 Definice samotného agenta zásadně ovlivňuje výsledek simulace, protože stanovuje vstupy a výstupy do a z neuronové sítě. 
-
+Samotný agent je auto, které je vybaveno několika vzdálenostními senzory (v závislosti na konfiguraci viz. níže), které mu poskytují 
 \sekce{Experimenty}
 \kapitola{Závěr a zhodnocení} 
 
