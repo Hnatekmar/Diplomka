@@ -36,7 +36,7 @@ Pro snadnou distribuci a správu byly všechny počítače zorganizovány do doc
 	\item \textbf{redis} používaný knihovnou \textbf{bull}
 \end{enumerate}
 
-\podsekce{Průběh vyhodnocování}
+\podsekce{Průběh vyhodno\label{key}cování}
 Serverová část pracuje dle diagramu \ref{Diagram}, kde je vidět, že klient zadává do fronty úkoly (genom a nastavení simulace) a jednotliví zpracovatelé (počítače v clusteru), kteří si je z ní vyberou, jednotlivé genomy vyhodnotí a hodnotu fitness funkce pošlou zpět na klienta, který jakmile dostane všechny hodnoty zpět provede genetický algoritmu (mutace, křížení, ...) a novou generaci pošle znovu na vyhodnocení.
 Tento přístup má několik výhod a to:
 \begin{enumerate}
@@ -57,3 +57,5 @@ Samotný agent je auto, které je vybaveno několika vzdálenostními senzory (v
 \kapitola{Závěr a zhodnocení} 
 
 https://snapshot.raintank.io/dashboard/snapshot/FmoHRo3sfdk8eAQlkRc4rfKK3YF043oE?orgId=2
+https://snapshot.raintank.io/dashboard/snapshot/uDjEpO6qYTv8Sbo0SeJIXJGS4uU1N2hY?orgId=2
+https://snapshot.raintank.io/dashboard/snapshot/Lfnfr79JuQEItfU2sOnxWoRHN0m0ckzM?orgId=2

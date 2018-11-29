@@ -1,0 +1,61 @@
+\documentclass[a4paper,11pt,twoside]{article}
+\usepackage{geometry}
+\usepackage{advdate}
+\geometry{a4paper, top=1.5cm, left=2.5cm, right=3.0cm, bottom=2.0cm, includehead, includefoot}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[pdf]{graphviz}
+\newcommand{\tomorrow}{{\AdvanceDate[1]\today}}
+\title{Konzultace}
+\date{\today}
+\begin{document}
+	\pagenumbering{gobble}
+	\maketitle
+	Témata k diskuzi
+	\begin{enumerate}
+		\item Neuroevoluce
+			\begin{enumerate}
+				\item Jak funguje kódování?
+				\item Jak funguje podobnost jednotlivých genomů?
+			\end{enumerate}
+	\end{enumerate}
+	
+	\newpage
+	\section{Poznámky}
+
+	\newpage
+	\section{Architektura aplikace}
+	\begin{figure}[h!]
+		\centering
+		\digraph{architektura}{
+			rankdir=TD;
+			node [shape=box]
+			simulace -> frontend;
+			simulace -> backend;
+		}
+		\caption{architektura}
+	\end{figure}
+	\begin{tabular}{|l|c|c|c|}
+		\hline 
+		Procesor & RAM & Počet & Architektura\\ 
+		\hline 
+		S5P6818 Octa core & 1 GB & 2 & arm64 \\ 
+		\hline 
+		Broadcom BCM2837B0 quad-core & 1 GB & 1 & arm32 \\ 
+		\hline 
+		Phenom X4 965 & 8 GB & 1 & x64 \\ 
+		\hline
+		Intel Core i5-2300 & 4 GB & 1 & x64 \\ 
+		\hline
+		AMD A4-4300M & 4 GB & 1 & x64 \\ 
+		\hline 
+		Intel atom x5-Z8350 & 2 GB & 1 & x64 \\ 
+		\hline
+	\end{tabular} 
+
+	\begin{figure}[!b]
+		\flushright
+		Ing. Jiří Lýsek, Ph.D.\hspace{0.5cm} \makebox[1.5in]{\hrulefill}
+	\end{figure}
+\end{document}
