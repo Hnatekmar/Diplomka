@@ -2,7 +2,7 @@
 Vlastní práce se skládá ze dvou částí klientská část, která slouží k vizualizaci algoritmu a zobrazení výsledků ze serverové části. Serverová část pro maximální zrychlení simulace. 
 \sekce{Simulace}
 \podsekce{Fitness funkce}
-Fitness funkce je důležitou součástí simulace, která zásadně ovlivňuje chování výsledných agentů.
+Fitness funkce je důležitou součástí simulace, která zásadně ovlivňuje chování výsledných agentů a je tedy nutné jí volit vhodně. 
 \sekce{Serverová část}
 Serverová část vyhodnocuje jednotlivé jedince distribuovaně s pomocí fronty úkolů. Frontu poskytuje knihovna \textbf{bull}, která používá \textbf{redis} pro správu údajů o jednotlivých úkolech.
 
@@ -45,9 +45,7 @@ Tento přístup má několik výhod a to:
 	\item Možnost vyhodnocení více úkolů zároveň - Jelikož se vyhodnocují jednotlivé genomy lze spustit i více simulací zároveň bez většího dopadu na výkon výpočtů.
 \end{enumerate}
 
-Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci se serverem, což může být zdrojem určitého zpomalení. Nicméně se toto zpomalení neprojevilo v průběhu testování clusteru.
-
-
+Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci se serverem, což může být zdrojem určitého zpomalení. Nicméně se toto zpomalení neprojevilo v průběhu testování clusteru. 
 \sekce{Klientská část}
 \sekce{Simulace}
 \podsekce{Agent}

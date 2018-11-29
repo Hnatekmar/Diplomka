@@ -1,18 +1,28 @@
 \kapitola{Úvod a cíl práce}
 \sekce{Úvod do problematiky}
-S růstem výpočetního výkonu a rozvojem \textbf{gpugpu} (paralelizace výpočtů na grafické kartě) se neuronové sítě ukázaly jako mocný nástroj pro řešení složitých problémů na které standardní metody umělé inteligence nestačily.
-K dalším možnostem 
+S růstem výpočetního výkonu a rozvojem \textbf{gpugpu} (paralelizace výpočtů na grafické kartě) se neuronové sítě ukázaly jako mocný nástroj pro řešení složitých problémů na které standardní metody umělé inteligence nestačily.\\
+Další oblastí umělé inteligence, které nárust masivní paralelizace prospěl jsou metaheuristiky, které mohou  s nárůstem výpočetního výkonu v rozmném čase pokrýt stále větší stavový prostor a jsou tedy schopné rychle řešit stále složitější problémy.\\
+Neuroevoluce propojuje oba přístupy a využívá je ke generování topologii neuronových sítí a nastavení jejích vah. Výsledkem je neuronová síť, jejiž architektura lépe popisuje daný problém a lze jí aplikovat i na problémy na které by klasické neuronové sítě aplikovat nešly. Jedná se například o problémy u kterých je těžké získat trénovací data a nelze tedy neuronovou síť natrénovat klasickými metodami jako je backpropagace.\\
 
+\sekce{Cíl práce}
+Cílem této práce je navrhnout a pokusit se natrénovat autonomního agenta v simulovaném prostředí s pomocí algoritmu neuroevoluce.
 
 \kapitola{Neuronové sítě}
 
 Neuronové sítě jsou model strojového učení, který je volně založený na principu zvířecího mozku.  \cite[s.~41]{fundementalsOfDeepLearning}
-\sekce{Druhy úloh neuronových sítí}
-Neuronové sítě se používají především pro řešení regresních a klasifikačních problémů.
-\sekce{Neuron}
-Neuron je základní jednotka neuronových sítí, která je definovaná jako suma všech jejích vstupů a aplikace aktivační funkce.
 
-	$$\sigma(\Sigma_{i=0}^{N} \theta \cdot x_{i} + b)$$
+\sekce{Neuron}
+Neuron je základní  výpočetní jednotka neuronových sítí, která je definovaná jako suma všech jejích vstupů a aplikace aktivační funkce.
+	$$\sigma(\Sigma_{i=0}^{N} \theta_i \cdot x_{i} + b)$$
+Kde:
+\begin{enumerate}
+	\item $\sigma$ - aktivační funkce
+	\item $\theta$ - skrytá váha pro daný vstup
+	\item b - bias neuronu
+\end{enumerate}
+
+\sekce{Vrstva}
+Vrstva je skupina neuronů se stejnou aktivační funkcí. 
 
 \podsekce{Aktivační funkce}
 Aktivační funkce se používá pro definování výstupu a zavedení nelinearity. Bez nich by byla neuronová síť schopna aproximovat pouze n-dimenzionální rovinu. \cite[s.~65]{fundementalsOfDeepLearning} \\
