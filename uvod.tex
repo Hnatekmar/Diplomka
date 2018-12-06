@@ -9,7 +9,7 @@ Cílem této práce je navrhnout a pokusit se natrénovat autonomního agenta v 
 
 \kapitola{Neuronové sítě}
 
-Neuronové sítě jsou model strojového učení, který je volně založený na principu zvířecího mozku.  \cite[s.~41]{fundementalsOfDeepLearning}
+Neuronové sítě jsou model strojového učení, který je volně založený na principu zvířecího mozku.  \cite[s.~41]{fundementalsOfDeepLearning}.
 
 \sekce{Neuron}
 Neuron je základní  výpočetní jednotka neuronových sítí, která je definovaná jako suma všech jejích vstupů a aplikace aktivační funkce.
@@ -49,7 +49,7 @@ Sigmoid je aktivační funkce, která je schopná potlačit extrémní hodnoty
 $$f(x) = \frac{1}{1 + e^{-x}}$$
 \podsekce{Tanh}
 
-Tanh je funkce obdobná sigmoidu. Hlavní rozdíl mezi ní a sigmoidem je ten, že její obor je v rozmezí -1 a 1 hodí se proto i pro záporná výstupy, které vyžadují záporná čísla. \cite[s.~67]{fundementalsOfDeepLearning}
+\textbf{Tanh} je funkce obdobná sigmoidu. Hlavní rozdíl mezi ní a sigmoidem je ten, že její obor je v rozmezí -1 a 1 hodí se proto i pro záporná výstupy, které vyžadují záporná čísla. \cite[s.~67]{fundementalsOfDeepLearning}
 
 \begin{tikzpicture}
 \begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
@@ -93,24 +93,49 @@ Samotný algoritmus pak lze rozdělit na následující kroky \cite[s.~12]{genet
 \end{enumerate}
 
 \podsekce{Kódování}
-Způsob zápisu řešení problému. Existuje mnoho různých kódování a každý má své výhody a nevýhody. Většinou se snažíme vybírat kódování, které dobře reprezentuje daný problém. Například při 
-
+Způsob zápisu řešení problému. Existuje mnoho různých kódování a každý má své výhody a nevýhody. Většinou se snažíme vybírat kódování, které dobře reprezentuje daný problém.
 
 Zde je seznam několika nejpoužívanějších kódování \cite[s.~42-43]{geneticCZ}:
 \begin{enumerate}
 	\item Binární - řetězec bitů, který může například reprezentovat jednu nebo více numerických hodnot. 
-	\item Realná čísla - Jedno nebo více reálných čísel
+	\item Reálná čísla - Jedno nebo více reálných čísel
 	\item Kombinatorické - Může být například seznam čísel označujících 
 \end{enumerate}
 \podsekce{Křížení}
-Křížení je operátor, který kombinuje dva jedince do jednoho. Jeho implementace je samozřejmě závislá na 
+Křížení je operátor, který kombinuje dva jedince do jednoho. Jedinec, který vzniká přebírá genetickou informaci od obou jedinců v určitém poměru. Jeho implementace je závislá na použitém kódování. 
+
+Příkladem může být obrázek \ref{fig:crossover} ve kterém je ilustrováno tzv. jednobodové křížení \cite[s.~50]{geneticCZ} při kterém dochází k rozdělení obou genomů ve stejném bodě a spojením vzniklých podřetězců do nového genomu.
+	
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.95]{crossover}
+	\caption{Příklad křížení}
+	\label{fig:crossover}
+\end{figure}
+
 \podsekce{Mutace}
-Mutace náhodně modifikuje chromozom a zavádí tak do populace variaci.
+Mutace náhodně modifikuje chromozom a zavádí tak do populace variaci. Existují různé varianty mutace, která se provádí v závislosti na daném kódování. 
+
+Například u binárního kódování se může jednat o náhodnou inverzi některého z bitů genomu viz obrázek \ref{fig:mutation}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=1.0]{mutation}
+	\caption{Příklad mutace}
+	\label{fig:mutation}
+\end{figure}
+
 \podsekce{Selekce}
-Selekce je proces výběru dvou jedinců na něž jsou později aplikovány genetické operátory jako je křížení a mutace.  
+Selekce je proces výběru dvou jedinců na něž jsou později aplikovány genetické operátory jako je křížení a mutace. 
+
+
 \sekce{Neuroevoluce}
 \kapitola{Použité technologie}
+Tato kapitola poskytuje stručný přehled technologii použitých při řešení diplomové práce.
 \sekce{Docker}
+Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner poskytuje izolované softwarové prostředí ve kterém lze spouštět jednu nebo více aplikací. 
+V praxi to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuální konfiguraci hostitelského systému.
 \sekce{Vue}
 \sekce{Node.js}
-\sekce{Traefik}
+Nodejs je open-source interpret jazyku javascript. Využití najde při psaní serverových aplikací v javascriptu a jiné případy, kdy je třeba spustit kód napsaný v javascriptu mimo prohlížeč (například pro testy). 
+\sekce{Bull}
