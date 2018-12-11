@@ -10,6 +10,23 @@
 \usepackage{amsfonts}
 \usepackage{neuralnetwork}
 \usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+
+%% Definice javascriptu
+\lstdefinelanguage{JavaScript}{%
+	keywords={const, let, typeof, instanceof, new, true, false, catch, function, return, null, undefined, catch, switch, var, if, in, while, for, do, else, case, break},
+	keywordstyle=\bfseries,
+	ndkeywords={class, export, throw, import, this},
+	ndkeywordstyle=\bfseries,
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\ttfamily,
+	stringstyle=\color{blue}\ttfamily,
+	morestring=[b]',
+	morestring=[b]`,
+	morestring=[b]"
+}
 
 \begin{document}
 \pagestyle{headings}
@@ -18,13 +35,16 @@
 
 % uvodni cast zaverecne prace
 \titul{Řízení autonomního agenta pomocí neuroevoluce}{Bc. Martin Hnátek}{Ing. Jiří Lýsek, Ph.D.}{Brno, 2018}
-\podekovani{Rád bych zde poděkoval svému vedoucímu Ing. Jiří Lýskovi, Ph.D. za jeho rady a čas, který mi věnoval při řešení této práce.}
-\prohlasenimuz{V Brně dne \today}
+\podekovani{Rád bych zde poděkoval svému vedoucímu Ing. Jiří Lýskovi, Ph.D. za jeho cenné rady a čas, který mi věnoval při řešení této práce.}
+\prohlasenimuz{V~Brně dne \today}
 
 \abstract{Autonomous agent control using neuroevolution}{}
 % TODO: Lepší abstract
-\abstrakt{Řízení autonomního agenta pomocí neuroevoluce}{Tato práce se zabývá trénováním autonomního agenta - auta s pomocí algoritmu neuroevoluce. Toto zahrnuje tvorbu simulačního prostředí pro agenta, vhodným návrhem agenta (senzorů a řízení) a také návrhem fitness funkce}
+\abstrakt{Řízení autonomního agenta pomocí neuroevoluce}{Tato práce se zabývá trénováním autonomního agenta - auta s~pomocí algoritmu neuroevoluce. Toto zahrnuje tvorbu simulačního prostředí pro agenta, vhodným návrhem agenta (senzorů a řízení) a také návrhem fitness funkce}
 \obsah
+\listoffigures
+\newpage{}
+\listoftables
 \cislovat{2}
 
 % jednotlive kapitoly dokumentu

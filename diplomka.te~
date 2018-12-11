@@ -1,0 +1,41 @@
+% preambule dokumentu
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{cite}
+\usepackage[pdf]{graphviz}
+\usepackage{mathtools}
+\usepackage{dipp8, xltxtra, graphicx}
+\usepackage{pgfplots}
+\usepackage{amsfonts}
+\usepackage{neuralnetwork}
+\usepackage[hidelinks]{hyperref}
+
+\begin{document}
+\pagestyle{headings}
+
+\def\typprace{Diplomová}
+
+% uvodni cast zaverecne prace
+\titul{Řízení autonomního agenta pomocí neuroevoluce}{Bc. Martin Hnátek}{Ing. Jiří Lýsek, Ph.D.}{Brno, 2018}
+\podekovani{Rád bych zde poděkoval svému vedoucímu Ing. Jiří Lýskovi, Ph.D. za jeho rady a čas, který mi věnoval při řešení této práce.}
+\prohlasenimuz{V Brně dne \today}
+
+\abstract{Autonomous agent control using neuroevolution}{}
+% TODO: Lepší abstract
+\abstrakt{Řízení autonomního agenta pomocí neuroevoluce}{Tato práce se zabývá trénováním autonomního agenta - auta s pomocí algoritmu neuroevoluce. Toto zahrnuje tvorbu simulačního prostředí pro agenta, vhodným návrhem agenta (senzorů a řízení) a také návrhem fitness funkce}
+\obsah
+\cislovat{2}
+
+% jednotlive kapitoly dokumentu
+\input{uvod.tex}
+\input{prakticka.tex}
+%\input{druhacast.tex}
+%\input{zaverprace.tex}
+\input{literatura.tex}
+
+\prilohy{}
+\priloha{CD se zdrojovým kódem}
+
+\end{document}
+

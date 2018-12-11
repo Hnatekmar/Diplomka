@@ -1,0 +1,149 @@
+\kapitola{Úvod a cíl práce}
+\sekce{Úvod do problematiky}
+S růstem výpočetního výkonu a rozvojem \textbf{gpugpu} (paralelizace výpočtů na grafické kartě) se neuronové sítě ukázaly jako mocný nástroj pro řešení složitých problémů na které standardní metody umělé inteligence nestačily.
+
+Další oblastí umělé inteligence, které nárust masivní paralelizace prospěl jsou metaheuristiky, které mohou  s nárůstem výpočetního výkonu v rozmném čase pokrýt stále větší stavový prostor a jsou tedy schopné rychle řešit stále složitější problémy.
+
+
+Neuroevoluce propojuje oba přístupy a využívá je ke generování topologii neuronových sítí a nastavení jejích vah. Výsledkem je neuronová síť, jejiž architektura lépe popisuje daný problém a lze jí aplikovat i na problémy na které by klasické neuronové sítě aplikovat nešly. Jedná se například o problémy u kterých je těžké získat trénovací data a nelze tedy neuronovou síť natrénovat klasickými metodami jako je backpropagace.
+
+\sekce{Cíl práce}
+Cílem této práce je navrhnout a pokusit se natrénovat autonomního agenta v simulovaném prostředí s pomocí algoritmu neuroevoluce.
+
+\kapitola{Neuronové sítě}
+
+Neuronové sítě jsou model strojového učení, který je volně založený na principu zvířecího mozku.  \cite[s.~41]{fundementalsOfDeepLearning}.
+
+\sekce{Neuron}
+Neuron je základní  výpočetní jednotka neuronových sítí, která je definovaná jako suma všech jejích vstupů a aplikace aktivační funkce.
+	$$\sigma(\Sigma_{i=0}^{N} \theta_i \cdot x_{i} + b)$$
+Kde:
+\begin{enumerate}
+	\item $\sigma$ - aktivační funkce
+	\item $\theta$ - skrytá váha pro daný vstup
+	\item b - bias neuronu
+\end{enumerate}
+
+\sekce{Vrstva}
+Vrstva je skupina neuronů se stejnou aktivační funkcí. 
+
+\podsekce{Aktivační funkce}
+Aktivační funkce se používá pro definování výstupu a zavedení nelinearity. Bez nich by byla neuronová síť schopna aproximovat pouze n-dimenzionální rovinu. \cite[s.~65]{fundementalsOfDeepLearning} \\
+Dalším využitím je omezení výstupních hodnot. Například aktivační funkce sigmoid se s oblibou používá u výstupní vrstvy neuronových sítí určených ke klasifikačním problémům, protože je to relace $\mathbb{R} \rightarrow \{0..1\}$, která se dá jednoduše jako "jistota" neuronu, že se jedná o výstup, který neuron reprezentuje. Podobně se dá uvažovat i o funkcích jako je například softmax a tanh, které také najdou hojné využití u klasifikačních problémů.
+
+\podsekce{Linearní funkce}
+Vrací vstup, tak jak je. Využití najde především u vstupní vrstvy neuronové sítě a u neuronových sítí, které řeší regresní typy úloh.
+\\
+\begin{tikzpicture}
+\begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
+\addplot[blue, samples=100, smooth, unbounded coords=discard]
+plot (\x, \x);
+\end{axis}
+\end{tikzpicture}
+$$f(x) = x$$
+\podsekce{Sigmoid}
+Sigmoid je aktivační funkce, která je schopná potlačit extrémní hodnoty 
+
+\begin{tikzpicture}
+\begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
+\addplot[blue, samples=100, smooth, unbounded coords=discard]{1 / (1 + e ^ (-\x))};
+\end{axis}
+\end{tikzpicture}
+$$f(x) = \frac{1}{1 + e^{-x}}$$
+\podsekce{Tanh}
+
+\textbf{Tanh} je funkce obdobná sigmoidu. Hlavní rozdíl mezi ní a sigmoidem je ten, že její obor je v rozmezí -1 a 1 hodí se proto i pro záporná výstupy, které vyžadují záporná čísla. \cite[s.~67]{fundementalsOfDeepLearning}
+
+\begin{tikzpicture}
+\begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
+\addplot[blue, samples=100, smooth, unbounded coords=discard]{tanh(x)};
+\end{axis}
+\end{tikzpicture}
+$$f(x) = tanh(x)$$
+\podsekce{RELU}
+RELU je aktivační funkce, která je podobná lineární aktivační funkci s tím rozdílem, že pokud vstupní hodnota nepřesáhne určitého prahu výstupem je 0. Její hlavní výhodou je to, že zabraňuje problémům s takzvaným explodujícím gradientem \cite[s.~69]{fundementalsOfDeepLearning} \\
+
+\begin{tikzpicture}
+\begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
+\addplot[blue, samples=100, smooth, unbounded coords=discard]{max(0, x)};
+\end{axis}
+\end{tikzpicture}
+\[ 
+f(x) = 
+\begin{dcases*} 
+\text{$x>=0$,} & $x$ \\ 
+\text{$x<0$,} & 0 
+\end{dcases*} 
+\]
+\sekce{Genetické algoritmy}
+Genetické algoritmy slouží k řízenému prohledávání stavového prostoru založené na teorii evoluce. 
+\podsekce{Princip}
+Základní myšlenka spočívá ve vygenerování náhodných jedinců (řešení problému) a jejích postupné zlepšování s pomocí operací křížení a mutace. Proces zlepšování genomů probíhá na základě jeho hodnocení (fitness).
+
+Samotný algoritmus pak lze rozdělit na následující kroky \cite[s.~12]{geneticAlgorithms}
+
+\begin{enumerate}
+	\item Vygeneruj náhodnou populaci o n chromozomech
+	\item Pro každý chromozom spočítej jeho fitness
+	\item Opakuj n krát
+	\begin{enumerate}
+		\item Vyber pár chromozomů na základě jejích ohodnocení (selekce)
+		\item S určitou pravděpodobností $p_c$ rozděl pár chromozomů na náhodném místě a jejích spojením.
+		\item S určitou pravděpodobností mutuj daného jedince
+	\end{enumerate}
+	\item Nahraď současnou populaci populací, která vznikla předchozím krokem
+	\item Jdi na krok 2
+\end{enumerate}
+
+\podsekce{Kódování}
+Způsob zápisu řešení problému. Existuje mnoho různých kódování a každý má své výhody a nevýhody. Většinou se snažíme vybírat kódování, které dobře reprezentuje daný problém.
+
+Zde je seznam několika nejpoužívanějších kódování \cite[s.~42-43]{geneticCZ}:
+\begin{enumerate}
+	\item Binární - řetězec bitů, který může například reprezentovat jednu nebo více numerických hodnot. 
+	\item Reálná čísla - Jedno nebo více reálných čísel
+	\item Kombinatorické - Může být například seznam čísel označujících 
+\end{enumerate}
+\podsekce{Křížení}
+Křížení je operátor, který kombinuje dva jedince do jednoho. Jedinec, který vzniká přebírá genetickou informaci od obou jedinců v určitém poměru. Jeho implementace je závislá na použitém kódování. 
+
+Příkladem může být obrázek \ref{fig:crossover} ve kterém je ilustrováno tzv. jednobodové křížení \cite[s.~50]{geneticCZ} při kterém dochází k rozdělení obou genomů ve stejném bodě a spojením vzniklých podřetězců do nového genomu.
+	
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.95]{crossover}
+	\caption{Příklad křížení}
+	\label{fig:crossover}
+\end{figure}
+
+\podsekce{Mutace}
+Mutace náhodně modifikuje chromozom a zavádí tak do populace variaci. Existují různé varianty mutace, která se provádí v závislosti na daném kódování. 
+
+Například u binárního kódování se může jednat o náhodnou inverzi některého z bitů genomu viz obrázek \ref{fig:mutation}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=1.0]{mutation}
+	\caption{Příklad mutace}
+	\label{fig:mutation}
+\end{figure}
+
+\podsekce{Selekce}
+Selekce je proces výběru dvou jedinců na něž jsou později aplikovány genetické operátory jako je křížení a mutace. 
+
+\sekce{NEAT}
+NEAT (neuroevolution of augmenting topologies) kombinuje neuronové sítě s genetickými algoritmy. Hlavní výhodou této metody je, že generuje jak topologii neuronové sítě, tak její váhy. Výsledkem může být neuronová síť jejíž rozložení lépe popisuje řešený problém.
+
+Kroky samotného algoritmu jsou obdobné 
+
+\kapitola{Použité technologie}
+Tato kapitola poskytuje stručný přehled technologii použitých při řešení diplomové práce.
+\sekce{Docker}
+Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner poskytuje izolované softwarové prostředí ve kterém lze spouštět jednu nebo více aplikací. 
+V praxi to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuální konfiguraci hostitelského systému.
+\sekce{Vue}
+Je javascript framework pro snadnou tvorbu uživatelských rozhraní.
+\sekce{Node.js}
+Nodejs je open-source interpret jazyku javascript. Využití najde při psaní serverových aplikací v javascriptu a jiné případy, kdy je třeba spustit kód napsaný v javascriptu mimo prohlížeč (například pro testy). 
+\sekce{Bull}
+Bull je knihovna pro Node.js, která poskytuje frontu úkolů založenou na populární in-memory databázi redis.
