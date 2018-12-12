@@ -5,12 +5,14 @@ Vlastní práce se skládá ze dvou částí klientská část, která slouží 
 Simulace je realizovaná jako knihovna pro Node.js, lze jí tedy použít jak u klientské částí, tak u serverové části. Poskytuje kompletní fyzikální simulaci agenta, prostředí ve kterém se pohybuje, jeho ovládání a výpočet fitness funkce. Součástí simulačního prostředí je také kód pro její vizualizaci.
 
 Při návrhu simulace bylo dbáno především na následující kriteria:
+
 \begin{enumerate}
 	\item Rychlost - Simulace musí být, co nejrychlejší s ohledem na to, že jich bude třeba pustit tisíc pro vyhodnocení jediné generace
 	\item Nenáročnost - Simulace musí běžet na různém hw v různých konfiguracích (viz sekce \ref{sec:cluster})
 	\item Robustnost - Simulace by si měla poradit s neočekávanými vstupy, jako je třeba \textbf{NaN}, který vychází z neuronové sítě
 	\item Stejné prostředí - Simulace musí poskytovat stejné prostředí pro všechny jedince
 	\item Portabilita - bylo třeba zajistit, aby šlo kód rozběhnout v různých platformách v různých konfiguracích.
+	\item Škálovatelnost - Možnost spustit a vykreslit libovolné množství simulací
 \end{enumerate}
 
 Rychlost byla zajištěna implementací profilovacího programu (\textbf{benchmark.js} ve složce simulation), který spouští simulaci na předem připravené populaci jedinců. Výstupem je pak doba, za jakou jí vyhodnotil na jednom jádře procesoru. Tento údaj byl pak používán při implementaci simulace pro orientační představu, jak moc případné změny v kódu ovlivňují rychlost samotné simulace. Dále byla simulace podrobena občasnému profilování v klientské částí s pomocí vývojářských nástrojů prohlížeče chrome, na kterém simulace jede nejlépe.
@@ -169,11 +171,16 @@ Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci
 Klientská část byla navržena tak, aby byla schopná vizualizovat průběh algoritmu NEAT a zároveň měla možnost znovu vyhodnocení existujících genomů vygenerovaných serverovou částí. První požadavek vznikl na základě konzultace s vedoucím, který chtěl algoritmus neurovoluce demonstrovat v hodinách předmětu VUI2. Druhý požadavek vznikl z důvodu potřeby vizualizace řešení, které generoval sever.
 
 \sekce{Vizualizace}
+Vizualizace se skládá z jednoduchého rozhraní, které lze vidět na obrázku \ref{fig:visualization}. V horní části je graf, zobrazující průběh genetického algoritmu. Lze v něm nalézt fitness nejlepšího, nejhoršího a průměrného jedince v populaci.
 
-\begin{figure}
+Další část se skládá z konfigurovatelného množství simulačních prostředí. Jednotliví jedinci v generaci jsou pak rovnoměrně rozloženi mezi všechna simulační prostředí a uživatel může pozorovat vývoj jedinců v realném čase.
+
+Poslední tlačítko slouží k urychlení simulace. Způsobí to, že se simulace začne obnovovat bez vykreslování. Toto jí značně zrychlí.
+
+\begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.7\linewidth]{visualization}
-	\caption{}
+	\includegraphics[width=0.6\linewidth]{visualization}
+	\caption{Uživatelské rozhraní klientské části}
 	\label{fig:visualization}
 \end{figure}
 
