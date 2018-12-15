@@ -10,7 +10,7 @@ Neuroevoluce propojuje oba přístupy a využívá je ke generování topologii 
 \sekce{Cíl práce}
 Cílem této práce je navrhnout a vytvořit simulační prostředí pro autonomního agenta. Poté na simulovaném prostředí provést serii experimentů, které slouží k zjištění limitů učících schopností algoritmu NEAT.
 
-\kapitola{Neuronové sítě}
+\sekce{Neuronové sítě}
 
 Neuronové sítě jsou model strojového učení, který je volně založený na principu zvířecího mozku \cite[s.~41]{fundementalsOfDeepLearning}.
 
@@ -182,17 +182,31 @@ Posledním operátorem používaným při algoritmu NEAT je operátor křížen�
 \end{figure}
 
 \sekce{Rozšíření algoritmu NEAT}
-Jelikož je algoritmus NEAT v současnosti předmět aktivního výzkumu existuje pro něj mnoho rozšíření. Tato sekce se bude zabývat některými z nich.
+Jelikož je algoritmus NEAT v současnosti předmětem aktivního výzkumu existuje pro něj mnoho rozšíření. Tato sekce se bude zabývat některými z nich.
 
-\podsekce{Intinct}
+\podsekce{Instinct}
+Instinct rozšiřuje původní algoritmus o rekurentní neurony. Rozšíření tak umožňuje případnému agentovi reagovat nejen na okamžitou situaci ale i na předchozí události ve světě. Tento fakt značně rozšiřuje možnosti neuronových sítí, které jsou generované tímto algoritmem ale zároveň je třeba mít na paměti, že se tímto značně zvětšuje prohledávaný stavový prostor a dochází tím k zvýšené časové náročnosti na získání vhodných výsledků.
 \podsekce{odNEAT}
-Varianta algoritmu NEAT aplikovaná na distribuované online učení skupiny autonomních robotů.
+Varianta algoritmu NEAT aplikovaná na distribuované online učení skupiny autonomních robotů \cite[s.~1]{odNEAT}.
 \podsekce{rtNEAT}
+
+In 2003 Stanley devised an extension to NEAT that allows evolution to occur in real time rather than through the iteration of generations as used by most genetic algorithms. The basic idea is to put the population under constant evaluation with a "lifetime" timer on each individual in the population. When a network's timer expires its current fitness measure is examined to see whether it falls near the bottom of the population, and if so it is discarded and replaced by a new network bred from two high-fitness parents. A timer is set for the new network and it is placed in the population to participate in the ongoing evaluations.
+
+The first application of rtNEAT is a video game called Neuro-Evolving Robotic Operatives, or NERO. In the first phase of the game, individual players deploy robots in a 'sandbox' and train them to some desired tactical doctrine. Once a collection of robots has been trained, a second phase of play allows players to pit their robots in a battle against robots trained by some other player, to see how well their training regimens prepared their robots for battle.
+
 \podsekce{HyperNEAT}
+HyperNEAT rozšiřuje neuroevoluci o možnost vytváření velmi velkých neuronových sítí \cite[s.~1]{hyperNEAT}.
+
 \podsekce{cgNEAT}
+Rozšíření zaměřující se na generování náhodného obsahu. Obdobně jako tomu je například u GAN sítí.
+\sekce{Alternativy k neuroevoluci}
+Neuroevoluce není jediný přístup, který je dostupný k řešení problému typu trénování autonomního agenta.
+
+Příkladem může být rozsáhlý obor zabývající se zpětnovazebním učením (reinforcement learning). Při zpětnovazebním učení máme agenta, který se nachází v prostředí nad kterým může vykonávat různé akce. Agent může před vykonáním akce pozorovat stav prostředí na základě čehož se rozhoduje, jakou akci vykoná. Po provedení některé se prostředí nějakým způsobem mění a agent dostává zpětnou vazbu v podobně odměny. Algoritmus zpětnovazebního učení se snaží agenta řídit tak, aby maximalizoval jeho odměnu. 
 
 \kapitola{Použité technologie}
 Tato kapitola poskytuje stručný přehled technologii použitých při řešení diplomové práce.
+
 \sekce{Docker}
 Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner poskytuje izolované softwarové prostředí ve kterém lze spouštět jednu nebo více aplikací. 
 V praxi to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuální konfiguraci hostitelského systému.
@@ -208,7 +222,7 @@ Narozdíl od běžného javascriptu obsahuje rozšířenou standardní knihovnu 
 \sekce{Bull}
 Bull je knihovna pro Node.js, která poskytuje frontu úkolů založenou na populární in-memory databázi redis.
 
-\sekce{Postgre}
+\sekce{PostgreSQL}
 Populární databázový systém, který nabízí robustní open source alternativu i ke komerčním řešením.
 
 \sekce{PIXI.js}
@@ -236,3 +250,9 @@ Je důležité si uvědomit, že na rozdíl od klasického systému dědičnosti
 
 \podsekce{System}
 Systém provádí určité akce nad entitami, které mají dané komponent. Chceme-li například propojit grafickou reprezentaci s fyzikálním enginem, můžeme si napsat systém, který po kroku fyzikálního enginu vyhledá všechny entity, které mají grafickou a fyzikální komponentu upraví pozice a rotaci všech grafických objektu tak, aby byla identická s pozicí a rotací fyzikálních objektů, které jsou k ním přiřazeny.
+
+\kapitola{Metodika}
+
+\kapitola{Analýza problému}
+
+\kapitola{Návrh řešení}

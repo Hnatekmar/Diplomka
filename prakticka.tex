@@ -1,4 +1,7 @@
-\kapitola{Vlastní práce}
+\input{analyzaProblemu.tex}
+\input{navrhReseni.tex}
+
+\kapitola{Implementace}
 Vlastní práce se skládá ze dvou částí klientská část, která slouží k~vizualizaci algoritmu a zobrazení výsledků ze serverové části. Serverová část pro maximální urychlení simulace. 
 
 \kapitola{Simulace}
@@ -49,7 +52,7 @@ Simulace obsahuje následující systémy:
 
 \textbf{Graphics} grafický systém, který slouží především k překreslování entit s pomocí \textbf{PIXI.js}
 
-\textbf{Physics} krokuje fyzikální engine a synchronizuje grafickou reprezentaci s reprezentací fyzikální
+\textbf{Physics} krokuje fyzikální engine a synchronizuje grafickou reprezentaci s fyzikální entitou. Tento proces probíhá pro každý snímek a skládá se z přiřazení nové rotace a pozice pro grafickou entitu.
 
 \textbf{RoadDirector} Road director se stará o generování nekonečného prostředí pro agenta. Děje se tak na základě předefinovaných dílu vozovky z nichž každý zaplňuje celou obrazovku simulace. V případě, že agent dorazí až na konec obrazovky je mu určen nový navazující dílek. Agent je pak přehozen na opačnou stranu obrazovky a zároveň je vyměněn díl na kterém se nachází.
 Hlavní výhodou tohoto přístupu je to, že agent může jezdit po vozovce donekonečna bez starosti o to, že by se dostal na limit fyzikálního enginu (přetečení pozice fyzikálního objektu). Další nesporná výhoda tohoto přístupu je úspora paměťových nároků, kterou by s sebou nesla definice větší mapy a možnost generování náhodných map pro testování agenta.
@@ -187,6 +190,8 @@ Poslední tlačítko slouží k urychlení simulace. Způsobí to, že se simula
 
 \kapitola{Experimenty}
 Po návrhu simulačního prostředí byl agent vyzkoušen v~několika situacích se stupňující se obtížností. Každá simulace probíhala s~1000 jedinci po 2000 generací. Ačkoliv je pravděpodobné, že by delší doba evaluace by pravděpodobně vyústila v lepší výsledky její výpočet v různých konfiguracích se ukázal jako příliš časově náročný navíc empirické pozorování ukázalo, že tato konfigurace poskytuje dostatečně dobré výsledky za snesitelný čas. 
+
+S ohledem na časovou náročnost výpočtů (výpočet tisíce generací trvá na výpočetním clusteru přibližně 5 hodin) byly zkoumany jen tyto konfigurace:
 \sekce{Nekonečná silnice ve tvaru I}
 Agent byl umístěn do nekonečné rovné silnice ve tvaru I. Cílem bylo pozorovat, zda se agent bude schopný naučit řídit rovně. Agent po tisící generací dosáhl fitness 3 500 a naučil úspěšně kývavým pohybem udržet uprostřed vozovky.
 \begin{figure}[h]
