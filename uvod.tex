@@ -1,11 +1,11 @@
 \kapitola{Úvod a cíl práce}
 \sekce{Úvod do problematiky}
-S růstem výpočetního výkonu a rozvojem \textbf{gpugpu} (paralelizace výpočtů na grafické kartě) se neuronové sítě ukázaly jako mocný nástroj pro řešení složitých problémů na které standardní metody umělé inteligence nestačily.
+S růstem výpočetního výkonu a rozvojem \textbf{GPUGPU} (paralelizace výpočtů na grafické kartě) se neuronové sítě ukázaly jako mocný nástroj pro řešení složitých problémů na které standardní metody umělé inteligence nestačily.
 
 Další oblastí umělé inteligence, které nárust masivní paralelizace prospěl, jsou metaheuristiky, které mohou  s nárůstem výpočetního výkonu v rozmném čase pokrýt stále větší stavový prostor a jsou tedy schopné rychle řešit stále složitější problémy.
 
 
-Neuroevoluce propojuje oba přístupy a využívá je ke generování topologii neuronových sítí a nastavení jejích vah. Výsledkem je neuronová síť, jejiž architektura lépe popisuje daný problém a lze jí aplikovat i na problémy na které by klasické neuronové sítě aplikovat nešly. Jedná se například o problémy, u kterých je těžké získat trénovací data a nelze tedy neuronovou síť natrénovat klasickými metodami jako je backpropagace.
+Neuroevoluce propojuje oba přístupy a využívá je ke generování topologii neuronových sítí a nastavení jejích vah. Výsledkem je neuronová síť, jejiž architektura lépe popisuje daný problém a lze jí aplikovat i na problémy na které by klasické neuronové sítě aplikovat nešly. Jedná se například o problémy, u kterých je těžké získat trénovací data a nelze tedy neuronovou síť natrénovat klasickými metodami, jako je například gradientní sestup.
 
 \sekce{Cíl práce}
 Cílem této práce je navrhnout a vytvořit simulační prostředí pro autonomního agenta. Poté na simulovaném prostředí provést serii experimentů, které slouží k zjištění limitů učících schopností algoritmu NEAT.
@@ -86,7 +86,7 @@ V praxi se setkáváme s dvěma druhy neuronů a to LSTM a novější GRU. LSTM 
 
 
 \kapitola{Genetické algoritmy}
-Genetické algoritmy slouží k řízenému prohledávání stavového prostoru založené na teorii evoluce. 
+Genetické algoritmy slouží k řízenému prohledávání stavového prostoru založené na teorii evoluce. \cite[s.~17]{kozaGP}
 \sekce{Princip}
 Základní myšlenka spočívá ve vygenerování náhodných jedinců (řešení problému) a jejích postupné zlepšování s pomocí operací křížení a mutace. Proces zlepšování genomů probíhá na základě jeho hodnocení (fitness).
 
@@ -95,11 +95,11 @@ Samotný algoritmus pak lze rozdělit na následující kroky \cite[s.~12]{genet
 \begin{enumerate}
 	\item Vygeneruj náhodnou populaci o n chromozomech
 	\item Pro každý chromozom spočítej jeho fitness
-	\item Opakuj n krát
+	\item Opakuj dokud není splněná podmínka ukončení
 	\begin{enumerate}
 		\item Vyber pár chromozomů na základě jejích ohodnocení (selekce)
-		\item S určitou pravděpodobností $p_c$ rozděl pár chromozomů na náhodném místě a jejích spojením.
-		\item S určitou pravděpodobností mutuj daného jedince
+		\item Proveď spojení chromozomů (křížení)
+		\item S určitou pravděpodobností mutuj daného jedince (mutace)
 	\end{enumerate}
 	\item Nahraď současnou populaci populací, která vznikla předchozím krokem
 	\item Jdi na krok 2
@@ -127,7 +127,7 @@ Příkladem může být obrázek \ref{fig:crossover} ve kterém je ilustrováno 
 \end{figure}
 
 \sekce{Mutace}
-Mutace náhodně modifikuje chromozom a zavádí tak do populace variaci. Díky tomuto se může algoritmus dostat z lokálního optima. 
+Mutace náhodně modifikuje chromozom a zavádí tak do populace variaci. Díky tomuto se může algoritmus dostat z lokálního extrému. 
 
 Existují různé varianty mutace, která se provádí v závislosti na daném kódování. 
 
@@ -189,16 +189,17 @@ Instinct rozšiřuje původní algoritmus o rekurentní neurony. Rozšíření t
 \podsekce{odNEAT}
 Varianta algoritmu NEAT aplikovaná na distribuované online učení skupiny autonomních robotů \cite[s.~1]{odNEAT}.
 \podsekce{rtNEAT}
+Rozšíření, které se zaměřuje na neuroevoluci agentů v realném čase.
+%In 2003 Stanley devised an extension to NEAT that allows evolution to occur in real time rather than through the iteration of generations as used by most genetic algorithms. The basic idea is to put the population under constant evaluation with a "lifetime" timer on each individual in the population. When a network's timer expires its current fitness measure is examined to see whether it falls near the bottom of the population, and if so it is discarded and replaced by a new network bred from two high-fitness parents. A timer is set for the new network and it is placed in the population to participate in the ongoing evaluations.
 
-In 2003 Stanley devised an extension to NEAT that allows evolution to occur in real time rather than through the iteration of generations as used by most genetic algorithms. The basic idea is to put the population under constant evaluation with a "lifetime" timer on each individual in the population. When a network's timer expires its current fitness measure is examined to see whether it falls near the bottom of the population, and if so it is discarded and replaced by a new network bred from two high-fitness parents. A timer is set for the new network and it is placed in the population to participate in the ongoing evaluations.
-
-The first application of rtNEAT is a video game called Neuro-Evolving Robotic Operatives, or NERO. In the first phase of the game, individual players deploy robots in a 'sandbox' and train them to some desired tactical doctrine. Once a collection of robots has been trained, a second phase of play allows players to pit their robots in a battle against robots trained by some other player, to see how well their training regimens prepared their robots for battle.
+%The first application of rtNEAT is a video game called Neuro-Evolving Robotic Operatives, or NERO. In the first phase of the game, individual players deploy robots in a 'sandbox' and train them to some desired tactical doctrine. Once a collection of robots has been trained, a second phase of play allows players to pit their robots in a battle against robots trained by some other player, to see how well their training regimens prepared their robots for battle.
 
 \podsekce{HyperNEAT}
 HyperNEAT rozšiřuje neuroevoluci o možnost vytváření velmi velkých neuronových sítí \cite[s.~1]{hyperNEAT}.
 
 \podsekce{cgNEAT}
 Rozšíření zaměřující se na generování náhodného obsahu. Obdobně jako tomu je například u GAN sítí.
+
 \sekce{Alternativy k neuroevoluci}
 Neuroevoluce není jediný přístup, který je dostupný k řešení problému typu trénování autonomního agenta.
 
@@ -215,12 +216,12 @@ V praxi to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuá
 Je populární javascript framework pro snadnou tvorbu uživatelských rozhraní.
 
 \sekce{Node.js}
-Nodejs je open-source interpret jazyku javascript. Využití najde při psaní serverových aplikací v javascriptu a jiné případy, kdy je třeba spustit kód napsaný v javascriptu mimo prohlížeč. Lze ho využít například pro spouštění testů při CI (continuous integration) nebo pro tvorbu vysoce serverových aplikací v javascriptu.
+Node.js je open-source interpret jazyku javascript. Využití najde při psaní serverových aplikací v javascriptu a jiné případy, kdy je třeba spustit kód napsaný v javascriptu mimo prohlížeč. Lze ho využít například pro spouštění testů při CI (continuous integration) nebo pro tvorbu vysoce serverových aplikací v javascriptu.
 
 Narozdíl od běžného javascriptu obsahuje rozšířenou standardní knihovnu pro snadnou tvorbu serverových aplikací. Tato standardní knihovna umožňuje například javascript kódu prácí se soubory na hostitelském systému, což je něco, co není z bezpečnostních důvodů v klasickém javascriptu, který běží v prohlížeči možné.
 
 \sekce{Bull}
-Bull je knihovna pro Node.js, která poskytuje frontu úkolů založenou na populární in-memory databázi redis.
+Bull je knihovna pro Node.js, která poskytuje frontu úkolů založenou na populární in-memory databázi REDIS.
 
 \sekce{PostgreSQL}
 Populární databázový systém, který nabízí robustní open source alternativu i ke komerčním řešením.
@@ -232,7 +233,7 @@ Grafická knihovna pro snadné vykreslování nad html 5 canvasem. Obaluje jak k
 Knihovna implementující samotný algoritmus NEAT ve variantě instinct.
 
 \sekce{NPM a YARN}
-NPM i Yarn jsou balíčkovací systémy pro javascript. Hlavní rozdíl mezi NPM a Yarn je, že Yarn stahuje balíčky paralelně. Je tedy značně rychlejší oproti NPM. 
+NPM i Yarn jsou kolíčkovací systémy pro javascript. Hlavní rozdíl mezi NPM a Yarn je, že Yarn stahuje balíčky paralelně. Je tedy značně rychlejší oproti NPM. 
 
 \sekce{CES}
 \label{sec:ces}
@@ -250,9 +251,3 @@ Je důležité si uvědomit, že na rozdíl od klasického systému dědičnosti
 
 \podsekce{System}
 Systém provádí určité akce nad entitami, které mají dané komponent. Chceme-li například propojit grafickou reprezentaci s fyzikálním enginem, můžeme si napsat systém, který po kroku fyzikálního enginu vyhledá všechny entity, které mají grafickou a fyzikální komponentu upraví pozice a rotaci všech grafických objektu tak, aby byla identická s pozicí a rotací fyzikálních objektů, které jsou k ním přiřazeny.
-
-\kapitola{Metodika}
-
-\kapitola{Analýza problému}
-
-\kapitola{Návrh řešení}
