@@ -3,18 +3,32 @@ Tato kapitola se zabývá analýzou funkčních a nefunkčních požadavků pro 
 
 \sekce{Funkční požadavky}
 Funkční požadavky jsou rozděleny do několika kategorii.
-\podsekce{Vizualizace}
-Výsledky bude třeba jak pro testování algoritmu, tak pro efektní zobrazení.
-\podsekce{NEAT}
-Použití algoritmu NEAT zahrnuje několik požadavků pro jeho správnou funkčnost.
+
+\podsekce{Simulace}
+Vyhodnocování agenta bude probíhat jeho nasazením v simulovaném prostředí. Fitness bude pak vyhodnocena na základě jeho akcí v prostředí.
 \begin{itemize}
 	\item Testovací prostředí musí být pro všechny agenty stejné
-	\item Fitness funkce by měla být deterministická
-	\item Program, který vyhodnocuje 
+	\item Fitness funkce musí být deterministická
+	\item Fitness by měla být zjistitelná kdykoliv v průběhu simulace
+	\item Simulace by měla být konfigurovatelná 
+	\item Možnost změny obtížnosti simulace pro agenta
+	\item Měla by existovat možnost spuštění více instancí simulace v rámci jednoho programu
+\end{itemize}
+\podsekce{Vizualizace}
+Průběh algoritmu je třeba zobrazit.
+\begin{itemize}
+	\item Je třeba provést grafickou vizualizaci fyzikální simulace
+	\item Při zobrazení by mělo být možné vyčíst stav agenta (fitness, senzory, ...) 
+	\item Možnost vizualizace průběhu simulace v reálném čase (například pro její demonstraci v předmětu VUI2)
 \end{itemize}
 
 \sekce{Nefunkční požadavky} 
+Spolu s funkčními požadavky jsou na řešení kladeny také požadavky nefunkční.
 \begin{itemize}
-	\item Rychlost - řešení musí být, co nejrychlejší
+	\item Škálovatelnost - Možnost spustit a vykreslit libovolné množství simulací
+	\item Rychlost simulace. Simulace by měla být schopná samostatně běžet alespoň rychlostí 30 snímků za vteřinu.
+	\item Robustnost - Simulace by měla být odolná neočekávaným situacím
+	\item Portabilita - bylo třeba zajistit, aby šlo kód rozběhnout v různých platformách v různých konfiguracích.
+	\item Robustnost - Simulace by si měla poradit s neočekávanými vstupy, jako je třeba \textbf{NaN}, který vychází z neuronové sítě
 \end{itemize}
 
