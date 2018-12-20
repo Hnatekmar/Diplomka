@@ -8,30 +8,34 @@ Další oblastí umělé inteligence, které nárust masivní paralelizace prosp
 Neuroevoluce propojuje oba přístupy a využívá je ke generování topologii neuronových sítí a nastavení jejích vah. Výsledkem je neuronová síť, jejiž architektura lépe popisuje daný problém a lze jí aplikovat i na problémy na které by klasické neuronové sítě aplikovat nešly. Jedná se například o problémy, u kterých je těžké získat trénovací data a nelze tedy neuronovou síť natrénovat klasickými metodami, jako je například gradientní sestup.
 
 \sekce{Cíl práce}
-Cílem této práce je navrhnout a vytvořit simulační prostředí pro autonomního agenta. Poté na simulovaném prostředí provést serii experimentů, které slouží k zjištění limitů učících schopností algoritmu NEAT.
+Cílem této práce je aplikovat neuroevoluci pro učení autonomního agenta. Toto zahrnuje návrh a vytvoření vhodného simulačního prostředí. Poté na simulovaném prostředí navrhnout a provést sérii experimentů, které slouží k zjištění limitů učících schopností algoritmu NEAT.
+%Cil musi byt 1 hlavni jako prvni veta: to je asi "aplikovat neuroevoluci pro uceni autonomniho agenta". Simulacni prostredi je prubezny cil, vyzkouseni limitu je rozsireni hlavniho cile.
+
+\kapitola{Literalní rešerše}
+Teoretická část práce seznamuje čtenáře s popisem algoritmu NEAT a algoritmů ze kterých vychází.
 
 \sekce{Neuronové sítě}
-
 Neuronové sítě jsou model strojového učení, který je volně založený na principu zvířecího mozku \cite[s.~41]{fundementalsOfDeepLearning}.
 
-\sekce{Neuron}
+\podsekce{Neuron}
 Neuron je základní  výpočetní jednotka neuronových sítí, která je definovaná jako suma všech jejích vstupů a aplikace aktivační funkce.
-	$$\sigma(\Sigma_{i=0}^{N} \theta_i \cdot x_{i} + b)$$
+	$$g(\Sigma_{i=0}^{N} \theta_i \cdot x_{i} + b)$$
 Kde:
 \begin{enumerate}
-	\item $\sigma$ - aktivační funkce
+	\item $x_i$ - i-tý vstup do neuronu
+	\item $g$ - aktivační funkce
 	\item $\theta$ - skrytá váha pro daný vstup
 	\item b - bias neuronu
 \end{enumerate}
-
-\sekce{Vrstva}
+Na tomto místě je vhodné podotknout, že výše uvedená notace vychází z přednášek Andrew Y. Ng a je jen jednou z mnoha běžně uváděných.
+\podsekce{Vrstva}
 Vrstva je skupina neuronů se stejnou aktivační funkcí. 
 
 \podsekce{Aktivační funkce}
 Aktivační funkce se používá pro definování výstupu a zavedení nelinearity. Bez nich by byla neuronová síť schopna aproximovat pouze n-dimenzionální rovinu. \cite[s.~65]{fundementalsOfDeepLearning} \\
 Dalším využitím je omezení výstupních hodnot. Například aktivační funkce sigmoid se s oblibou používá u výstupní vrstvy neuronových sítí určených ke klasifikačním problémům, protože je to relace $\mathbb{R} \rightarrow \{0..1\}$, která se dá jednoduše jako "jistota" neuronu, že se jedná o výstup, který neuron reprezentuje. Podobně se dá uvažovat i o funkcích jako je například softmax a tanh, které také najdou hojné využití u klasifikačních problémů.
 
-\podsekce{Linearní funkce}
+\textbf{Linearní funkce}
 Vrací vstup, tak jak je. Využití najde především u vstupní vrstvy neuronové sítě a u neuronových sítí, které řeší regresní typy úloh.
 \\
 \begin{tikzpicture}
@@ -42,8 +46,8 @@ plot (\x, \x);
 \end{axis}
 \end{tikzpicture}
 $$f(x) = x$$
-\podsekce{Sigmoid}
-Sigmoid je aktivační funkce, která je schopná potlačit extrémní hodnoty 
+\textbf{Sigmoid}
+Sigmoid je aktivační funkce, která je schopná potlačit extrémní hodnoty a převést je do rozsahu 0 - 1.\\
 
 \begin{tikzpicture}
 \centering
@@ -52,7 +56,7 @@ Sigmoid je aktivační funkce, která je schopná potlačit extrémní hodnoty
 \end{axis}
 \end{tikzpicture}
 $$f(x) = \frac{1}{1 + e^{-x}}$$
-\podsekce{Tanh}
+\textbf{Tanh}
 
 \textbf{Tanh} je funkce obdobná sigmoidu. Hlavní rozdíl mezi ní a sigmoidem je ten, že její obor je v rozmezí -1 a 1 hodí se proto i pro záporná výstupy, které vyžadují záporná čísla. \cite[s.~67]{fundementalsOfDeepLearning}
 
@@ -85,9 +89,9 @@ Speciální druh neuronů, který si dokáže zapamatovat a reagovat na sekvenci
 V praxi se setkáváme s dvěma druhy neuronů a to LSTM a novější GRU. LSTM a GRU jsou si velmi podobné s jedním podstatným rozdílem. U GRU bylo prokázáno, že je značně rychlejší. 
 
 
-\kapitola{Genetické algoritmy}
+\sekce{Genetické algoritmy}
 Genetické algoritmy slouží k řízenému prohledávání stavového prostoru založené na teorii evoluce. \cite[s.~17]{kozaGP}
-\sekce{Princip}
+\podsekce{Princip}
 Základní myšlenka spočívá ve vygenerování náhodných jedinců (řešení problému) a jejích postupné zlepšování s pomocí operací křížení a mutace. Proces zlepšování genomů probíhá na základě jeho hodnocení (fitness).
 
 Samotný algoritmus pak lze rozdělit na následující kroky \cite[s.~12]{geneticAlgorithms}
@@ -105,16 +109,16 @@ Samotný algoritmus pak lze rozdělit na následující kroky \cite[s.~12]{genet
 	\item Jdi na krok 2
 \end{enumerate}
 
-\sekce{Kódování}
+\podsekce{Kódování}
 Někdy se mu též říká genotyp je způsob zápisu řešení problému. Je důležité zároveň uvést pojem fenotyp který označuje vlastní řešení úlohy.
 
 Existuje mnoho různých kódování a každý má své výhody a nevýhody. Většinou se snažíme vybírat kódování, které dobře reprezentuje daný problém. Zde je seznam několika nejpoužívanějších kódování \cite[s.~42-43]{geneticCZ}:
 \begin{enumerate}
 	\item Binární - řetězec bitů, který může například reprezentovat jednu nebo více numerických hodnot. 
 	\item Reálná čísla - Jedno nebo více reálných čísel
-	\item Kombinatorické - Může být například seznam čísel označujících 
+	\item Permutační - Sekvence čísel používané například pro řešení problému obchodního cestujícího 
 \end{enumerate}
-\sekce{Křížení}
+\podsekce{Křížení}
 Křížení je operátor, který kombinuje dva jedince do jednoho. Jedinec, který vzniká přebírá genetickou informaci od obou jedinců v určitém poměru. Jeho implementace je závislá na použitém kódování. 
 
 Příkladem může být obrázek \ref{fig:crossover} ve kterém je ilustrováno tzv. jednobodové křížení \cite[s.~50]{geneticCZ} při kterém dochází k rozdělení obou genomů ve stejném bodě a spojením vzniklých podřetězců do nového genomu.
@@ -126,7 +130,7 @@ Příkladem může být obrázek \ref{fig:crossover} ve kterém je ilustrováno 
 	\label{fig:crossover}
 \end{figure}
 
-\sekce{Mutace}
+\podsekce{Mutace}
 Mutace náhodně modifikuje chromozom a zavádí tak do populace variaci. Díky tomuto se může algoritmus dostat z lokálního extrému. 
 
 Existují různé varianty mutace, která se provádí v závislosti na daném kódování. 
@@ -140,10 +144,10 @@ Například u binárního kódování se může jednat o náhodnou inverzi někt
 	\label{fig:mutation}
 \end{figure}
 
-\sekce{Selekce}
+\podsekce{Selekce}
 Selekce je proces výběru dvou jedinců na něž jsou později aplikovány genetické operátory jako je křížení a mutace. 
 
-\sekce{Využití}
+\podsekce{Využití}
 Genetické algoritmy naleznou využití v mnoha optimalizačních úlohách. Příkladem může být experiment, který zahrnoval použití gramatické evoluce pro vytvoření regresních modelů pro datasety CASY3 a CASY5 \cite[s.~2-9]{differentialEvolution}.
 
 \kapitola{NEAT}
@@ -205,10 +209,15 @@ Neuroevoluce není jediný přístup, který je dostupný k řešení problému 
 
 Příkladem může být rozsáhlý obor zabývající se zpětnovazebním učením (reinforcement learning). Při zpětnovazebním učení máme agenta, který se nachází v prostředí nad kterým může vykonávat různé akce. Agent může před vykonáním akce pozorovat stav prostředí na základě čehož se rozhoduje, jakou akci vykoná. Po provedení některé se prostředí nějakým způsobem mění a agent dostává zpětnou vazbu v podobně odměny. Algoritmus zpětnovazebního učení se snaží agenta řídit tak, aby maximalizoval jeho odměnu. 
 
+\podsekce{Využití algoritmu NEAT}
+Algoritmus NEAT a jeho varianty předmětem aktivního výzkumu. Své využítí nalézá hlavně v oblasti robotiky a řešení pro počítač obtížných problémů jako je například hraní počítačových her.
+% TODO: CITACE
+ 
 \kapitola{Použité technologie}
 Tato kapitola poskytuje stručný přehled technologii použitých při řešení diplomové práce.
 
 \sekce{Grafana}
+\label{sec:grafana}
 Grafana umožňuje snadnou vizualizaci dat z databáze. Děje se tak definováním vhodných dotazů a volbou grafu, který je reprezentuje. V základní instalaci je na výběr několik druhů zobrazení a v případě potřeby je lze rozšířit s pomocí přídavných pluginů.
 
 \sekce{Docker}
@@ -216,21 +225,42 @@ Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner posk
 V praxi to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuální konfiguraci hostitelského systému.
 
 \sekce{Vue}
-Je populární javascript framework pro snadnou tvorbu uživatelských rozhraní.
+Je populární JavaScriptový framework pro snadnou tvorbu uživatelských rozhraní.
 
-\sekce{Node.js}
-Node.js je open-source interpret jazyku javascript. Využití najde při psaní serverových aplikací v javascriptu a jiné případy, kdy je třeba spustit kód napsaný v javascriptu mimo prohlížeč. Lze ho využít například pro spouštění testů při CI (continuous integration) nebo pro tvorbu vysoce serverových aplikací v javascriptu.
+\sekce{NodeJS}
+NodeJS je open-source interpret jazyku JavaScript. Využití najde při psaní serverových aplikací v JavaScriptu a jiné případy, kdy je třeba spustit kód napsaný v javascriptu mimo prohlížeč. Lze ho využít například pro spouštění testů při CI (continuous integration) nebo pro tvorbu vysoce serverových aplikací v jazyce JavaScript.
 
-Narozdíl od běžného javascriptu obsahuje rozšířenou standardní knihovnu pro snadnou tvorbu serverových aplikací. Tato standardní knihovna umožňuje například javascript kódu prácí se soubory na hostitelském systému, což je něco, co není z bezpečnostních důvodů v klasickém javascriptu, který běží v prohlížeči možné.
+Narozdíl od běžného JavaScriptu obsahuje rozšířenou standardní knihovnu pro snadnou tvorbu serverových aplikací. Tato standardní knihovna umožňuje například javascript kódu prácí se soubory na hostitelském systému, což je něco, co není z bezpečnostních důvodů v klasickém JavaScriptu, který běží v prohlížeči možné.
 
 \sekce{Bull}
-Bull je knihovna pro Node.js, která poskytuje frontu úkolů založenou na populární in-memory databázi REDIS.
+Bull je knihovna pro NodeJS, která poskytuje frontu úkolů založenou na populární in-memory databázi Redis.
+
+\sekce{Arena}
+Arena je webová aplikace pro správu a zobrazení aktuálního stavu fronty úkolů poskytované knihovnou bull.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{bull}
+	\caption{Webové aplikace Arena}
+	\label{fig:bull}
+\end{figure}
+
+\sekce{Portainer}
+Portainer je webová aplikace pro zobrazení aktualního stavu a správu instance dockeru a docker swarmu.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{portainer}
+	\caption{Rozhraní aplikace portainer}
+	\label{fig:portainer}
+\end{figure}
+
 
 \sekce{PostgreSQL}
 Populární databázový systém, který nabízí robustní open source alternativu i ke komerčním řešením.
 
 \sekce{PIXI.js}
-Grafická knihovna pro snadné vykreslování nad html 5 canvasem. Obaluje jak klasické vykreslovací api, tak modernější webgl.
+Grafická knihovna pro snadné vykreslování nad HTML značkou canvas, která byla zavedena ve verzi 5. Obaluje jak klasické vykreslovací API, tak modernější WebGL.
 
 \sekce{Neataptic}
 Knihovna implementující samotný algoritmus NEAT ve variantě instinct.

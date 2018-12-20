@@ -11,16 +11,60 @@ Jelikož obě části budou používat stejný simulační kód bylo rozhodnuto,
 
 
 \sekce{Simulace}
-Z obrázku \ref{fig:dependency} je jasné, že simulační kód spojuje obě části dohromady. Je tedy důležité, aby byl navržený tak, aby jej bylo co nejjednodušeji integrovat s oběma řešeními.
+Z obrázku \ref{fig:dependency} je zřejmé, že simulační kód spojuje obě části dohromady. Je tedy důležité, aby byl navržený tak, aby jej bylo co nejjednodušeji integrovat s oběma řešeními.
 
 Na základě těchto požadavků a podmínek, které jsou stanoveny v předchozí kapitole byl vytvořen následující návrh:
 
-\podsekce{Architektura simulace}
+\label{sec:ECS}
+Simulace je navržena v duchu ECS (\textbf{Entity component system}) podrobný popis lze nalézt v sekci \ref{sec:ces}. Není tedy žádným překvapením, že se všechny komponenty nalezené v simulaci dají rozložit na systémy, komponenty a entity. Pro lepší představu o implementaci je níže uveden přehled všech systému, entit a komponent použitých v simulaci.
+
+\podsekce{Diagram tříd}
+Níže popsaný návrh doplňuje diagram tříd, který zobrazuje jejích návaznost a zároveň také do návrhu zavádí třídu \textbf{Simulation}, která celou simulaci schovává za jednoduché rozhraní a umožňuje snadnou integraci simulace do různých aplikací.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{classDiagram}
+	\caption{Diagram tříd}
+	\label{fig:class-diagram}
+\end{figure}
+
+\podsekce{Entity}
+Simulace obsahuje následující entity:
+
+\textbf{PhysicsGroup} Seskupuje fyzikální entity do jedné pro snadnou manipulaci s nimi.
+
+\textbf{RoadPart} Entita, která obaluje jednu nebo více překážek tak, aby se s nimi dalo snadno pohybovat používá se pro tvorbu složitějších dílů vozovky.
+
+\textbf{Car} Reprezentuje samotné vozidlo obsahuje jak jeho grafickou reprezentaci, tak kompletní logiku a fyzikální model.
+
+\podsekce{Komponenty}
+Simulace obsahuje následující komponenty:
+\textbf{Car} obsahuje všechny potřebné informace o agentovi. Toto zahrnuje vše od neurnové sítě, která je použitá pro jeho řízení po ovládání jednotlivých kol agenta.
+
+\textbf{Graphics} komponenta, která obsahuje grafické informace pro \textbf{Pixi.js}.
+
+\textbf{Physics} komponent, která obsahuje fyzikální entity pro \textbf{P2.js}
+
+\podsekce{Systémy}
+Návrh simulace obsahuje následující systémy:
+
+\textbf{Car} systém, který se stará o ovládání agenta a částečně o vyhodnocování jeho fitness.
+
+\textbf{Graphics} grafický systém, který slouží především k překreslování entit.
+
+\textbf{Physics} krokuje fyzikální engine a synchronizuje grafickou reprezentaci s fyzikální entitou. Tento proces probíhá pro každý snímek a skládá se z přiřazení nové rotace a pozice pro grafickou entitu.
+
+\textbf{RoadDirector} Road director se stará o generování nekonečného prostředí pro agenta. Děje se tak na základě předefinovaných dílu vozovky z nichž každý zaplňuje celou obrazovku simulace. V případě, že agent dorazí až na konec obrazovky je mu určen nový navazující dílek. Agent je pak přehozen na opačnou stranu obrazovky a zároveň je vyměněn díl na kterém se nachází.
+Hlavní výhodou tohoto přístupu je to, že agent může jezdit po vozovce donekonečna bez starosti o to, že by se dostal na limit fyzikálního enginu (přetečení pozice fyzikálního objektu). Další nesporná výhoda tohoto přístupu je úspora paměťových nároků, kterou by s sebou nesla definice větší mapy a možnost generování náhodných map pro testování agenta.
 
 \podsekce{Fitness funkce}
 Fitness funkce je důležitou součástí simulace, která zásadně ovlivňuje chování výsledných agentů a je tedy nutné jí volit vhodně. Je nutné, aby funkce agenta motivovala ke správné činnosti.
 
-Po několika pokusech a konzultaci s vedoucím práce byla jako metrika úspěchu agenta zvolena celková vzdálenost, kterou je agent schopný překonat v průběhu jedné generace. Výpočet je realizován s pomocí RoadDirectoru, který si při každém přechodu zaznamená bod, ve kterém se po přesunu agent nachází. Výsledná fitness je pak součet uražených vzdáleností pro každou místnost. Road direktor si pro každou obrazovku uchovává vzdálenost, kterou agent v dané obrazovce překonal. Výsledným fitness je pak součet všech vzdáleností na všech obrazovkách
+Po několika pokusech a konzultaci s vedoucím práce byla jako metrika úspěchu agenta zvolena celková vzdálenost, kterou je agent schopný překonat v průběhu jedné generace. Výpočet je realizován s pomocí RoadDirectoru, který si při každém přechodu zaznamená bod, ve kterém se po přesunu agent nachází. Výsledná fitness je pak součet uražených vzdáleností pro každou místnost. Road direktor si pro každou obrazovku uchovává vzdálenost, kterou agent v dané obrazovce překonal. Výsledným fitness je pak součet všech vzdáleností na všech obrazovkách.
+
+
+\sekce{Klientská část}
+Klientská část je webové rozhraní, které vzniklo z požadavků na vizualizaci a ověření funkčnosti simulační knihovny. 
 
 \sekce{Serverová část}
 Serverová část byla nakonec navržena a vytvořena ve dvou na sebe navazujících verzích. 
@@ -28,7 +72,7 @@ Serverová část byla nakonec navržena a vytvořena ve dvou na sebe navazujíc
 \podsekce{První verze}
 Je ilustrovaná na obrázku \ref{fig:server_first}. Návrh první verze popisuje jednoduchou aplikaci, která rozkládá vyhodnocování jednotlivých genomů mezi jednoho nebo více zpracovatelů. Každý zpracovatel běží ve vlastním vlákně a zátěž je tedy rozložena mezi dostupná jádra procesoru. Zpracovatel po vyhodnocení genomu vrací hlavnímu vláknu fitness daného jedince. Ten si ho uloží a po vyhodnocení všech jedinců tímto způsobem provede algoritmus NEAT. Tento proces se opakuje do té doby, než nedojde k naplnění ukončujících podmínek (maximální počet generací) nebo přerušení programu.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{server_first_use_case}
 	\caption{První verze serverové části}
@@ -36,42 +80,68 @@ Je ilustrovaná na obrázku \ref{fig:server_first}. Návrh první verze popisuje
 \end{figure}
 
 \podsekce{Druhá verze}
-Druhá verze navržená poté, co bylo zjištěno, že předchozí verze nebyla schopná vyhodnotit dostatečné množství genomů dostatečně rychle.
+Druhá verze rozšiřuje návrh o možnost rozložení výpočtů mezi více počítačů. Byla navržená poté, co bylo zjištěno, že předchozí verze nebyla schopná vyhodnotit dostatečné množství genomů dostatečně rychle.
 
-Serverová část pracuje dle diagramu \ref{fig:distributed}, kde je vidět, že klient zadává do fronty úkoly (genom a nastavení simulace). Jednotliví zpracovatelé (počítače v~clusteru), kteří si je z~ní vyberou, jednotlivé genomy vyhodnotí a hodnotu fitness funkce pošlou zpět na klienta. Toto je ilustrováno v diagramu \ref{fig:serverusecase}.
+Pracuje dle diagramu \ref{fig:distributed}, kde je vidět, že klient zadává do fronty úkoly (genom a nastavení simulace). Jednotliví zpracovatelé (počítače v~clusteru), kteří si je z~ní vyberou, jednotlivé genomy vyhodnotí a hodnotu fitness funkce pošlou zpět na klienta. Toto je ilustrováno v diagramu \ref{fig:serverusecase}.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{server_use_case}
 	\caption{Sekvenční diagram komunikace se serverem}
 	\label{fig:serverusecase}
 \end{figure}
 
-Jakmile klient dostane všechny hodnoty zpět provede na populaci genetický algoritmu (mutace, křížení, \dots) a poté je nová generace poslána znovu na vyhodnocení.
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.5]{distributed}
-	\caption[Schéma distribuovaných výpočtů]{Schéma distribuovaných výpočtů}
-	\label{fig:distributed}
-\end{figure}
-
-Tento přístup má několik výhod a to:
-
-\begin{enumerate}
-	\item Robustnost - Pokud jeden nebo více zpracovatelů selže (je například odpojen ze sítě) je možné pokračovat ve vyhodnocování (neúspěšný úkol lze vrátit zpátky do fronty). Toto v kombinaci s výše zmíněným docker swarmem znamená, že jakýkoliv výpočetní uzel lze kdykoliv vypnout a po znovu zapojení do sítě si načte nejnovější konfiguraci a začne znovu vyhodnocovat bez potřeby jakékoliv manipulace s jakoukoliv částí swarmu.
-	\item Dobré rozložení zátěže - Jelikož si zpracovatel vytahuje úkoly z~fronty, je vždy optimálně zatížen, a není třeba řešit rozložení mezi různě výkonnými a zatíženými počítači.
-	\item Škálovatelnost - problém lze škálovat až do doby, kdy počet procesorů nepřesáhne počet potřebných simulací. Chceme-li tedy vypočítat generaci o tisíci jedincích můžeme na ně nasadit až tisíc procesorů.
-\end{enumerate}
-
-Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci se serverem, což může být zdrojem určitého zpomalení. Nicméně se toto zpomalení neprojevilo v~průběhu testování clusteru. Právě naopak bylo naměřeno 10 násobné zrychlení oproti výpočtu na jednom počítači.
+Jakmile klient dostane všechny hodnoty zpět provede na populaci algoritmus NEAT (mutace, křížení, \dots) a poté je nová generace poslána znovu na vyhodnocení.
 
 \podsekce{Databáze}
-Všechny verze serverové části zaznamenávají průběh algoritmu NEAT do databáze jejíž schéma lze vidět v obrázku \ref{fig:database}. 
-\begin{figure}
+Všechny verze serverové části zaznamenávají průběh algoritmu NEAT do databáze jejíž schéma lze vidět v obrázku \ref{fig:database}. Databáze obsahuje jen jednu tabulku, která uchová fitness nejlepšího a nejhoršího jedince v generaci. Zároveň také obsahuje nejlepší genom z dané generace.  
+
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{database}
 	\caption{Schéma databáze}
 	\label{fig:database}
 \end{figure}
 
+\sekce{Fitness funkce}
+\label{sec:fitness}
+
+Agenta je ovšem kromě motivace třeba také penalizovat za akce, které jsou nepřípustné. V případě simulace se jedná především o kolizi s překážkou, za což je agent penalizován předčasným ukončením simulace a nemožností tedy zvýšit svoji fitness.
+
+\podsekce{Agent}
+Definice samotného agenta zásadně ovlivňuje výsledek simulace, protože stanovuje vstupy a výstupy do a z~neuronové sítě. V této práci je testováno několik konfigurací, které jsou popsány níže.
+
+Samotným agentem je auto, které je vybaveno 6 vzdálenostními senzory. Měření těchto senzorů je normalizováno (maximální vzdálenost měřícího paprsku je 800 m) a předáno jako vstup do neuronové sítě.
+
+Agent se poté každý snímek s~pomocí neuronové sítě \ref{fig:control_network} rozhoduje, jakou akci podnikne. Má následující možnosti:
+
+\begin{enumerate}
+	\item Ovládání volantu 
+	\begin{enumerate}
+		\item $z_1$ Otočení volantem o určitý počet stupňů doleva
+		\item $z_2$ Otočení volantem o určitý počet stupňů doprava
+	\end{enumerate} 
+	\item Rychlostní stupně
+	\begin{enumerate}
+		\item $z_3$ - zpátečka
+		\item $z_4 - z_6$ - rychlosti dopředu
+	\end{enumerate}
+\end{enumerate}
+
+Ovládání volantu i volba rychlostního stupňů probíhá zároveň a to tak, že se vždy z dané skupiny neuronů vybere ten, který má největší hodnotu. Tento přístup je identický tomu, který se používá například u neuronových sítí pro klasifikaci.
+
+\begin{figure}[H]
+	\centering
+	\begin{neuralnetwork}[height=7]
+		\newcommand{\nodetextx}[2]{\ifthenelse{\equal{#2}{0}}{$b_0$}{$s_{#2}$}}
+		\newcommand{\nodetextz}[2]{$z_#2$}
+		\newcommand{\nodetexth}[2]{\ifthenelse{\equal{#2}{0}}{$b_1$}{$h_{#2}$}}
+		\inputlayer[count=6, title={Data ze senzorů}, text=\nodetextx]
+		\hiddenlayer[count=6, title={Skrytá vrstva}]
+		\linklayers
+		\outputlayer[count=6, title={Výstup}, text=\nodetextz] 
+		\linklayers
+	\end{neuralnetwork}
+	\caption{Neuronová síť agenta}
+	\label{fig:control_network}
+\end{figure}
