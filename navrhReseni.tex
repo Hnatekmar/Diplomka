@@ -108,12 +108,17 @@ Všechny verze serverové části zaznamenávají průběh algoritmu NEAT do dat
 
 Agenta je ovšem kromě motivace třeba také penalizovat za akce, které jsou nepřípustné. V případě simulace se jedná především o kolizi s překážkou, za což je agent penalizován předčasným ukončením simulace a nemožností tedy zvýšit svoji fitness.
 
-\podsekce{Agent}
-Definice samotného agenta zásadně ovlivňuje výsledek simulace, protože stanovuje vstupy a výstupy do a z~neuronové sítě. V této práci je testováno několik konfigurací, které jsou popsány níže.
+\sekce{Agent}
+Definice agenta zásadně ovlivňuje výsledek simulace, protože stanovuje vstupy a výstupy do a z~neuronové sítě. V této práci je testováno několik konfigurací, které jsou popsány níže.
 
-Samotným agentem je auto, které je vybaveno 6 vzdálenostními senzory. Měření těchto senzorů je normalizováno (maximální vzdálenost měřícího paprsku je 800 m) a předáno jako vstup do neuronové sítě.
+V případě této práce je agentem auto, které je vybaveno vzdálenostními senzory. Měření těchto senzorů je normalizováno (maximální vzdálenost měřícího paprsku je 800 m) a předáno jako vstup do neuronové sítě.
 
-Agent se poté každý snímek s~pomocí neuronové sítě \ref{fig:control_network} rozhoduje, jakou akci podnikne. Má následující možnosti:
+Agent bude testován v různých konfiguracích: 
+
+
+\podsekce{Řízení agenta}
+
+Řízení agenta probíhá tak, že se každý snímek s~pomocí neuronové sítě \ref{fig:control_network} rozhoduje, jakou akci podnikne. Má následující možnosti:
 
 \begin{enumerate}
 	\item Ovládání volantu 
@@ -145,3 +150,27 @@ Ovládání volantu i volba rychlostního stupňů probíhá zároveň a to tak,
 	\caption{Neuronová síť agenta}
 	\label{fig:control_network}
 \end{figure}
+
+\podsekce{Možné konfigurace agenta} 
+Kromě výše uvedené konfigurace jsou také testovány následující možnosti:
+
+
+Agent, který se liší rozdělením vstupních senzorů:
+\begin{itemize}
+	\item 360° kruh
+	\item 6 senzorů do Y
+	\item vstup s aktuální rychlostí
+	\item vstup s volantem
+\end{itemize}
+
+Modifikovat lze také výstupy neuronové sítě a to:
+\begin{itemize}
+	\item Přidáním/odebráním možnosti brzdění
+	\item Přidáním/odebráním možnosti točením volantu
+	\item Modifikací množství rychlostních stupňů
+\end{itemize}
+%- na vstup site privest i aktualni rychlost a natoceni volantu (to co
+%ridic prece v kabine vidi, kdyz auto ridi)
+%- mozna bych zrusil jednotlive rychlostni stupne, nechal bych jen
+%zpatecku/brzdu a jizdu dopredu/akceleraci (tzn. jeden neuron je
+%akcelerace a druhy brzda nebo couvani)
