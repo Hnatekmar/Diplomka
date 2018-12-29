@@ -186,10 +186,10 @@ Posledním operátorem používaným při algoritmu NEAT je operátor křížen�
 \end{figure}
 
 \sekce{Rozšíření algoritmu NEAT}
-Jelikož je algoritmus NEAT v současnosti předmětem aktivního výzkumu existuje pro něj mnoho rozšíření. Tato sekce se bude zabývat některými z nich.
+Jelikož je algoritmus NEAT v současnosti předmětem aktivního výzkumu, existuje pro něj mnoho rozšíření. Tato sekce se bude zabývat některými z nich.
 
 \podsekce{Instinct}
-Instinct rozšiřuje původní algoritmus o rekurentní neurony. Rozšíření tak umožňuje případnému agentovi reagovat nejen na okamžitou situaci ale i na předchozí události ve světě. Tento fakt značně rozšiřuje možnosti neuronových sítí, které jsou generované tímto algoritmem ale zároveň je třeba mít na paměti, že se tímto značně zvětšuje prohledávaný stavový prostor a dochází tím k zvýšené časové náročnosti na získání vhodných výsledků.
+Instinct rozšiřuje původní algoritmus o rekurentní neurony. Rozšíření tak umožňuje případnému agentovi reagovat nejen na okamžitou situaci ale i na předchozí události ve světě. Tento fakt značně rozšiřuje možnosti neuronových sítí, které jsou generované tímto algoritmem, ale zároveň je třeba mít na paměti, že se tímto značně zvětšuje prohledávaný stavový prostor a dochází tím k zvýšené časové náročnosti na získání vhodných výsledků.
 \podsekce{odNEAT}
 Varianta algoritmu NEAT aplikovaná na distribuované online učení skupiny autonomních robotů \cite[s.~1]{odNEAT}.
 \podsekce{rtNEAT}
@@ -210,18 +210,18 @@ Neuroevoluce není jediný přístup, který je dostupný k řešení problému 
 Příkladem může být rozsáhlý obor zabývající se zpětnovazebním učením (reinforcement learning). Při zpětnovazebním učení máme agenta, který se nachází v prostředí nad kterým může vykonávat různé akce. Agent může před vykonáním akce pozorovat stav prostředí na základě čehož se rozhoduje, jakou akci vykoná. Po provedení některé se prostředí nějakým způsobem mění a agent dostává zpětnou vazbu v podobně odměny. Algoritmus zpětnovazebního učení se snaží agenta řídit tak, aby maximalizoval jeho odměnu. 
 
 \podsekce{Využití algoritmu NEAT}
-Algoritmus NEAT a jeho varianty předmětem aktivního výzkumu. Své využítí nalézá hlavně v oblasti robotiky a řešení pro počítač obtížných problémů jako je například hraní počítačových her.
+Algoritmus NEAT a jeho varianty jsou předmětem aktivního výzkumu. Své využítí nalézá hlavně v oblasti robotiky a řešení pro počítač obtížných problémů jako je například hraní počítačových her.
 % TODO: CITACE
  
 \kapitola{Použité technologie}
-Tato kapitola poskytuje stručný přehled technologii použitých při řešení diplomové práce.
+Tato kapitola poskytuje stručný přehled technologií použitých při řešení diplomové práce.
 
 \sekce{Grafana}
 \label{sec:grafana}
 Grafana umožňuje snadnou vizualizaci dat z databáze. Děje se tak definováním vhodných dotazů a volbou grafu, který je reprezentuje. V základní instalaci je na výběr několik druhů zobrazení a v případě potřeby je lze rozšířit s pomocí přídavných pluginů.
 
 \sekce{Docker}
-Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner poskytuje izolované softwarové prostředí ve kterém lze spouštět jednu nebo více aplikací. 
+Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner poskytuje izolované softwarové prostředí, ve kterém lze spouštět jednu nebo více aplikací. 
 V praxi to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuální konfiguraci hostitelského systému.
 
 \sekce{Vue}
@@ -230,7 +230,7 @@ Je populární JavaScriptový framework pro snadnou tvorbu uživatelských rozhr
 \sekce{NodeJS}
 NodeJS je open-source interpret jazyku JavaScript. Využití najde při psaní serverových aplikací v JavaScriptu a jiné případy, kdy je třeba spustit kód napsaný v javascriptu mimo prohlížeč. Lze ho využít například pro spouštění testů při CI (continuous integration) nebo pro tvorbu vysoce serverových aplikací v jazyce JavaScript.
 
-Narozdíl od běžného JavaScriptu obsahuje rozšířenou standardní knihovnu pro snadnou tvorbu serverových aplikací. Tato standardní knihovna umožňuje například javascript kódu prácí se soubory na hostitelském systému, což je něco, co není z bezpečnostních důvodů v klasickém JavaScriptu, který běží v prohlížeči možné.
+Narozdíl od běžného JavaScriptu obsahuje rozšířenou standardní knihovnu pro snadnou tvorbu serverových aplikací. Tato standardní knihovna umožňuje například javascript kódu prácí se soubory na hostitelském systému, což je něco, co není z bezpečnostních důvodů v klasickém JavaScriptu, který běží v prohlížeči, možné.
 
 \sekce{Bull}
 Bull je knihovna pro NodeJS, která poskytuje frontu úkolů založenou na populární in-memory databázi Redis.
@@ -246,7 +246,7 @@ Arena je webová aplikace pro správu a zobrazení aktuálního stavu fronty úk
 \end{figure}
 
 \sekce{Portainer}
-Portainer je webová aplikace pro zobrazení aktualního stavu a správu instance dockeru a docker swarmu.
+Portainer je webová aplikace pro zobrazení aktuálního stavu a správu instance dockeru a docker swarmu.
 
 \begin{figure}[H]
 	\centering
@@ -257,19 +257,19 @@ Portainer je webová aplikace pro zobrazení aktualního stavu a správu instanc
 
 
 \sekce{Databáze}
-Výsledky experimentů bude nutné někam zapsat. Jako vhodné řešení se jeví relační databáze. S důvodů hw omezení je na ní několik praktický nefunkčních požadavků:
+Výsledky experimentů bude nutné někam zapsat. Jako vhodné řešení se jeví relační databáze. Z důvodů hw omezení je na ní několik praktických nefunkčních požadavků:
 \begin{itemize}
 	\item Musí být schopná běžet na architektuře arm
 	\item Musí být ACID
 	\item Musí být schopná obsloužit více klientů (čtení a zápis)
 \end{itemize}
 
-Z výše uvedených důvodů, z důvodu předchozích zkušeností a s ohledem na to, že se jedná o nekritickou část systému byl vybrán databázový systém PostgreSQL. 
+Z výše uvedených důvodů, z důvodu předchozích zkušeností a s ohledem na to, že se jedná o nekritickou část systému, byl vybrán databázový systém PostgreSQL. 
 
 PostgreSQL je populární databázový systém, který nabízí robustní open-source alternativu i ke komerčním řešením. Navíc splňuje všechny podmínky stanovené na začátku této sekce.
 
 \sekce{PIXI.js}
-Grafická knihovna pro snadné vykreslování nad HTML značkou canvas, která byla zavedena ve verzi 5. Obaluje jak klasické vykreslovací API, tak modernější WebGL.
+Grafická knihovna pro snadné vykreslování do HTML značky canvas, která byla zavedena ve verzi 5. Obaluje jak klasické vykreslovací API, tak modernější WebGL.
 
 \sekce{Neataptic}
 Knihovna implementující samotný algoritmus NEAT ve variantě instinct.
@@ -292,4 +292,4 @@ Příkladem může být vozidlo, které může být reprezentováno složením f
 Je důležité si uvědomit, že na rozdíl od klasického systému dědičnosti je možné entity snadno rozšířit tak, že do nich přidáme další komponenty. Můžeme například k entitě auta přiřadit komponentu životy a udělat ho tak zranitelným.
 
 \podsekce{System}
-Systém provádí určité akce nad entitami, které mají dané komponent. Chceme-li například propojit grafickou reprezentaci s fyzikálním enginem, můžeme si napsat systém, který po kroku fyzikálního enginu vyhledá všechny entity, které mají grafickou a fyzikální komponentu upraví pozice a rotaci všech grafických objektu tak, aby byla identická s pozicí a rotací fyzikálních objektů, které jsou k ním přiřazeny.
+Systém provádí určité akce nad entitami, které mají dané komponenty. Chceme-li například propojit grafickou reprezentaci s fyzikálním enginem, můžeme si napsat systém, který po kroku fyzikálního enginu vyhledá všechny entity, které mají grafickou a fyzikální komponentu, upraví pozice a rotaci všech grafických objektu tak, aby byla identická s pozicí a rotací fyzikálních objektů, které jsou k ním přiřazeny.

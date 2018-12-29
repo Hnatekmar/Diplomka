@@ -3,15 +3,15 @@
 \input{navrhReseni.tex}
 
 \kapitola{Implementace}
-Vlastní práce se skládá ze dvou částí klientská část, která slouží k~vizualizaci algoritmu a zobrazení výsledků ze serverové části. Serverová část pro maximální urychlení simulace. 
+Vlastní práce se skládá ze dvou částí. Klientská část která slouží k~vizualizaci algoritmu a zobrazení výsledků ze serverové části. Serverová část pro maximální urychlení simulace. 
 
 \sekce{Simulace}
 Simulace je realizovaná jako knihovna pro Node.js, lze jí tedy použít jak u klientské částí, tak u serverové části. Poskytuje kompletní fyzikální simulaci agenta, prostředí ve kterém se pohybuje, jeho ovládání a výpočet fitness funkce. Součástí simulačního prostředí je také kód pro její vizualizaci.
 
 
-Rychlost byla zajištěna implementací profilovacího programu (\textbf{benchmark.js} ve složce simulation), který spouští simulaci na předem připravené populaci jedinců. Výstupem je pak doba, za jakou jí vyhodnotil na jednom jádře procesoru. Tento údaj byl pak používán při implementaci simulace pro orientační představu, jak moc případné změny v kódu ovlivňují rychlost samotné simulace. Dále byla simulace podrobena občasnému profilování v klientské částí s pomocí vývojářských nástrojů prohlížeče chrome, na kterém simulace jede nejlépe.
+Rychlost byla zajištěna implementací profilovacího programu (\textbf{benchmark.js} ve složce simulation), který spouští simulaci na předem připravené populaci jedinců. Výstupem je pak doba, za jakou jí vyhodnotil na jednom jádře procesoru. Tento údaj byl pak používán při implementaci simulace pro orientační představu, jak moc případné změny v kódu ovlivňují rychlost samotné simulace. Dále byla simulace podrobena občasnému profilování v klientské částí pomocí vývojářských nástrojů prohlížeče chrome, na kterém simulace jede nejlépe.
 
-Nenáročnost, která souvisí s rychlostí pak byla zajištěna tím, že bylo v průběhu psaní kódu dbáno na to, aby v průběhu simulace nedocházelo k přebytečným alokacím, které by nejen že mohli způsobit přebytečný nárůst požadované paměti ale způsobovali by také nepředvídatelné zpomalení, které s sebou přináší jazyk využívající garbage kolektor.
+Nenáročnost, která souvisí s rychlostí pak byla zajištěna tím, že bylo v průběhu psaní kódu dbáno na to, aby v průběhu simulace nedocházelo k přebytečným alokacím, které by nejen že mohli způsobit přebytečný nárůst požadované paměti ale způsobovali by také nepředvídatelné zpomalení, které sebou přináší jazyk využívající garbage kolektor.
 
 Robustnost je podrobněji vysvětlená v sekci \ref{sec:fitness} a popis toho, jak bylo dosaženo stejných podmínek pro všechny agenty lze nalézt v návrhu \ref{sec:ECS} především v popisu RoadManageru.
 
@@ -25,7 +25,7 @@ Cílem byl návrh robustního systému, který v~ideálním případě rozloží
 \sekce{Výpočetní cluster}
 \label{sec:cluster}
 Ukázalo se, že vyhodnocování simulace zabírá neúměrné množství času a to i na nejvýkonnějším dostupném počítači. 
-Například vyhodnocení jedné generace populace o~1024 jedincích zabralo ~290 s~na nejsilnějším dostupném pc. Z~tohoto důvodu bylo rozhodnuto o~distribuce výpočetní zátěže mezi více počítačů. Byl vytvořen výpočetní cluster se specifikací popsanou v~tabulce \ref{table:hw_table}.
+Například vyhodnocení jedné generace populace o~1024 jedincích zabralo ~290 s~na nejsilnějším dostupném pc. Z~tohoto důvodu bylo rozhodnuto o~distribuci výpočetní zátěže mezi více počítačů. Byl vytvořen výpočetní cluster se specifikací popsanou v~tabulce \ref{table:hw_table}.
 \begin{table}[h!]
 	\centering
 	\begin{tabular}{|l|c|c|c|}
@@ -52,10 +52,10 @@ Například vyhodnocení jedné generace populace o~1024 jedincích zabralo ~290
 \podsekce{Ověření rychlosti cluste}
 Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci se serverem, což může být zdrojem určitého zpomalení.
 
-Pro ověření rychlosti bylo provedeno měření výkonu clusteru a jeho porovnání s nejvýkonnější dostupnou sestavou. Měření bylo provedeno nad náhodně vygenerovanými populacemi. Jelikož se simulace může ukončit předčasně (například při kolizi s překážkou) byla simulace provedena pro každou velikost $10\times$ a výsledek byl zprůměrován. Naměřená data lze nalézt v tabulce \ref{table:clusterBenchmark} ze které vychází obrázek \ref{fig:benchmarkcluster} na kterém lze vidět výsledky tohoto srovnání. 
+Pro ověření rychlosti bylo provedeno měření výkonu clusteru a jeho porovnání s nejvýkonnější dostupnou sestavou. Měření bylo provedeno nad náhodně vygenerovanými populacemi. Jelikož se simulace může ukončit předčasně (například při kolizi s překážkou), byla simulace provedena pro každou velikost $10\times$ a výsledek byl zprůměrován. Naměřená data lze nalézt v tabulce \ref{table:clusterBenchmark} ze které vychází obrázek \ref{fig:benchmarkcluster} na kterém lze vidět výsledky tohoto srovnání. 
 
-Porovnání rychlosti clusteru s nejvýkonnějším dostupným počítačem ukazuje, že cluster je ve většině případů skoro stejně nebo  výrazně rychlejší než samostatný výpočet. Jediné dvě naměřené instance, kde to neplatí je u populací o velikosti 100 a 200, kde si cluster vede mírně hůře, než nejvýkonnější dostupná sestava. 
-Toto lze vysvětlit, jak přítomností méně výkonného hardwaru v clusteru (především se jedná o S5P6818) na které se musí u menších populací čekat. Pro ověření této teorie byl cluster spuštěn v dalších konfiguracích, kde byly postupně odebírány jednotlivé počítače a měření bylo opakováno. 
+Porovnání rychlosti clusteru s nejvýkonnějším dostupným počítačem ukazuje, že cluster je ve většině případů skoro stejně nebo  výrazně rychlejší než samostatný výpočet. Jediné dvě naměřené instance, kde toto neplatí je u populací o velikosti 100 a 200, kde si cluster vede mírně hůře, než nejvýkonnější dostupná sestava. 
+Toto lze vysvětlit jak přítomností méně výkonného hardwaru v clusteru (především se jedná o S5P6818) na které se musí u menších populací čekat. Pro ověření této teorie byl cluster spuštěn v dalších konfiguracích, kde byly postupně odebírány jednotlivé počítače a měření bylo opakováno. 
 
 \begin{itemize}
 	\item Cluster - Celý cluster
@@ -82,7 +82,7 @@ Pro snadnou distribuci a správu byly všechny počítače zorganizovány do doc
 	\item \textbf{Redis} používaný knihovnou \textbf{Bull}
 \end{enumerate}
 
-Na manažerovy nebyl spuštěn zpracovatel, aby se zabránilo jeho přetížení (manažer swarmu by měl být vždy dostupný).
+Na manažeru nebyl spuštěn zpracovatel, aby se zabránilo jeho přetížení (manažer swarmu by měl být vždy dostupný).
 
 Použití docker swarmu umožňuje především snadné nasazení a správu zpracovávajících procesů. Zároveň zajišťuje, že všechny instance zpracovatelů mají unifikovanou konfiguraci, což je zvláště důležité pro dosažení konzistentních výsledků.
 

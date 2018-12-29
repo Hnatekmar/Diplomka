@@ -1,5 +1,5 @@
 \kapitola{Návrh řešení}
-Tato kapitola obsahuje návrh řešení založený na požadavcích identifikovaných v předchozí kapitole. Na základě těchto požadavků byl návrh rozdělen do dvou projektů a to webového frontendu, který slouží jako rozhraní ukazující průběh simulace realném čase a serverové části, která slouží pro rychlý výpočet simulace bez vykreslovaní na platformě Node.js.
+Tato kapitola obsahuje návrh řešení založený na požadavcích identifikovaných v předchozí kapitole. Na základě těchto požadavků byl návrh rozdělen do dvou projektů a to webového frontendu, který slouží jako rozhraní ukazující průběh simulace v realném čase a serverové části, která slouží pro rychlý výpočet simulace bez vykreslovaní na platformě Node.js.
 
 Jelikož obě části budou používat stejný simulační kód bylo rozhodnuto, že bude samotná simulace vytvořena jako softwarová knihovna. Tuto závislost ilustruje obrázek \ref{fig:dependency}.
 \begin{figure}[h!]
@@ -16,7 +16,7 @@ Z obrázku \ref{fig:dependency} je zřejmé, že simulační kód spojuje obě �
 Na základě těchto požadavků a podmínek, které jsou stanoveny v předchozí kapitole byl vytvořen následující návrh:
 
 \label{sec:ECS}
-Simulace je navržena v duchu ECS (\textbf{Entity component system}) podrobný popis lze nalézt v sekci \ref{sec:ces}. Není tedy žádným překvapením, že se všechny komponenty nalezené v simulaci dají rozložit na systémy, komponenty a entity. Pro lepší představu o implementaci je níže uveden přehled všech systému, entit a komponent použitých v simulaci.
+Simulace je navržena v duchu ECS (\textbf{Entity component system}), podrobný popis lze nalézt v sekci \ref{sec:ces}. Není tedy žádným překvapením, že se všechny komponenty nalezené v simulaci dají rozložit na systémy, komponenty a entity. Pro lepší představu o implementaci je níže uveden přehled všech systému, entit a komponent použitých v simulaci.
 
 \podsekce{Diagram tříd}
 Níže popsaný návrh doplňuje diagram tříd, který zobrazuje jejích návaznost a zároveň také do návrhu zavádí třídu \textbf{Simulation}, která celou simulaci schovává za jednoduché rozhraní a umožňuje snadnou integraci simulace do různých aplikací.
@@ -33,9 +33,9 @@ Simulace obsahuje následující entity:
 
 \textbf{PhysicsGroup} Seskupuje fyzikální entity do jedné pro snadnou manipulaci s nimi.
 
-\textbf{RoadPart} Entita, která obaluje jednu nebo více překážek tak, aby se s nimi dalo snadno pohybovat používá se pro tvorbu složitějších dílů vozovky.
+\textbf{RoadPart} Entita, která obaluje jednu nebo více překážek tak, aby se s nimi dalo snadno pohybovat. Používá se pro tvorbu složitějších dílů vozovky.
 
-\textbf{Car} Reprezentuje samotné vozidlo obsahuje jak jeho grafickou reprezentaci, tak kompletní logiku a fyzikální model.
+\textbf{Car} Reprezentuje samotné vozidlo, obsahuje jak jeho grafickou reprezentaci, tak kompletní logiku a fyzikální model.
 
 \podsekce{Komponenty}
 Simulace obsahuje následující komponenty:
@@ -54,24 +54,24 @@ Návrh simulace obsahuje následující systémy:
 
 \textbf{Physics} krokuje fyzikální engine a synchronizuje grafickou reprezentaci s fyzikální entitou. Tento proces probíhá pro každý snímek a skládá se z přiřazení nové rotace a pozice pro grafickou entitu.
 
-\textbf{RoadDirector} Road director se stará o generování nekonečného prostředí pro agenta. Děje se tak na základě předefinovaných dílu vozovky z nichž každý zaplňuje celou obrazovku simulace. V případě, že agent dorazí až na konec obrazovky je mu určen nový navazující dílek. Agent je pak přehozen na opačnou stranu obrazovky a zároveň je vyměněn díl na kterém se nachází.
+\textbf{RoadDirector} Road director se stará o generování nekonečného prostředí pro agenta. Děje se tak na základě předefinovaných dílu vozovky z nichž každý zaplňuje celou obrazovku simulace. V případě, že agent dorazí až na konec obrazovky, je mu určen nový navazující dílek. Agent je pak přesunut na opačnou stranu obrazovky a zároveň je vyměněn díl na kterém se nachází.
 Hlavní výhodou tohoto přístupu je to, že agent může jezdit po vozovce donekonečna bez starosti o to, že by se dostal na limit fyzikálního enginu (přetečení pozice fyzikálního objektu). Další nesporná výhoda tohoto přístupu je úspora paměťových nároků, kterou by s sebou nesla definice větší mapy a možnost generování náhodných map pro testování agenta.
 
 \podsekce{Fitness funkce}
 Fitness funkce je důležitou součástí simulace, která zásadně ovlivňuje chování výsledných agentů a je tedy nutné jí volit vhodně. Je nutné, aby funkce agenta motivovala ke správné činnosti.
 
-Po několika pokusech a konzultaci s vedoucím práce byla jako metrika úspěchu agenta zvolena celková vzdálenost, kterou je agent schopný překonat v průběhu jedné generace. Výpočet je realizován s pomocí RoadDirectoru, který si při každém přechodu zaznamená bod, ve kterém se po přesunu agent nachází. Výsledná fitness je pak součet uražených vzdáleností pro každou místnost. Road direktor si pro každou obrazovku uchovává vzdálenost, kterou agent v dané obrazovce překonal. Výsledným fitness je pak součet všech vzdáleností na všech obrazovkách.
+Po několika pokusech a konzultaci s vedoucím práce byla jako metrika úspěchu agenta zvolena celková vzdálenost, kterou je agent schopný překonat v průběhu jedné generace. Výpočet je realizován pomocí RoadDirectoru, který si při každém přechodu zaznamená bod, ve kterém se po přesunu agent nachází. Výsledná fitness je pak součet uražených vzdáleností pro každou místnost. Road direktor si pro každou obrazovku uchovává vzdálenost, kterou agent v dané obrazovce překonal. Výsledným fitness je pak součet všech vzdáleností na všech obrazovkách.
 
 \sekce{Klientská část}
 Klientská část je webové rozhraní, které vzniklo z požadavků na vizualizaci a ověření funkčnosti simulační knihovny. 
 
-Z požadavků vyšla aplikace, která obsahuje 3 rozdílné obrazovky a to jedne, která slouží pro zobrazení a simulaci vývoje algoritmu v reálném čase. Další slouží pro zpětné přehrávání již vygenerovaných genomů a poslední obrazovka, která umožňuje uživateli vyzkoušet ovládat agenta.
+Z požadavků vyšla aplikace, která obsahuje 2 rozdílné obrazovky a to první, která slouží pro zobrazení a simulaci vývoje algoritmu v reálném čase. Další slouží pro zpětné přehrávání již vygenerovaných genomů.
 
 \sekce{Serverová část}
 Serverová část byla nakonec navržena a vytvořena ve dvou na sebe navazujících verzích. 
 
 \podsekce{První verze}
-Je ilustrovaná na obrázku \ref{fig:server_first}. Návrh první verze popisuje jednoduchou aplikaci, která rozkládá vyhodnocování jednotlivých genomů mezi jednoho nebo více zpracovatelů. Každý zpracovatel běží ve vlastním vlákně a zátěž je tedy rozložena mezi dostupná jádra procesoru. Zpracovatel po vyhodnocení genomu vrací hlavnímu vláknu fitness daného jedince. Ten si ho uloží a po vyhodnocení všech jedinců tímto způsobem provede algoritmus NEAT. Tento proces se opakuje do té doby, než nedojde k naplnění ukončujících podmínek (maximální počet generací) nebo přerušení programu.
+Je ilustrovaná na obrázku \ref{fig:server_first}. Návrh první verze popisuje jednoduchou aplikaci, která rozkládá vyhodnocování jednotlivých genomů mezi jednoho nebo více zpracovatelů. Každý zpracovatel běží ve vlastním vlákně a zátěž je tedy rozložena mezi dostupná jádra procesoru. Zpracovatel po vyhodnocení genomu vrací hlavnímu vláknu fitness daného jedince. Ten si ho uloží a po vyhodnocení všech jedinců tímto způsobem provede algoritmus NEAT. Tento proces se opakuje do té doby, než dojde k naplnění ukončujících podmínek (maximální počet generací) nebo přerušení programu.
 
 \begin{figure}[H]
 	\centering
@@ -83,7 +83,7 @@ Je ilustrovaná na obrázku \ref{fig:server_first}. Návrh první verze popisuje
 \podsekce{Druhá verze}
 Druhá verze rozšiřuje návrh o možnost rozložení výpočtů mezi více počítačů. Byla navržená poté, co bylo zjištěno, že předchozí verze nebyla schopná vyhodnotit dostatečné množství genomů dostatečně rychle.
 
-Pracuje dle diagramu \ref{fig:distributed}, kde je vidět, že klient zadává do fronty úkoly (genom a nastavení simulace). Jednotliví zpracovatelé (počítače v~clusteru), kteří si je z~ní vyberou, jednotlivé genomy vyhodnotí a hodnotu fitness funkce pošlou zpět na klienta. Toto je ilustrováno v diagramu \ref{fig:serverusecase}.
+Pracuje dle diagramu \ref{fig:distributed}, kde je vidět, že klient zadává do fronty úkoly (genom a nastavení simulace). Jednotliví zpracovatelé (počítače v~clusteru), si je z~ní vyberou, jednotlivé genomy vyhodnotí a hodnotu fitness funkce pošlou zpět na klienta. Toto je ilustrováno v diagramu \ref{fig:serverusecase}.
 
 \begin{figure}[H]
 	\centering
@@ -95,7 +95,7 @@ Pracuje dle diagramu \ref{fig:distributed}, kde je vidět, že klient zadává d
 Jakmile klient dostane všechny hodnoty zpět provede na populaci algoritmus NEAT (mutace, křížení, \dots) a poté je nová generace poslána znovu na vyhodnocení.
 
 \podsekce{Databáze}
-Všechny verze serverové části zaznamenávají průběh algoritmu NEAT do databáze jejíž schéma lze vidět v obrázku \ref{fig:database}. Databáze obsahuje tabulku \textbf{Genomes}, která uchová fitness nejlepšího a nejhoršího jedince v generaci, zároveň také obsahuje nejlepší genom z dané generace. Každý záznam v tabulace \textbf{Genomes} má přidělenou konfiguraci se kterou byl spuštěn. Toto je důležité při vyhodnocování více konfigurací zároveň, které je popsáno níže.
+Všechny verze serverové části zaznamenávají průběh algoritmu NEAT do databáze, jejíž schéma lze vidět v obrázku \ref{fig:database}. Databáze obsahuje tabulku \textbf{Genomes}, která uchová fitness nejlepšího a nejhoršího jedince v generaci, zároveň také obsahuje nejlepší genom z dané generace. Každý záznam v tabulace \textbf{Genomes} má přidělenou konfiguraci se kterou byl spuštěn. Toto je důležité při vyhodnocování více konfigurací zároveň, které je popsáno níže.
 
 \begin{figure}[H]
 	\centering
