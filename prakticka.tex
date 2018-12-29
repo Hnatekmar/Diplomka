@@ -20,6 +20,8 @@ Serverová část vyhodnocuje jednotlivé jedince distribuovaně s~pomocí front
 
 Cílem byl návrh robustního systému, který v~ideálním případě rozloží výpočetní zátěž mezi jednotlivé uzly rovnoměrně. Dalším požadavkem byla možnost odpojení kdykoliv kteréhokoliv z počítačů, jelikož ne všechny bylo možné nechat běžet přes noc.
 
+\podsekce{Rozdíl ve fitness}
+
 \sekce{Výpočetní cluster}
 \label{sec:cluster}
 Ukázalo se, že vyhodnocování simulace zabírá neúměrné množství času a to i na nejvýkonnějším dostupném počítači. 
@@ -47,12 +49,20 @@ Například vyhodnocení jedné generace populace o~1024 jedincích zabralo ~290
 	\label{table:hw_table}
 	
 \end{table}
-\podsekce{Vyhodnocování rychlosti}
+\podsekce{Ověření rychlosti cluste}
 Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci se serverem, což může být zdrojem určitého zpomalení.
 
 Pro ověření rychlosti bylo provedeno měření výkonu clusteru a jeho porovnání s nejvýkonnější dostupnou sestavou. Měření bylo provedeno nad náhodně vygenerovanými populacemi. Jelikož se simulace může ukončit předčasně (například při kolizi s překážkou) byla simulace provedena pro každou velikost $10\times$ a výsledek byl zprůměrován. Naměřená data lze nalézt v tabulce \ref{table:clusterBenchmark} ze které vychází obrázek \ref{fig:benchmarkcluster} na kterém lze vidět výsledky tohoto srovnání. 
 
-Porovnání rychlosti clusteru s nejvýkonnějším dostupným počítačem ukazuje, že cluster je ve většině případů skoro stejně nebo  výrazně rychlejší než samostatný výpočet. Jediné dvě naměřené instance, kde to neplatí je u populací o velikosti 100 a 200, kde si cluster vede mírně hůře, než nejvýkonnější dostupná sestava. Toto lze vysvětlit, jak přítomností méně výkonného hardwaru v clusteru (především se jedná o S5P6818) na které se musí u menších populací čekat. Dalším vysvětlením mohou být výše uvedené důvody.
+Porovnání rychlosti clusteru s nejvýkonnějším dostupným počítačem ukazuje, že cluster je ve většině případů skoro stejně nebo  výrazně rychlejší než samostatný výpočet. Jediné dvě naměřené instance, kde to neplatí je u populací o velikosti 100 a 200, kde si cluster vede mírně hůře, než nejvýkonnější dostupná sestava. 
+Toto lze vysvětlit, jak přítomností méně výkonného hardwaru v clusteru (především se jedná o S5P6818) na které se musí u menších populací čekat. Pro ověření této teorie byl cluster spuštěn v dalších konfiguracích, kde byly postupně odebírány jednotlivé počítače a měření bylo opakováno. 
+
+\begin{itemize}
+	\item Cluster - Celý cluster
+	\item Cluster-2 - Odebrán S5P6818 (obě jednotky)
+	\item Cluster-3 - Odebrán Intel atom x5-Z8350
+	\item Cluster-4 - Odebrán AMD A4-4300M
+\end{itemize}
 
 Je nutné však podotknout, že proměnlivá doba u vyhodnocování jedince znamená, že měření není zcela přesné. Nicméně lze na základě dat usoudit, že u větších populací dochází k přibližně $2\times$ zrychlení.
 
@@ -62,47 +72,6 @@ Je nutné však podotknout, že proměnlivá doba u vyhodnocování jedince znam
 	\caption{Porovnání rychlosti clusteru s jedním PC}
 	\label{fig:benchmarkcluster}
 \end{figure}
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|l|c|c|}
-		\hline
-		Počet & Cluster & Phenom II X4 965 \\
-		\hline
-		100     & 9.6277  & 6.5186           \\
-		\hline
-		200     & 13.2919 & 10.9839          \\
-		\hline
-		300     & 16.5404 & 16.8723          \\
-		\hline
-		400     & 17.9967 & 23.5019          \\
-		\hline
-		500     & 20.3733 & 31.7831          \\
-		\hline
-		600     & 22.4781 & 37.3242          \\
-		\hline
-		700     & 25.1767 & 40.66            \\
-		\hline
-		800     & 27.5549 & 44.8019          \\
-		\hline
-		900     & 30.7077 & 52.8829          \\
-		\hline
-		1000    & 32.8463 & 62.8967          \\
-		\hline
-		1100    & 33.3567 & 65.2363          \\
-		\hline
-		1200    & 36.0618 & 72.2926          \\
-		\hline
-		1300    & 39.4703 & 75.2937          \\
-		\hline
-		1400    & 42.4464 & 81.1193          \\
-		\hline
-		1500    & 44.9014 & 81.3101          \\
-		\hline
-	\end{tabular}
-	\caption{Naměřená data}
-	\label{table:clusterBenchmark}
-\end{table}
 
 \podsekce{Docker swarm}
 Pro snadnou distribuci a správu byly všechny počítače zorganizovány do docker swarmu. Docker swarm obsahoval jednoho manažera (Broadcom BCM2837B0 quad-core), který zároveň spouštěl klientskou aplikaci a další služby:

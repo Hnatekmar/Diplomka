@@ -256,8 +256,17 @@ Portainer je webová aplikace pro zobrazení aktualního stavu a správu instanc
 \end{figure}
 
 
-\sekce{PostgreSQL}
-Populární databázový systém, který nabízí robustní open source alternativu i ke komerčním řešením.
+\sekce{Databáze}
+Výsledky experimentů bude nutné někam zapsat. Jako vhodné řešení se jeví relační databáze. S důvodů hw omezení je na ní několik praktický nefunkčních požadavků:
+\begin{itemize}
+	\item Musí být schopná běžet na architektuře arm
+	\item Musí být ACID
+	\item Musí být schopná obsloužit více klientů (čtení a zápis)
+\end{itemize}
+
+Z výše uvedených důvodů, z důvodu předchozích zkušeností a s ohledem na to, že se jedná o nekritickou část systému byl vybrán databázový systém PostgreSQL. 
+
+PostgreSQL je populární databázový systém, který nabízí robustní open-source alternativu i ke komerčním řešením. Navíc splňuje všechny podmínky stanovené na začátku této sekce.
 
 \sekce{PIXI.js}
 Grafická knihovna pro snadné vykreslování nad HTML značkou canvas, která byla zavedena ve verzi 5. Obaluje jak klasické vykreslovací API, tak modernější WebGL.

@@ -23,7 +23,7 @@ Níže popsaný návrh doplňuje diagram tříd, který zobrazuje jejích návaz
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\linewidth]{classDiagram}
+ 	\includegraphics[width=0.7\linewidth]{classDiagram}
 	\caption{Diagram tříd}
 	\label{fig:class-diagram}
 \end{figure}
@@ -39,11 +39,11 @@ Simulace obsahuje následující entity:
 
 \podsekce{Komponenty}
 Simulace obsahuje následující komponenty:
-\textbf{Car} obsahuje všechny potřebné informace o agentovi. Toto zahrnuje vše od neurnové sítě, která je použitá pro jeho řízení po ovládání jednotlivých kol agenta.
-
-\textbf{Graphics} komponenta, která obsahuje grafické informace pro \textbf{Pixi.js}.
-
-\textbf{Physics} komponent, která obsahuje fyzikální entity pro \textbf{P2.js}
+\begin{itemize}
+	\item \textbf{Car} obsahuje všechny potřebné informace o agentovi. Toto zahrnuje vše od neurnové sítě, která je použitá pro jeho řízení po ovládání jednotlivých kol agenta.
+	\item \textbf{Graphics} komponenta, která obsahuje grafické informace pro \textbf{Pixi.js}.
+	\item \textbf{Physics} komponent, která obsahuje fyzikální entity pro \textbf{P2.js}
+\end{itemize}
 
 \podsekce{Systémy}
 Návrh simulace obsahuje následující systémy:
@@ -65,7 +65,7 @@ Po několika pokusech a konzultaci s vedoucím práce byla jako metrika úspěch
 \sekce{Klientská část}
 Klientská část je webové rozhraní, které vzniklo z požadavků na vizualizaci a ověření funkčnosti simulační knihovny. 
 
-Z požadavků vyšla aplikace, která obsahuje 3 rozdílné obrazovky a to jedne, která slouží pro zobrazení a simulaci vývoje algoritmu v realném čase. Další slouží pro zpětné přehrávání již vygenerovaných genomů a poslední obrazovka, která umožňuje uživateli vyzkoušet ovládat agenta.
+Z požadavků vyšla aplikace, která obsahuje 3 rozdílné obrazovky a to jedne, která slouží pro zobrazení a simulaci vývoje algoritmu v reálném čase. Další slouží pro zpětné přehrávání již vygenerovaných genomů a poslední obrazovka, která umožňuje uživateli vyzkoušet ovládat agenta.
 
 \sekce{Serverová část}
 Serverová část byla nakonec navržena a vytvořena ve dvou na sebe navazujících verzích. 
@@ -95,11 +95,11 @@ Pracuje dle diagramu \ref{fig:distributed}, kde je vidět, že klient zadává d
 Jakmile klient dostane všechny hodnoty zpět provede na populaci algoritmus NEAT (mutace, křížení, \dots) a poté je nová generace poslána znovu na vyhodnocení.
 
 \podsekce{Databáze}
-Všechny verze serverové části zaznamenávají průběh algoritmu NEAT do databáze jejíž schéma lze vidět v obrázku \ref{fig:database}. Databáze obsahuje jen jednu tabulku, která uchová fitness nejlepšího a nejhoršího jedince v generaci. Zároveň také obsahuje nejlepší genom z dané generace.  
+Všechny verze serverové části zaznamenávají průběh algoritmu NEAT do databáze jejíž schéma lze vidět v obrázku \ref{fig:database}. Databáze obsahuje tabulku \textbf{Genomes}, která uchová fitness nejlepšího a nejhoršího jedince v generaci, zároveň také obsahuje nejlepší genom z dané generace. Každý záznam v tabulace \textbf{Genomes} má přidělenou konfiguraci se kterou byl spuštěn. Toto je důležité při vyhodnocování více konfigurací zároveň, které je popsáno níže.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\linewidth]{database}
+	\includegraphics[width=0.7\linewidth]{ERD}
 	\caption{Schéma databáze}
 	\label{fig:database}
 \end{figure}
@@ -119,7 +119,7 @@ Agent bude testován v různých konfiguracích:
 
 \podsekce{Řízení agenta}
 
-Řízení agenta probíhá tak, že se každý snímek s~pomocí neuronové sítě \ref{fig:control_network} rozhoduje, jakou akci podnikne. Má následující možnosti:
+Řízení agenta probíhá tak, že se každý snímek s~pomocí neuronové sítě na obrázku \ref{fig:control_network} rozhoduje, jakou akci podnikne. Má následující možnosti:
 
 \begin{enumerate}
 	\item Ovládání volantu 
@@ -138,6 +138,23 @@ Ovládání volantu i volba rychlostního stupňů probíhá zároveň a to tak,
 
 \begin{figure}[H]
 	\centering
+	\includegraphics[width=0.7\linewidth]{AgentSchema}
+	\caption{Řízení agenta}
+	\label{fig:agentschema}
+\end{figure}
+
+%digraph { 
+%	rankdir=LR
+%	graph [ nodesep=0.5] 
+%	node [shape=box] 
+%	"Senzor" -> "Agent"
+%	"Agent" -> "Akce"
+%	"Akce" -> "Svet"
+%	"Svet" -> "Senzor"
+%}
+
+\begin{figure}[H]
+	\centering
 	\begin{neuralnetwork}[height=7]
 		\newcommand{\nodetextx}[2]{\ifthenelse{\equal{#2}{0}}{$b_0$}{$s_{#2}$}}
 		\newcommand{\nodetextz}[2]{$z_#2$}
@@ -153,22 +170,22 @@ Ovládání volantu i volba rychlostního stupňů probíhá zároveň a to tak,
 \end{figure}
 
 \podsekce{Možné konfigurace agenta} 
-Kromě výše uvedené konfigurace jsou také testovány následující možnosti:
+Výše uvedenou konfiguraci lze rozšířit o níže uvedené vstupy/výstupy.
 
-
-Agent, který se liší rozdělením vstupních senzorů:
+Modifikace vstupů umožní agentovi vnímat více než jen vzdálenosti z jednotlivých senzorů. Bude zajímavé pozorovat, jak se agent s jednotlivými vjemy poradí. V práci se vyzkouší následující přidané vstupy:
 \begin{itemize}
-	\item 360° kruh
-	\item 6 senzorů do Y
-	\item vstup s aktuální rychlostí
-	\item vstup s volantem
+	\item aktuální rychlost
+	\item náklon volantu
 \end{itemize}
 
-Modifikovat lze také výstupy neuronové sítě a to:
+Modifikovat lze také výstupy neuronové sítě toto rozšíří nebo omezí možnosti agenta:
 \begin{itemize}
 	\item Přidáním/odebráním možnosti brzdění
-	\item Přidáním/odebráním možnosti točením volantu
-	\item Modifikací množství rychlostních stupňů
+	\item Přidáním/odebráním možnosti udržení volantu ve stejné pozici
+	\item Modifikací možností rychlostí a to:
+	\begin{itemize}
+		\item Foo
+	\end{itemize}
 \end{itemize}
 %- na vstup site privest i aktualni rychlost a natoceni volantu (to co
 %ridic prece v kabine vidi, kdyz auto ridi)
