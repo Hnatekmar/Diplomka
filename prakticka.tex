@@ -20,7 +20,7 @@ Serverová část vyhodnocuje jednotlivé jedince distribuovaně s~pomocí front
 
 Cílem byl návrh robustního systému, který v~ideálním případě rozloží výpočetní zátěž mezi jednotlivé uzly rovnoměrně. Dalším požadavkem byla možnost odpojení kdykoliv kteréhokoliv z počítačů, jelikož ne všechny bylo možné nechat běžet přes noc.
 
-\podsekce{Rozdíl ve fitness}
+\podsekce{}
 
 \sekce{Výpočetní cluster}
 \label{sec:cluster}
@@ -49,10 +49,10 @@ Například vyhodnocení jedné generace populace o~1024 jedincích zabralo ~290
 	\label{table:hw_table}
 	
 \end{table}
-\podsekce{Ověření rychlosti cluste}
+\podsekce{Ověření rychlosti clusteru}
 Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci se serverem, což může být zdrojem určitého zpomalení.
 
-Pro ověření rychlosti bylo provedeno měření výkonu clusteru a jeho porovnání s nejvýkonnější dostupnou sestavou. Měření bylo provedeno nad náhodně vygenerovanými populacemi. Jelikož se simulace může ukončit předčasně (například při kolizi s překážkou) byla simulace provedena pro každou velikost $10\times$ a výsledek byl zprůměrován. Naměřená data lze nalézt v tabulce \ref{table:clusterBenchmark} ze které vychází obrázek \ref{fig:benchmarkcluster} na kterém lze vidět výsledky tohoto srovnání. 
+Pro ověření rychlosti bylo provedeno měření výkonu clusteru a jeho porovnání s nejvýkonnější dostupnou sestavou. Měření bylo provedeno nad náhodně vygenerovanými populacemi. Jelikož se simulace může ukončit předčasně (například při kolizi s překážkou) byla simulace provedena pro každou velikost $10\times$ a výsledek byl zprůměrován. Naměřená data lze nalézt v tabulce \ref{tbl:benchmark} ze které vychází obrázek \ref{fig:benchmarkcluster} na kterém lze vidět výsledky tohoto srovnání. 
 
 Porovnání rychlosti clusteru s nejvýkonnějším dostupným počítačem ukazuje, že cluster je ve většině případů skoro stejně nebo  výrazně rychlejší než samostatný výpočet. Jediné dvě naměřené instance, kde to neplatí je u populací o velikosti 100 a 200, kde si cluster vede mírně hůře, než nejvýkonnější dostupná sestava. 
 Toto lze vysvětlit, jak přítomností méně výkonného hardwaru v clusteru (především se jedná o S5P6818) na které se musí u menších populací čekat. Pro ověření této teorie byl cluster spuštěn v dalších konfiguracích, kde byly postupně odebírány jednotlivé počítače a měření bylo opakováno. 
