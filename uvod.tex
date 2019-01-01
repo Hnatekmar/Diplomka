@@ -38,44 +38,51 @@ Dalším využitím je omezení výstupních hodnot. Například aktivační fun
 \textbf{Linearní funkce}
 Vrací vstup, tak jak je. Využití najde především u vstupní vrstvy neuronové sítě a u neuronových sítí, které řeší regresní typy úloh.
 \\
+\begin{figure}[H]
+	\centering
 \begin{tikzpicture}
-\centering
 \begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
 \addplot[blue, samples=100, smooth, unbounded coords=discard]
 plot (\x, \x);
 \end{axis}
 \end{tikzpicture}
+\end{figure}
 $$f(x) = x$$
 \textbf{Sigmoid}
 Sigmoid je aktivační funkce, která je schopná potlačit extrémní hodnoty a převést je do rozsahu 0 - 1.\\
-
+\begin{figure}[H]
+	\centering
 \begin{tikzpicture}
 \centering
 \begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
 \addplot[blue, samples=100, smooth, unbounded coords=discard]{1 / (1 + e ^ (-\x))};
 \end{axis}
 \end{tikzpicture}
+\end{figure}
 $$f(x) = \frac{1}{1 + e^{-x}}$$
 \textbf{Tanh}
 
 \textbf{Tanh} je funkce obdobná sigmoidu. Hlavní rozdíl mezi ní a sigmoidem je ten, že její obor je v rozmezí -1 a 1 hodí se proto i pro záporná výstupy, které vyžadují záporná čísla. \cite[s.~67]{fundementalsOfDeepLearning}
-
-\begin{tikzpicture}
+\begin{figure}[H]
 \centering
+\begin{tikzpicture}
 \begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
 \addplot[blue, samples=100, smooth, unbounded coords=discard]{tanh(x)};
 \end{axis}
 \end{tikzpicture}
+\end{figure}
 $$f(x) = tanh(x)$$
 \podsekce{RELU}
 RELU je aktivační funkce, která je podobná lineární aktivační funkci s tím rozdílem, že pokud vstupní hodnota nepřesáhne určitého prahu výstupem je 0. Její hlavní výhodou je to, že zabraňuje problémům s takzvaným explodujícím gradientem \cite[s.~69]{fundementalsOfDeepLearning} \\
-
+\begin{figure}[H]
+	\centering
 \begin{tikzpicture}
 \centering
 \begin{axis}[grid=major, xlabel=$x$, ylabel={$f(x)$}]
 \addplot[blue, samples=100, smooth, unbounded coords=discard]{max(0, x)};
 \end{axis}
 \end{tikzpicture}
+\end{figure}
 \[ 
 f(x) = 
 \begin{dcases*} 
@@ -88,6 +95,7 @@ Speciální druh neuronů, který si dokáže zapamatovat a reagovat na sekvenci
 
 V praxi se setkáváme s dvěma druhy neuronů a to LSTM a novější GRU. LSTM a GRU jsou si velmi podobné s jedním podstatným rozdílem. U GRU bylo prokázáno, že je značně rychlejší. 
 
+Další běžně používaným typem rekurentních neuronových sítí jsou sítě typu NARX
 
 
 \sekce{Genetické algoritmy}
@@ -117,7 +125,7 @@ Existuje mnoho různých kódování a každý má své výhody a nevýhody. Vě
 \begin{enumerate}
 	\item Binární - řetězec bitů, který může například reprezentovat jednu nebo více numerických hodnot. 
 	\item Reálná čísla - Jedno nebo více reálných čísel
-	\item Permutační - Sekvence čísel používané například pro řešení problému obchodního cestujícího 
+	\item Permutační - Sekvence čísel nebo symbolů používané například pro řešení problému obchodního cestujícího
 \end{enumerate}
 \podsekce{Křížení}
 Křížení je operátor, který kombinuje dva jedince do jednoho. Jedinec, který vzniká přebírá genetickou informaci od obou jedinců v určitém poměru. Jeho implementace je závislá na použitém kódování. 
@@ -212,7 +220,7 @@ Příkladem může být rozsáhlý obor zabývající se zpětnovazebním učen�
 
 \podsekce{Využití algoritmu NEAT}
 Algoritmus NEAT a jeho varianty předmětem aktivního výzkumu. Své využítí nalézá hlavně v oblasti robotiky a řešení pro počítač obtížných problémů jako je například hraní počítačových her.
-% TODO: CITACE
+Příkladem může být nedávný výzkum provedený laboratořemi umělé inteligence společnosti Uber, který pojednává o použítí algoritmu NEAT k naučení umělé inteligence, která je schopná hrát jednoduché hry na herní platformě Atari \cite[s.~1]{UBER}.
  
 \kapitola{Použité technologie}
 Tato kapitola poskytuje stručný přehled technologii použitých při řešení diplomové práce.
@@ -226,7 +234,7 @@ Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner posk
 V praxi to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuální konfiguraci hostitelského systému.
 
 \sekce{Vue}
-Je populární JavaScriptový framework pro snadnou tvorbu uživatelských rozhraní.
+Je populární JavaScriptový framework pro snadnou tvorbu uživatelských rozhraní. Důvodem jeho volby byla pro autora snadno pochopitelný 
 
 \sekce{NodeJS}
 NodeJS je open-source interpret jazyku JavaScript. Využití najde při psaní serverových aplikací v JavaScriptu a jiné případy, kdy je třeba spustit kód napsaný v javascriptu mimo prohlížeč. Lze ho využít například pro spouštění testů při CI (continuous integration) nebo pro tvorbu vysoce serverových aplikací v jazyce JavaScript.
@@ -273,7 +281,8 @@ PostgreSQL je populární databázový systém, který nabízí robustní open-s
 Grafická knihovna pro snadné vykreslování nad HTML značkou canvas, která byla zavedena ve verzi 5. Obaluje jak klasické vykreslovací API, tak modernější WebGL.
 
 \sekce{Neataptic}
-Knihovna implementující samotný algoritmus NEAT ve variantě instinct.
+Knihovna implementující samotný algoritmus NEAT ve variantě instinct. Důvodem volby této knihovny byl obrovský potenciál, který právě algoritmus instinct představuje.
+Přidává totiž potenciálnímu agentovi užitečný nástroj a to paměť. Bude tak zajímavé sledovat, jak jí použije.
 
 \sekce{NPM a YARN}
 NPM i Yarn jsou kolíčkovací systémy pro javascript. Hlavní rozdíl mezi NPM a Yarn je, že Yarn stahuje balíčky paralelně. Je tedy značně rychlejší oproti NPM. 

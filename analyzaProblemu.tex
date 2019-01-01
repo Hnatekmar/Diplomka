@@ -8,7 +8,6 @@ Funkční požadavky jsou rozděleny do několika kategorii.
 Vyhodnocování agenta bude probíhat jeho nasazením v simulovaném prostředí. Fitness bude pak vyhodnocena na základě jeho akcí v prostředí.
 \begin{itemize}
 	\item Testovací prostředí musí být pro všechny agenty stejné
-	\item Fitness funkce musí být deterministická
 	\item Fitness by měla být zjistitelná kdykoliv v průběhu simulace
 	\item Simulace by měla být konfigurovatelná 
 	\item Možnost změny obtížnosti simulace pro agenta
@@ -26,15 +25,15 @@ Průběh algoritmu je třeba zobrazit.
 Práce zahrnuje vyhodnocování agenta v různých podmínkách z tohoto vychází následující požadavky:
 
 \begin{itemize}
+	\item Schopnost vyhodnocovat více konfigurací zároveň
+	\item Přehledné zobrazení vývoje různých simulací pro pozdější srovnání
 \end{itemize}
 
 \sekce{Nefunkční požadavky} 
 Spolu s funkčními požadavky jsou na řešení kladeny také požadavky nefunkční.
 \begin{itemize}
 	\item Škálovatelnost - Možnost spustit a vykreslit libovolné množství simulací
-	\item Rychlost simulace. Simulace by měla být schopná samostatně běžet alespoň rychlostí 30 snímků za vteřinu.
-	\item Robustnost - Simulace by měla být odolná neočekávaným situacím
-	\item Portabilita - bylo třeba zajistit, aby šlo kód rozběhnout v různých platformách v různých konfiguracích.
-	\item Robustnost - Simulace by si měla poradit s neočekávanými vstupy, jako je třeba \textbf{NaN}, který vychází z neuronové sítě
+	\item Rychlost simulace - Simulace by měla být schopná samostatně běžet alespoň rychlostí 30 snímků za vteřinu.
+	\item Portabilita - bylo třeba zajistit, aby šlo kód rozběhnout v různých platformách v různých konfigurací.
+	\item Robustnost - Simulace by si měla poradit s neočekávanými vstupy, jako je třeba \textbf{NaN}, který vychází z neuronové sítě.
 \end{itemize}
-

@@ -31,6 +31,36 @@
 }
 
 \begin{document}
+	
+\lstdefinelanguage{json}{
+	basicstyle=\normalfont\ttfamily,
+	numbers=left,
+	numberstyle=\scriptsize,
+	stepnumber=1,
+	numbersep=8pt,
+	showstringspaces=false,
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{background},
+	literate=
+	*{0}{{{\color{numb}0}}}{1}
+	{1}{{{\color{numb}1}}}{1}
+	{2}{{{\color{numb}2}}}{1}
+	{3}{{{\color{numb}3}}}{1}
+	{4}{{{\color{numb}4}}}{1}
+	{5}{{{\color{numb}5}}}{1}
+	{6}{{{\color{numb}6}}}{1}
+	{7}{{{\color{numb}7}}}{1}
+	{8}{{{\color{numb}8}}}{1}
+	{9}{{{\color{numb}9}}}{1}
+	{:}{{{\color{punct}{:}}}}{1}
+	{,}{{{\color{punct}{,}}}}{1}
+	{\{}{{{\color{delim}{\{}}}}{1}
+	{\}}{{{\color{delim}{\}}}}}{1}
+	{[}{{{\color{delim}{[}}}}{1}
+	{]}{{{\color{delim}{]}}}}{1},
+}
+	
 \pagestyle{headings}
 
 \def\typprace{Diplomová}
@@ -72,31 +102,6 @@ NEAT, AI, MachineLearning, Agent, Javascript
 %\input{zaverprace.tex}
 \input{literatura.tex}
 
-\prilohy{}
-\priloha{CD se zdrojovým kódem}
-\priloha{Tabulka s naměřenými rychlostmi clusteru}
-
-\begin{table}[H]
-	\begin{tabular}{lccccc}
-		Jedinců & Cluster & Cluster-2 & Cluster-3 & Cluster-4 & Phenom II X4 965 \\
-		100     & 9.853   & 6.1684    & 3.6887    & 3.7583    & 6.5186           \\
-		200     & 13.3993 & 9.126     & 6.451     & 7.1599    & 10.9839          \\
-		300     & 15.5628 & 10.5351   & 9.08      & 10.8206   & 16.8723          \\
-		400     & 17.7699 & 13.6263   & 11.9285   & 13.0231   & 23.5019          \\
-		500     & 19.1542 & 14.303    & 15.349    & 16.3707   & 31.7831          \\
-		600     & 20.4675 & 18.8677   & 18.571    & 20.0113   & 37.3242          \\
-		700     & 23.4671 & 20.1617   & 20.9039   & 23.7305   & 40.66            \\
-		800     & 25.07   & 23.3143   & 24.9978   & 26.3178   & 44.8019          \\
-		900     & 29.3611 & 28.1234   & 26.6288   & 29.6816   & 52.8829          \\
-		1000    & 30.5498 & 28.7635   & 29.5586   & 33.5195   & 62.8967          \\
-		1100    & 32.2825 & 32.0137   & 30.7372   & 37.2753   & 65.2363          \\
-		1200    & 34.3818 & 31.8152   & 34.0371   & 42.1325   & 72.2926          \\
-		1300    & 37.3422 & 35.8219   & 37.4416   & 40.3347   & 75.2937          \\
-		1400    & 38.4452 & 41.3896   & 38.6274   & 41.3493   & 81.1193          \\
-		1500    & 40.0487 & 43.225    & 43.4606   & 43.9233   & 81.3101         
-	\end{tabular}
-	\label{tbl:benchmark}
-\end{table}
 
 \end{document}
 
