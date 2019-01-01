@@ -3,14 +3,14 @@
 \input{navrhReseni.tex}
 
 \kapitola{Implementace}
-Vlastní práce se skládá ze dvou částí. Klientská část která slouží k~vizualizaci algoritmu a zobrazení výsledků ze serverové části. Serverová část pro maximální urychlení simulace. 
+Vlastní práce se skládá ze dvou částí. Klientská část, která slouží k~vizualizaci algoritmu a zobrazení výsledků ze serverové části. Serverová část pro maximální urychlení simulace. 
 
 \sekce{Simulace}
 Simulace je realizovaná jako knihovna pro Node.js, lze jí tedy použít jak u klientské částí, tak u serverové části. Poskytuje kompletní fyzikální simulaci agenta, prostředí ve kterém se pohybuje, jeho ovládání a výpočet fitness funkce. Součástí simulačního prostředí je také kód pro její vizualizaci.
 
 Rychlost byla zajištěna implementací profilovacího programu (\textbf{benchmark.js} ve složce simulation), který spouští simulaci na předem připravené populaci jedinců. Výstupem je pak doba, za jakou jí vyhodnotil na jednom jádře procesoru. Tento údaj byl pak používán při implementaci simulace pro orientační představu, jak moc případné změny v kódu ovlivňují rychlost samotné simulace. Dále byla simulace podrobena občasnému profilování v klientské částí pomocí vývojářských nástrojů prohlížeče chrome, na kterém simulace jede nejlépe.
 
-Nenáročnost, která souvisí s rychlostí pak byla zajištěna tím, že bylo v průběhu psaní kódu dbáno na to, aby v průběhu simulace nedocházelo k přebytečným alokacím, které by nejen že mohli způsobit přebytečný nárůst požadované paměti ale způsobovali by také nepředvídatelné zpomalení, které sebou přináší jazyk využívající garbage kolektor.
+Nenáročnost, která souvisí s rychlostí, pak byla zajištěna tím, že bylo v průběhu psaní kódu dbáno na to, aby v průběhu simulace nedocházelo k přebytečným alokacím, které by nejen mohly způsobit přebytečný nárůst požadované paměti, ale hrozilo by také nepředvídatelné zpomalení, které sebou přináší jazyk využívající garbage kolektor.
 
 Robustnost je podrobněji vysvětlená v sekci \ref{sec:fitness} a popis toho, jak bylo dosaženo stejných podmínek pro všechny agenty lze nalézt v návrhu \ref{sec:ECS} především v popisu RoadManageru.
 
@@ -24,11 +24,11 @@ Po několika pokusech a konzultaci s vedoucím práce byla jako metrika úspěch
 \label{sec:simulationEnvironment}
 Simulační prostředí poskytuje sadu překážek, kterou agent musí překonat. Testuje se tak, co je vlastně agent schopný se naučit. V zadání práce lze nalézt podmínku pro postupné stupňování obtížnosti, tohoto je dosaženo právě změnou simulovaného prostředí. V rámci těchto požadavků byly do road direktoru na-implementovány následující dílky.
 
-Z obrázku \ref{fig:benchmarkcluster} a tabulky \ref{tbl:benchmark} lze vyčíst, že vyhodnocení 1000 jedinců o 1000 generací trvá něco okolo 9 h čistého výpočetního času a to do měření není započítáno to, že se agenti postupně zlepšují, což koreluje s delší dobou evaluace. 
+Z obrázku \ref{fig:benchmarkcluster} a tabulky \ref{tbl:benchmark} lze vyčíst, že vyhodnocení 1000 jedinců o 1000 generacích trvá něco okolo 9 h čistého výpočetního času a to do měření není započítáno to, že se agenti postupně zlepšují, což koreluje s delší dobou evaluace. 
 
 Z tohoto důvodu bylo ověřování rozděleno do 3 částí různých obtížností. Volba obtížnosti pak probíhá volbou vhodného dílků (prostředí), který má nastavené patřičné návaznosti. Protože se dílek I objevuje v simulačním prostředí dvakrát je pro jednoduchost duplikován a jsou mu změněny patřičné navazující dílky dle obtížnosti.
 
-První konfigurace probíhá tak, že je agent postaven doprostřed silnice ve tvaru I (obrázek \ref{fig:i}). Cílem je zjistit, zda je schopný se agent naučit jezdit (nebo alespoň couvat) rovně. V této konfiguraci je jedinou návazností (z obou možných směrů) samotný dílek I. Vzniká tak nekonečný tunel, kterým může agent cestovat.
+První konfigurace probíhá tak, že je agent postaven doprostřed silnice ve tvaru I (obrázek \ref{fig:i}). Cílem je zjistit, zda agent je schopný naučit se jezdit (nebo alespoň couvat) rovně. V této konfiguraci je jedinou návazností (z obou možných směrů) samotný dílek I. Vzniká tak nekonečný tunel, kterým může agent cestovat.
 
 \begin{figure}[H]
 	\centering
@@ -37,8 +37,7 @@ První konfigurace probíhá tak, že je agent postaven doprostřed silnice ve t
 	\label{fig:i}
 \end{figure}
   
-
-Další stupeň testuje schopnosti agenta vyhýbat se překážkám. Agent je opět postaven do silnice ve tvaru I ale tentokrát jsou v ní zdi, kterým se musí vyhnout (obrázek \ref{fig:iwithobstructions}). Návaznost z obou stran je opět samotný dílek (je to obdobně jako je tomu v první konfiguraci).
+Další stupeň testuje schopnosti agenta vyhýbat se překážkám. Agent je opět postaven do silnice ve tvaru I, ale tentokrát jsou v ní zdi, kterým se musí vyhnout (obrázek \ref{fig:iwithobstructions}). Návaznost z obou stran je opět samotný dílek (je to obdobně jako je tomu v první konfiguraci).
 
 \begin{figure}[H]
 	\centering
@@ -62,7 +61,7 @@ Poslední Konfigurace se skládá z více dílků a testuje, zda a jak moc je sc
 	\caption{Silnice ve tvaru L}
 	\label{fig:l}
 \end{figure}
-V případě, že odbočí doprava je přesměrován na níže uvedený dílek ve tvaru -. Toto ověří, zda se agent dokáže přeorientovat na horizontální pohyb.
+V případě, že agent odbočí doprava je přesměrován na níže uvedený dílek ve tvaru -. Toto ověří, zda se agent dokáže přeorientovat na horizontální pohyb.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{pieces/-}
@@ -83,14 +82,11 @@ Po projetí dílku ve tvaru I je přesměrován na jeden z následujících díl
 	\label{fig:invertedupsidel}
 \end{figure}
 
-
-
 \sekce{Serverová část}
 Jak je jíž zmíněno v návrhu serverová část vyhodnocuje jednotlivé jedince distribuovaně s~pomocí fronty úkolů. Frontu poskytuje knihovna \textbf{Bull}, která používá \textbf{Redis} pro správu údajů o~jednotlivých úkolech. 
 
 Cílem byla implementace robustního systému, který v~ideálním případě rozloží výpočetní zátěž mezi jednotlivé uzly rovnoměrně. Dalším požadavkem byla možnost odpojení kdykoliv kteréhokoliv z počítačů, jelikož ne všechny počítače je možné mít puštěné po celou dobu vyhodnocování.
-
-Samotná implementace je dle návrhu rozdělena do dvou částí a to klientské části (implementace ve složce client), která obaluje algoritmus NEAT a posílá genomy na serverovou částí. Serverová část obaluje simulaci a vyhodnocuje genomy na základě jejích konfigurace.
+Samotná implementace je dle návrhu rozdělena do dvou částí a to klientské části (implementace ve složce client), která obaluje algoritmus NEAT a posílá genomy na serverovou část. Serverová část obaluje simulaci a vyhodnocuje genomy na základě jejích konfigurace.
 
 \podsekce{Konfigurovatelnost}
 Experimenty, které bude klientská část provádět jsou nastavitelné s pomocí dvou konfiguračních souborů.
@@ -153,7 +149,7 @@ Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci
 
 Pro ověření rychlosti bylo provedeno měření výkonu clusteru a jeho porovnání s nejvýkonnější dostupnou sestavou. Měření bylo provedeno nad náhodně vygenerovanými populacemi. Jelikož se simulace může ukončit předčasně (například při kolizi s překážkou), byla simulace provedena pro každou velikost $10\times$ a výsledek byl zprůměrován. Naměřená data lze nalézt v tabulce \ref{tbl:benchmark} ze které vychází obrázek \ref{fig:benchmarkcluster} na kterém lze vidět výsledky tohoto srovnání. 
 
-Porovnání rychlosti clusteru s nejvýkonnějším dostupným počítačem ukazuje, že cluster je ve většině případů skoro stejně nebo  výrazně rychlejší než samostatný výpočet. Jediné dvě naměřené instance, kde toto neplatí je u populací o velikosti 100 a 200, kde si cluster vede mírně hůře, než nejvýkonnější dostupná sestava. 
+Porovnání rychlosti clusteru s nejvýkonnějším dostupným počítačem ukazuje, že cluster je ve většině případů skoro stejně nebo  výrazně rychlejší než samostatný výpočet. Jediné dvě naměřené instance, kde toto neplatí, je u populací o velikosti 100 a 200, kde si cluster vede mírně hůře, než nejvýkonnější dostupná sestava. 
 Toto lze vysvětlit jak přítomností méně výkonného hardwaru v clusteru (především se jedná o S5P6818) na které se musí u menších populací čekat. Pro ověření této teorie byl cluster spuštěn v dalších konfiguracích, kde byly postupně odebírány jednotlivé počítače a měření bylo opakováno. 
 
 \begin{itemize}
@@ -238,7 +234,7 @@ Tento přístup má několik výhod a to:
 \label{sec:ImplementationTroubles}
 Při implementaci serverové části a přehrávače byl objeven zásadní problém. Při vložení výsledného genomu do přehrávače se v některých případech rozcházela výsledná fitness agenta s fitness, která byla naměřena v přehrávači. 
 
-Tuto odchylku lze vysvětlit nevyhnutelnou přítomností výpočtů pracující, které potřebují čísla s plovoucí desetinnou čárkou, kterou vyžaduje hlavně použitý fyzikální engine a výpočty, které probíhají při vyhodnocování výstupů z neuronové sítě a to z několika důvodů:
+Tuto odchylku lze vysvětlit nevyhnutelnou přítomností výpočtů, které potřebují čísla s plovoucí desetinnou čárkou, kterou vyžaduje hlavně použitý fyzikální engine a výpočty, které probíhají při vyhodnocování výstupů z neuronové sítě a to z několika důvodů:
 
 Ačkoliv je standard IEEE-754 deterministický nezaručuje stejný výsledek na rozdílném HW a už vůbec ne na HW v rozdílných architekturách. Problém může například nastat u volby zaokrouhlovacího módu, kterých standard IEEE-754 definuje několik a které mírně ovlivňují výslednou hodnotu.
 
@@ -282,7 +278,7 @@ Poslední tlačítko slouží k urychlení simulace. Způsobí to, že se simula
 \end{figure}
 
 \podsekce{Přehrávač}
-Přehrávač genomů, také poskytuje jednoduché rozhraní skládající se z textové částí pro vložení genomu (výstup ze serverové části lze zobrazit například v grafaně), graf pro zobrazení průběhu fitness agenta a vykreslovací část, která zobrazuje, jak si agent vedl. Pro menší výpočetní nároky je do grafu zapisována fitness každou vteřinu.  Výsledná komponenta se nachází na obrázku \ref{fig:player}.\\
+Přehrávač genomů také poskytuje jednoduché rozhraní skládající se z textové částí pro vložení genomu (výstup ze serverové části lze zobrazit například v grafaně), graf pro zobrazení průběhu fitness agenta a vykreslovací část, která zobrazuje, jak si agent vedl. Pro menší výpočetní nároky je do grafu zapisována fitness každou vteřinu.  Výsledná komponenta se nachází na obrázku \ref{fig:player}.\\
 Díky problémům s implementací naznačených v sekci \ref{sec:ImplementationTroubles} bylo třeba vymyslet alternativní způsob přehrávání. Nakonec byl návrh pozměněn tak, že si serverová část ukládá pro každý snímek pozice, úhel, aktuální fitness a dílek na kterém se agent nachází, kterou pak přehrávač interpretuje oproti klasickému přístupu, který by zahrnoval opětovnou simulaci agenta se stejným genomem. Tímto je dosaženo toho, že si lze zobrazit průběh agenta tak, jak tomu bylo při jeho vyhodnocování.
 
 \begin{figure}[H]
@@ -294,7 +290,7 @@ Díky problémům s implementací naznačených v sekci \ref{sec:ImplementationT
 
 
 \sekce{Nasazení serverové části}
-Jak jíž bylo zmíněno serverová část je obalená do docker kontejneru jednak pro snadné nasazení a jednak z důvodu snadného nasazení do swarmu, tak pro jednotné prostředí.
+Jak jíž bylo zmíněno serverová část je obalená do docker kontejneru jednak pro snadné nasazení a jednak z důvodu zahrnutí do swarmu.	
 
 Nejdříve je potřeba vytvořit swarm. Tohoto lze dosáhnout zadáním příkazu \emph{docker swarm init} na počítači, který chceme používat jako swarm manager (lze také použít docker-machines a výpočty dělat na jednom počítači). Po jeho zadání se vytvoří docker swarm a zároveň je vypsán příkaz, který lze použít pro připojení dalších uzlů do swarmu (lze ho zobrazit i později s použitím příkazu \emph{docker swarm join-token worker}).
 
@@ -313,40 +309,40 @@ Nasazení probíhá nejdříve spuštěním příkazu \emph{docker-compose up} v
 		\item Adminer (port 8080) - pro správu databáze
 	\end{itemize}
 \end{itemize}
-Po úspěšném provedení tohoto příkazu je třeba spustit zpracovatele na jednotlivých uzlech swarmu. Lze toho dosáhnout přechodem do složky \textbf{Server} a spuštěním příkazu \emph{docker deploy Server --compose-file docker-compose.yml}. Protože je tento příkaz v době psaní práce označená jako experimentální je třeba ho povolit. Tohoto je dosaženo modifikací souboru \textbf{daemon.json} (na linuxu je ho nutné vytvořit v \emph{/etc/docker/daemon.json}) přidáním řádku \emph{"experimental": true}.
+Po úspěšném provedení tohoto příkazu je třeba spustit zpracovatele na jednotlivých uzlech swarmu. Lze toho dosáhnout přechodem do složky \textbf{Server} a spuštěním příkazu \emph{docker deploy Server --compose-file docker-compose.yml}. Protože je tento příkaz v době psaní práce označen jako experimentální je třeba ho povolit. Tohoto je dosaženo modifikací souboru \textbf{daemon.json} (na linuxu je ho nutné vytvořit v \emph{/etc/docker/daemon.json}) přidáním řádku \emph{"experimental": true}.
 
 Po tomto kroku je třeba ještě nastavit správnou ip adresu a port \textbf{Redis} serveru (ip adresa swarm mangeru) v souboru \emph{config.env}.
 
 Po provedení těchto kroků je na každém uzlu spuštěn vyhodnocovatel, který začne automaticky stahovat a vyhodnocovat jednotlivé jedince. V případě vypnutí/pádu uzlu je úkol po čase vrácen do fronty a vyhodnocení probíhá na jiném uzlu.
 
-Pokud se uživatel rozhodne používat portainer musí se z bezpečnostních důvodů přihlásit do 5 minut od jeho spuštění.
+Pokud se uživatel rozhodne používat portainer, musí se z bezpečnostních důvodů přihlásit do 5 minut od jeho spuštění.
 
 \sekce{Nasazení uživatelské části}
 Uživatelskou část lze jednoduše nasadit s pomocí manageru závislostí \emph{npm}. Stačí ve složce s implementací spustit příkaz \emph{npm run dev} a pak si v prohlížeči otevřít adresu \emph{localhost:8080}. V případě přehrávače je to \emph{localhost:8080/\#/player}
 
 \kapitola{Experimenty}
-Po návrhu simulačního prostředí byl agent vyzkoušen v~několika situacích se stupňující se obtížností. Každá simulace probíhala s~100 jedinci do té doby než se fitness funkce u všech stabilizovala po dostatečně dlouhou dobu. Toto trvalo 400 generací a přibližně 20 hodin čistého výpočetního času. Doba vyhodnocování byla nastavena na 60 vteřin. Ačkoliv je pravděpodobné, že by delší doba evaluace by pravděpodobně vyústila v lepší výsledky její výpočet v různých konfiguracích se ukázal jako příliš časově náročný navíc empirické pozorování ukázalo, že tato konfigurace poskytuje dostatečně dobré výsledky za snesitelný čas. 
+Po návrhu simulačního prostředí byl agent vyzkoušen v~několika situacích se stupňující se obtížností. Každá simulace probíhala se~100 jedinci do té doby než se fitness funkce u všech stabilizovala po dostatečně dlouhou dobu. Toto trvalo 400 generací a přibližně 20 hodin čistého výpočetního času. Doba vyhodnocování byla nastavena na 120 vteřin. Ačkoliv je pravděpodobné, že by delší doba evaluace by pravděpodobně vyústila v lepší výsledky její výpočet v různých konfiguracích se ukázal jako příliš časově náročný, navíc empirické pozorování ukázalo, že tato konfigurace poskytuje dostatečně dobré výsledky za snesitelný čas. 
 
 S ohledem na časovou náročnost výpočtů byly zkoušeny jen konfigurace popsané v návrhu (sekce \ref{sec:extensions}) na implementovaných dílcích k náhledu v sekci \ref{sec:simulationEnvironment}.
 
-V rámci časové úspory je každý stupeň testován jen 2x a to bez jakýchkoliv rozšíření (vstupů/výstupů) a poté se všemi dostupnými. Cílem je zjistit, jak moc tato rozšíření ovlivňují výsledného agenta.
+V rámci časové úspory je každý stupeň testován jen 2x. První pokus probíhá jakýchkoliv rozšíření (vstupů/výstupů) a poté zopakován se všemi dostupnými. Cílem je zjistit, jak moc tato rozšíření ovlivňují výsledného agenta.
 
 \sekce{První stupeň - silnice ve tvaru I}
-Silnice ve tvaru I byla v obou případech agentem úspěšně překonána. Je zajímavé, že ačkoliv byl výsledný pohyb agenta stejný (jízda dozadu relativně rovně) jsou zde odlišnosti ve výsledných neuronových sítí agenta v obou konfiguracích.
+Silnice ve tvaru I byla v obou případech agentem úspěšně překonána. Je zajímavé, že ačkoliv byl výsledný pohyb agenta stejný (relativně rovná jízda dozadu) jsou zde odlišnosti ve výsledných neuronových sítí agenta v obou konfiguracích.
 \podsekce{Konfigurace bez rozšíření}
 Konfigurace bez rozšíření vygenerovala agenta, který jede dozadu a reguluje směr jízdy mírným kývavým pohybem. 
 Z průběhu fitness funkce je vidět, že agent dosáhl dobrých výsledků jíž v druhé generaci. Další generace přibývaly výsledné neuronové sítě na komplexnosti bez větší změny v chování agenta a fitness.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\linewidth]{solutions/Ibasic/basicGraph}
-	\caption{Průběh evaluace}
+	\caption{Průběh evaluace - I bez rozšíření}
 	\label{fig:basicgraph}
 \end{figure}
 Na výsledné neuronové síti je zajímavá zpětná vazba u prostředního oranžového neuronu s aktivační funkcí tanh, která se pravděpodobně stará o onen kývavý pohyb.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{solutions/Ibasic/basic}
-	\caption{Výsledná neuronová síť}
+	\caption{Neuronová síť - I bez rozšíření}
 	\label{fig:basic}
 \end{figure}
 
@@ -355,19 +351,19 @@ Konfigurace s rozšířením byla i díky možnosti držení volantu ve fixní p
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\linewidth]{solutions/Ibasic/advancedGraph}
-	\caption{Průběh evaluace}
+	\caption{Průběh evaluace - I s rozšířeními}
 	\label{fig:IbasicAdvancedGraph}
 \end{figure}
-Ačkoliv ve finální verzi přidala neurony do skryté vrstvy. Není jisté, zda jsou vůbec k něčemu dobré, protože pro řešení této úlohy stačí v dané konfiguraci pouze přidat plyn dozadu/dopředu a držet volant.
+Ve finální verzi přidala neurony do skryté vrstvy. Není jisté, zda jsou vůbec k něčemu dobré, protože pro řešení této úlohy stačí v dané konfiguraci pouze přidat plyn dozadu/dopředu a držet volant.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{solutions/Ibasic/advanced}
-	\caption{Výsledná neuronová síť}
+	\caption{Neuronová síť - I s překážkami s rozšířeními}
 	\label{fig:basicAdvanced}
 \end{figure}
 
 \sekce{Druhý stupeň - silnice ve tvaru I s překážkami}
-U druhého stupně obtížnosti už dělal agentovi větší problém a nepodařilo se za daný časový limit vyvinout agenta, který by ho překonal bez kolize. V tomto stupni je také vidět velký rozdíl mezi konfigurací s rozšířeními a bez rozšířeními. Konfigurace s rozšířeními si totiž vedla značně lépe.
+Druhý stupeň obtížnosti už dělal agentovi větší problém a nepodařilo se za daný časový limit vyvinout agenta, který by ho překonal bez kolize. V tomto stupni je také vidět velký rozdíl mezi konfigurací s rozšířeními a bez rozšíření. Konfigurace s rozšířeními si totiž vedla značně lépe.
 \podsekce{Konfigurace bez rozšíření}
 Na první obrazovce si agent vedl docela dobře. Překážky obešel obdobným kývavým pohybem, jako je tomu u první verze, nicméně po přechodu na další obrazovku neuspěl a narazil do zdi.
 \begin{figure}[H]
@@ -376,7 +372,7 @@ Na první obrazovce si agent vedl docela dobře. Překážky obešel obdobným k
 	\caption{Graf průběhu fitness - bez překážek}
 	\label{fig:obstructionsBasicgraph}
 \end{figure}
-Na výsledné neuronové síti je zajímavá přítomnost neuronu s aktivační funkcí absolutní hodnota, který mohl hrát roli právě ve vyhýbání se překážkám. Mohlo by totiž sloužit jako přepínač pro zatáčení.
+Na výsledné neuronové síti je zajímavá přítomnost neuronu s aktivační funkcí absolutní hodnota, který by mohl hrát roli právě ve vyhýbání se překážkám. Mohl by totiž sloužit jako přepínač pro zatáčení.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{solutions/IWithObstructions/basic}
@@ -391,7 +387,7 @@ Konfigurace s rozšířením byla schopná překonat větší část druhé obra
 	\caption{Graf průběhu fitness funkce - s překážkami}
 	\label{fig:advancedgraph}
 \end{figure}
-Na výsledné neuronové síti je vidět, že je mnohem komplexnější než kterákoliv předchozí. V této fázi začíná je opravdu těžké určit účel jednotlivých neuronů. Zajímavé je, že obsahuje jak neuron s aktivační funkcí absolutní hodnot, jako je tomu v konfiguraci bez rozšíření, tak neuron s aktivační funkcí sigmoid, která může sloužit k dorovnání směru například na základě vstupní rychlosti.
+Na výsledné neuronové síti je vidět, že je mnohem komplexnější než kterákoliv předchozí. Je opravdu těžké určit účel jednotlivých neuronů. Zajímavé je, že obsahuje jak neuron s aktivační funkcí absolutní hodnot, jako je tomu v konfiguraci bez rozšíření, tak neuron s aktivační funkcí sigmoid, která může sloužit k dorovnání směru například na základě vstupní rychlosti.
 
 \begin{figure}[H]
 	\centering
@@ -410,47 +406,47 @@ V základní konfiguraci agent dorazil do vrchní části mapy (dílek ve tvaru 
 	\caption{}
 	\label{fig:basicgraph}
 \end{figure}
-Co je překvapující je, že toto dokázal bez jakýchkoliv přídavných neuronů.
+Překvapující je, že toto dokázal bez jakýchkoliv přídavných neuronů.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\linewidth]{solutions/Iadvanced/basic}
-	\caption{}
+	\caption{Neuronová síť - Okruh bez rozšíření}
 	\label{fig:basic}
 \end{figure}
 
-\podsekce{Konfigurace s rozšíření}
+\podsekce{Konfigurace s rozšířením}
 Agent si nejprve nacouval do spodní části obrazovky a pak se pokusil pod úhlem překonat vrchní část mapy. Dostal se trochu dál než agent bez rozšíření ale také kolidoval s překážkou.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{solutions/Iadvanced/advancedGraph}
-	\caption{}
+	\caption{Průběh fitness funkce - Okruh bez rozšíření}
 	\label{fig:advancedgraph}
 \end{figure}
 Ve výsledné neuronové sítí se nachází neuron s aktivační funkcí SELU. SELU je variace RELU, která by v této konfiguraci mohla sloužit jako implementace výše popsaného manévru.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{solutions/Iadvanced/advanced}
-	\caption{}
+	\caption{Neuronová síť - Okruh s rozšířením}
 	\label{fig:advanced}
 \end{figure}
 
 \sekce{Zhodnocení}
-Ačkoliv se výsledným agentům podařilo zdolat pouze první překážku je na provedených experimentech a jejích výsledcích vidět, že lze neuroevoluci použít i pro obtížnější terén. Jediným limitem je časová, případně HW náročnost experimentu.
+Ačkoliv se výsledným agentům podařilo zdolat pouze první překážku, je na provedených experimentech a jejích výsledcích vidět, že lze neuroevoluci použít i pro obtížnější terén. Jediným limitem je časová, případně HW náročnost experimentu.
 
 \kapitola{Možná vylepšení}
-Při implementaci aktuálního řešení bylo zjištěno, že řešený problém je mnohem výpočetně náročnější než se při původním návrhu čekalo. Toto vedlo k navrhu distribuovaného řešení, které ovšem se sebou nese problémy v rozdílech u výpočtů s desetinou čárkou.
+Při implementaci aktuálního řešení bylo zjištěno, že řešený problém je mnohem výpočetně náročnější než se při původním návrhu čekalo. Toto vedlo k návrhu distribuovaného řešení, které ovšem sebou nese problémy v rozdílech u výpočtů s desetinou čárkou.
 
-Z tohoto důvodu by experimentu prospělo použití homogenního clusteru. Předešlo by se problémům, který se sebou přináší gridový cluster.
+Z tohoto důvodu by experimentu prospělo použití homogenního clusteru. Předešlo by se problémům, které sebou přináší gridový cluster.
 
-Další možným rozšířením by bylo spuštění řešení na clusteru s větším výpočetním výkonem. Toto by umožnilo vyzkoušet více experimentů a konfigurací, což by vedlo k lepší představě o  možnostech samotného algoritmu. Navíc by to umožnilo plně využít potenciál, který nabízí oddělený simulační kód (simulace s dynamickými prvky, ...). 
+Dalším možným rozšířením by bylo spuštění řešení na clusteru s větším výpočetním výkonem. Toto by umožnilo vyzkoušet více experimentů a konfigurací, což by vedlo k lepší představě o  možnostech samotného algoritmu. Navíc by to umožnilo plně využít potenciál, který nabízí oddělený simulační kód (simulace s dynamickými prvky, ...). 
 
 Poslední možností by byla reimplementace existujícího řešení v některém ze systémových jazyků (\textbf{C}, \textbf{C++}, \textbf{Rust}). Došlo by tak k určitému zrychlení výpočtů a bylo by tedy možné vyhodnotit více jedinců na jednom počítači než doposud. 
 
 Grafickou část aplikace by bylo možné rozšířit o různá nastavení, která jsou v tuto chvíli dostupná jen ve zdrojovém kódu aplikace.
 
 \kapitola{Závěr}
-Tato práce se zabývala návrhem, tvorbou prostředí pro simulovaného agenta a jeho řízení s pomocí upraveného algoritmu neuroevoluce. Následoval návrh, provedení a zhodnocení experimentů, které byly navrženy, tak aby testovaly možnosti agenta.\\
-Z provedených testů vyplývá obrovský potenciál metody neuroevoluce, která demonstrovala svojí schopnost řešení komplexních problémů, jako je řízení automobilu a to za použití neuronových sítí jejíchž složitost je oproti konkurenčním řešením, jako je například zpětnovazební učení velmi malá.\\
+Tato práce se zabývala návrhem a  tvorbou prostředí pro simulovaného agenta i jeho řízení pomocí upraveného algoritmu neuroevoluce. Následoval návrh, provedení a zhodnocení experimentů, které byly navrženy tak, aby testovaly možnosti agenta.\\
+Z provedených testů vyplývá obrovský potenciál metody neuroevoluce, která demonstrovala svojí schopnost řešení komplexních problémů, jako je řízení automobilu a to za použití neuronových sítí.  Jejich složitost je oproti konkurenčním řešením, jako je například zpětnovazební učení velmi malá.\\
 Nevýhodou této metody je ovšem její velká časová náročnost, která limitovala možnosti této práce.\\
-I přes výše zmíněná omezení se v práci podařilo s pomocí výpočetního clusteru vytvořit testovací systém, který je nejen robustní ale i snadno škálovatelný. S použitím většího výpočetního výkonu by tak bylo možné dosáhnout mnohem lepších výsledků a podívat se na limity zkoumané metody do větší hloubky.
+I přes výše zmíněná omezení se v práci podařilo pomocí výpočetního clusteru vytvořit testovací systém, který je nejen robustní ale i snadno škálovatelný. Použitím většího výpočetního výkonu by tak bylo možné dosáhnout mnohem lepších výsledků a podívat se na limity zkoumané metody do větší hloubky.
