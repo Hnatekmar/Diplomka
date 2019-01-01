@@ -325,51 +325,118 @@ Pokud se uživatel rozhodne používat portainer musí se z bezpečnostních dů
 Uživatelskou část lze jednoduše nasadit s pomocí manageru závislostí \emph{npm}. Stačí ve složce s implementací spustit příkaz \emph{npm run dev} a pak si v prohlížeči otevřít adresu \emph{localhost:8080}. V případě přehrávače je to \emph{localhost:8080/\#/player}
 
 \kapitola{Experimenty}
-Po návrhu simulačního prostředí byl agent vyzkoušen v~několika situacích se stupňující se obtížností. Každá simulace probíhala s~100 jedinci po 500 generací. Doba vyhodnocování byla nastavena na 60 vteřin. Ačkoliv je pravděpodobné, že by delší doba evaluace by pravděpodobně vyústila v lepší výsledky její výpočet v různých konfiguracích se ukázal jako příliš časově náročný navíc empirické pozorování ukázalo, že tato konfigurace poskytuje dostatečně dobré výsledky za snesitelný čas. 
+Po návrhu simulačního prostředí byl agent vyzkoušen v~několika situacích se stupňující se obtížností. Každá simulace probíhala s~100 jedinci do té doby než se fitness funkce u všech stabilizovala po dostatečně dlouhou dobu. Toto trvalo 400 generací a přibližně 20 hodin čistého výpočetního času. Doba vyhodnocování byla nastavena na 60 vteřin. Ačkoliv je pravděpodobné, že by delší doba evaluace by pravděpodobně vyústila v lepší výsledky její výpočet v různých konfiguracích se ukázal jako příliš časově náročný navíc empirické pozorování ukázalo, že tato konfigurace poskytuje dostatečně dobré výsledky za snesitelný čas. 
 
 S ohledem na časovou náročnost výpočtů byly zkoušeny jen konfigurace popsané v návrhu (sekce \ref{sec:extensions}) na implementovaných dílcích k náhledu v sekci \ref{sec:simulationEnvironment}.
 
 V rámci časové úspory je každý stupeň testován jen 2x a to bez jakýchkoliv rozšíření (vstupů/výstupů) a poté se všemi dostupnými. Cílem je zjistit, jak moc tato rozšíření ovlivňují výsledného agenta.
 
 \sekce{První stupeň - silnice ve tvaru I}
-%Silnice ve tvaru I byla v obou případech agentem úspěšně překonána a to již za 2 generace. Je zajímavé, že ačkoliv byl výsledný pohyb agenta stejný (jízda dozadu relativně rovně) jsou zde odlišnosti ve výsledných neuronových sítí agenta v obou konfiguracích.
+Silnice ve tvaru I byla v obou případech agentem úspěšně překonána. Je zajímavé, že ačkoliv byl výsledný pohyb agenta stejný (jízda dozadu relativně rovně) jsou zde odlišnosti ve výsledných neuronových sítí agenta v obou konfiguracích.
 \podsekce{Konfigurace bez rozšíření}
-%Konfigurace bez rozšíření dosáhla rovné jízdy (kývavým pohybem) již v druhé generaci a postupně jen zlepšovala míra oscilace.
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=1.0\linewidth]{solutions/Ibasic/basicGraph}
-%	\caption{Průběh evaluace}
-%	\label{fig:basicgraph}
-%\end{figure}
-%Při pohledu na výslednou neuronovou síť, která 
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=0.6\linewidth]{solutions/Ibasic/basic}
-%	\caption{Výsledná neuronová síť}
-%	\label{fig:basic}
-%\end{figure}
-
+Konfigurace bez rozšíření vygenerovala agenta, který jede dozadu a reguluje směr jízdy mírným kývavým pohybem. 
+Z průběhu fitness funkce je vidět, že agent dosáhl dobrých výsledků jíž v druhé generaci. Další generace přibývaly výsledné neuronové sítě na komplexnosti bez větší změny v chování agenta a fitness.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{solutions/Ibasic/basicGraph}
+	\caption{Průběh evaluace}
+	\label{fig:basicgraph}
+\end{figure}
+Na výsledné neuronové síti je zajímavá zpětná vazba u prostředního oranžového neuronu s aktivační funkcí tanh, která se pravděpodobně stará o onen kývavý pohyb.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{solutions/Ibasic/basic}
+	\caption{Výsledná neuronová síť}
+	\label{fig:basic}
+\end{figure}
 
 \podsekce{Konfigurace s rozšířeními}
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=1.0\linewidth]{solutions/Ibasic/advancedGraph}
-%	\caption{Průběh evaluace}
-%	\label{fig:basicgraph}
-%\end{figure}
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=0.6\linewidth]{solutions/Ibasic/advanced}
-%	\caption{Výsledná neuronová síť}
-%	\label{fig:basic}
-%\end{figure}
+Konfigurace s rozšířením byla i díky možnosti držení volantu ve fixní poloze schopná okamžitě najít možné řešení.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{solutions/Ibasic/advancedGraph}
+	\caption{Průběh evaluace}
+	\label{fig:IbasicAdvancedGraph}
+\end{figure}
+Ačkoliv ve finální verzi přidala neurony do skryté vrstvy. Není jisté, zda jsou vůbec k něčemu dobré, protože pro řešení této úlohy stačí v dané konfiguraci pouze přidat plyn dozadu/dopředu a držet volant.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{solutions/Ibasic/advanced}
+	\caption{Výsledná neuronová síť}
+	\label{fig:basicAdvanced}
+\end{figure}
+
 \sekce{Druhý stupeň - silnice ve tvaru I s překážkami}
+U druhého stupně obtížnosti už dělal agentovi větší problém a nepodařilo se za daný časový limit vyvinout agenta, který by ho překonal bez kolize. V tomto stupni je také vidět velký rozdíl mezi konfigurací s rozšířeními a bez rozšířeními. Konfigurace s rozšířeními si totiž vedla značně lépe.
 \podsekce{Konfigurace bez rozšíření}
+Na první obrazovce si agent vedl docela dobře. Překážky obešel obdobným kývavým pohybem, jako je tomu u první verze, nicméně po přechodu na další obrazovku neuspěl a narazil do zdi.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{solutions/IWithObstructions/basicGraph}
+	\caption{Graf průběhu fitness - bez překážek}
+	\label{fig:obstructionsBasicgraph}
+\end{figure}
+Na výsledné neuronové síti je zajímavá přítomnost neuronu s aktivační funkcí absolutní hodnota, který mohl hrát roli právě ve vyhýbání se překážkám. Mohlo by totiž sloužit jako přepínač pro zatáčení.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{solutions/IWithObstructions/basic}
+	\caption{Neuronová síť - silnice ve tvaru I s překážkami bez rozšíření}
+	\label{fig:basic}
+\end{figure}
 \podsekce{Konfigurace s rozšířeními}
+Konfigurace s rozšířením byla schopná překonat větší část druhé obrazovky a dosáhnout přibližně dvojnásobku fitness konfigurace bez rozšíření.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{solutions/IWithObstructions/advancedGraph}
+	\caption{Graf průběhu fitness funkce - s překážkami}
+	\label{fig:advancedgraph}
+\end{figure}
+Na výsledné neuronové síti je vidět, že je mnohem komplexnější než kterákoliv předchozí. V této fázi začíná je opravdu těžké určit účel jednotlivých neuronů. Zajímavé je, že obsahuje jak neuron s aktivační funkcí absolutní hodnot, jako je tomu v konfiguraci bez rozšíření, tak neuron s aktivační funkcí sigmoid, která může sloužit k dorovnání směru například na základě vstupní rychlosti.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{solutions/IWithObstructions/advanced}
+	\caption{Neuronová síť - silnice ve tvaru I s překážkami s rozšířeními}
+	\label{fig:advanced}
+\end{figure}
 
 \sekce{Třetí stupeň - Okruh}
+Stejně jako je tomu u předchozího případu se ani jedné konfiguraci nepovedlo překonat simulační prostředí bez kolize s překážkou.
 \podsekce{Konfigurace bez rozšíření}
+V základní konfiguraci agent dorazil do vrchní části mapy (dílek ve tvaru obráceného L), kde narazil při pokusu o vytočení překážky.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{solutions/Iadvanced/basicGraph}
+	\caption{}
+	\label{fig:basicgraph}
+\end{figure}
+Co je překvapující je, že toto dokázal bez jakýchkoliv přídavných neuronů.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\linewidth]{solutions/Iadvanced/basic}
+	\caption{}
+	\label{fig:basic}
+\end{figure}
+
 \podsekce{Konfigurace s rozšíření}
+Agent si nejprve nacouval do spodní části obrazovky a pak se pokusil pod úhlem překonat vrchní část mapy. Dostal se trochu dál než agent bez rozšíření ale také kolidoval s překážkou.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{solutions/Iadvanced/advancedGraph}
+	\caption{}
+	\label{fig:advancedgraph}
+\end{figure}
+Ve výsledné neuronové sítí se nachází neuron s aktivační funkcí SELU. SELU je variace RELU, která by v této konfiguraci mohla sloužit jako implementace výše popsaného manévru.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{solutions/Iadvanced/advanced}
+	\caption{}
+	\label{fig:advanced}
+\end{figure}
+
+\sekce{Zhodnocení}
+Ačkoliv se výsledným agentům podařilo zdolat pouze první překážku je na provedených experimentech a jejích výsledcích vidět, že lze neuroevoluci použít i pro obtížnější terén. Jediným limitem je časová, případně HW náročnost experimentu.
 
 \kapitola{Možná vylepšení}
 Při implementaci aktuálního řešení bylo zjištěno, že řešený problém je mnohem výpočetně náročnější než se při původním návrhu čekalo. Toto vedlo k navrhu distribuovaného řešení, které ovšem se sebou nese problémy v rozdílech u výpočtů s desetinou čárkou.
@@ -383,4 +450,7 @@ Poslední možností by byla reimplementace existujícího řešení v některé
 Grafickou část aplikace by bylo možné rozšířit o různá nastavení, která jsou v tuto chvíli dostupná jen ve zdrojovém kódu aplikace.
 
 \kapitola{Závěr}
-Tato práce se zabývala návrhem, tvorbou prostředí pro simulovaného agenta a jeho řízení s pomocí upraveného algoritmu neuroevoluce. Následoval návrh, provedení a zhodnocení experimentů, které byly navrženy, tak aby testovaly možnosti agenta.
+Tato práce se zabývala návrhem, tvorbou prostředí pro simulovaného agenta a jeho řízení s pomocí upraveného algoritmu neuroevoluce. Následoval návrh, provedení a zhodnocení experimentů, které byly navrženy, tak aby testovaly možnosti agenta.\\
+Z provedených testů vyplývá obrovský potenciál metody neuroevoluce, která demonstrovala svojí schopnost řešení komplexních problémů, jako je řízení automobilu a to za použití neuronových sítí jejíchž složitost je oproti konkurenčním řešením, jako je například zpětnovazební učení velmi malá.\\
+Nevýhodou této metody je ovšem její velká časová náročnost, která limitovala možnosti této práce.\\
+I přes výše zmíněná omezení se v práci podařilo s pomocí výpočetního clusteru vytvořit testovací systém, který je nejen robustní ale i snadno škálovatelný. S použitím většího výpočetního výkonu by tak bylo možné dosáhnout mnohem lepších výsledků a podívat se na limity zkoumané metody do větší hloubky.
