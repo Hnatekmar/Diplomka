@@ -16,9 +16,10 @@ Z obrázku \ref{fig:dependency} je zřejmé, že simulační kód spojuje obě �
 Na základě těchto požadavků a podmínek, které jsou stanoveny v předchozí kapitole byl vytvořen následující návrh:
 
 \label{sec:ECS}
-Simulace obsahuje vlastní engine, který je navržen v duchu ECS (\textbf{Entity component system}), podrobný popis lze nalézt v sekci \ref{sec:ces}. Důvodů k implementaci vlastního enginu oproti použití existujících řešení je několik. Hlavním je nutnost separace grafické reprezentace od 
+Simulace obsahuje vlastní engine, který je navržen v duchu ECS (\textbf{Entity component system}), podrobný popis lze nalézt v sekci \ref{sec:ces}. 
+Při návrhu simulace bylo rozhodnuto o implementaci vlastního enginu oproti použití existujících řešení je několik. Hlavním důvodem byl požadavek na seperaci grafické části simulace od části výpočetní, který vznikl z potřeby spouštění aplikace na platformě Node.js kvůli serverové části.
 
-Není tedy žádným překvapením, že se všechny komponenty nalezené v simulaci dají rozložit na systémy, komponenty a entity. Pro lepší představu o implementaci je níže uveden přehled všech systému, entit a komponent použitých v simulaci.
+Z použití ECS vyplývá, že se všechny komponenty nalezené v simulaci dají rozložit na systémy, komponenty a entity. Pro lepší představu o implementaci je níže uveden přehled všech systému, entit a komponent použitých v simulaci.
 
 \podsekce{Diagram tříd}
 Níže popsaný návrh doplňuje diagram tříd, který zobrazuje jejích návaznost a zároveň také do návrhu zavádí třídu \textbf{Simulation}, která celou simulaci schovává za jednoduché rozhraní a umožňuje snadnou integraci simulace do různých aplikací.
@@ -31,7 +32,7 @@ Níže popsaný návrh doplňuje diagram tříd, který zobrazuje jejích návaz
 \end{figure}
 
 \podsekce{Entity}
-Simulace obsahuje následující entity:
+Simulace obsahuje následující entity (prvky simulace):
 
 \textbf{PhysicsGroup} Seskupuje fyzikální entity do jedné pro snadnou manipulaci s nimi.
 
@@ -152,7 +153,7 @@ V případě této práce je agentem auto, které je vybaveno vzdálenostními s
 	\item Rychlostní stupně
 	\begin{enumerate}
 		\item $z_3$ - zpátečka
-		\item $z_4$ - rychlosti dopředu
+		\item $z_4$ - rychlost
 	\end{enumerate}
 \end{enumerate}
 
@@ -207,7 +208,8 @@ Modifikovat lze také výstupy neuronové sítě toto rozšíří nebo omezí mo
 \end{itemize}
 
 \podsekce{Fitness funkce}
-Fitness funkce je stejně jako definice prostředí a agenta nesmírně důležitá. Nicméně nelze jí předem navrhnout
+I přesto, že návrh fitness funkce spíše iterativní proces, který lze provést až po implementaci simulačního prostředí, lze si několik pravidel odvodit jíž v návrhu. 
+
 %- na vstup site privest i aktualni rychlost a natoceni volantu (to co
 %ridic prece v kabine vidi, kdyz auto ridi)
 %- mozna bych zrusil jednotlive rychlostni stupne, nechal bych jen

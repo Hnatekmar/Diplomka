@@ -29,7 +29,7 @@ Dále se zavazuji, že před sepsáním licenční smlouvy o využití díla jin
 není v rozporu s oprávněnými zájmy univerzity, a zavazuji se uhradit případný příspěvek na úhradu nákladů spojených se vznikem díla, a to až do jejich skutečné
 výše.
 
-V Brně dne 1. ledna 2019
+V Brně dne 2. ledna 2019
 
 ................................................................
 
@@ -64,19 +64,31 @@ Obsah
 1.1 Úvod do problematiky . . . . . . . . . . . . . . . . . . . . . . . . . . 11
 1.2 Cíl práce . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
 2 Literalní rešerše
-2.1 Neuronové sítě . . .
-Neuron . . . . . . . .
-Vrstva . . . . . . . .
-Aktivační funkce . .
-RELU . . . . . . . .
-Rekurentní neurony .
-2.2 Genetické algoritmy
-Princip . . . . . . . .
-Kódování . . . . . .
-Křížení . . . . . . . .
-Mutace . . . . . . .
-Selekce . . . . . . . .
-Využití . . . . . . . .
+2.1 Neuronové sítě . . . . . .
+Neuron . . . . . . . . . . .
+Vrstva . . . . . . . . . . .
+Aktivační funkce . . . . .
+RELU . . . . . . . . . . .
+Rekurentní neurony . . . .
+2.2 Genetické algoritmy . . .
+Princip . . . . . . . . . . .
+Kódování . . . . . . . . .
+Křížení . . . . . . . . . . .
+Mutace . . . . . . . . . .
+Selekce . . . . . . . . . . .
+Využití . . . . . . . . . . .
+2.3 NEAT . . . . . . . . . . .
+Genotyp a fenotyp . . . .
+Mutace . . . . . . . . . .
+Křížení . . . . . . . . . . .
+2.4 Rozšíření algoritmu NEAT
+Instinct . . . . . . . . . .
+odNEAT . . . . . . . . . .
+rtNEAT . . . . . . . . . .
+HyperNEAT . . . . . . . .
+cgNEAT . . . . . . . . . .
+2.5 Alternativy k neuroevoluci
+2.6 Využití algoritmu NEAT .
 
 .
 .
@@ -90,36 +102,6 @@ Využití . . . . . . . .
 .
 .
 .
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -147,22 +129,6 @@ Využití . . . . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
 .
 .
 .
@@ -188,8 +154,6 @@ Využití . . . . . . . .
 .
 .
 .
-.
-
 .
 .
 .
@@ -217,22 +181,6 @@ Využití . . . . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
 .
 .
 .
@@ -258,8 +206,6 @@ Využití . . . . . . . .
 .
 .
 .
-.
-
 .
 .
 .
@@ -287,22 +233,6 @@ Využití . . . . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
 .
 .
 .
@@ -328,8 +258,6 @@ Využití . . . . . . . .
 .
 .
 .
-.
-
 .
 .
 .
@@ -357,22 +285,6 @@ Využití . . . . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
 .
 .
 .
@@ -398,8 +310,6 @@ Využití . . . . . . . .
 .
 .
 .
-.
-
 .
 .
 .
@@ -427,6 +337,18 @@ Využití . . . . . . . .
 .
 .
 .
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
 .
 .
@@ -441,7 +363,343 @@ Využití . . . . . . . .
 .
 .
 .
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
 .
 .
 .
@@ -470,582 +728,280 @@ Využití . . . . . . . .
 16
 16
 17
-
-3 NEAT
-3.1 Genotyp a fenotyp . . . .
-3.2 Mutace . . . . . . . . . .
-3.3 Křížení . . . . . . . . . . .
-3.4 Rozšíření algoritmu NEAT
-Instinct . . . . . . . . . .
-odNEAT . . . . . . . . . .
-rtNEAT . . . . . . . . . .
-HyperNEAT . . . . . . . .
-cgNEAT . . . . . . . . . .
-3.5 Alternativy k neuroevoluci
-Využití algoritmu NEAT .
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
+17
+17
+18
 18
 18
 18
 19
+19
+19
+19
 20
 20
-20
-20
-20
-20
-20
+
+3 Použité technologie
+3.1 Docker . . . . . .
+3.2 Databáze . . . .
+3.3 Vue . . . . . . .
+3.4 NodeJS . . . . .
+3.5 Bull . . . . . . .
+3.6 Monitorování . .
+Grafana . . . . .
+Arena . . . . . .
+Portainer . . . .
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
 21
-
-4 Použité technologie
-4.1 Grafana . . . . .
-4.2 Docker . . . . . .
-4.3 Vue . . . . . . .
-4.4 NodeJS . . . . .
-4.5 Bull . . . . . . .
-4.6 Arena . . . . . .
-4.7 Portainer . . . .
-4.8 Databáze . . . .
-4.9 PIXI.js . . . . . .
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
+21
+21
+21
+21
 22
 22
 22
 22
 22
-22
-23
-23
-24
-24
 
 .
 .
@@ -1101,9 +1057,15 @@ Využití algoritmu NEAT .
 
 OBSAH
 
-4.10 Neataptic . . .
-4.11 NPM a YARN
-4.12 CES . . . . . .
+3.7
+3.8
+3.9
+3.10
+
+PIXI.js . . . . .
+Neataptic . . .
+NPM a YARN
+CES . . . . . .
 Komponenta .
 Entita . . . . .
 System . . . . .
@@ -1114,21 +1076,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1142,21 +1092,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1170,21 +1108,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1198,21 +1124,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1226,21 +1140,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1254,21 +1156,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1282,21 +1172,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1310,6 +1188,15 @@ System . . . . .
 .
 .
 .
+.
+
+.
+.
+.
+.
+.
+.
+.
 
 .
 .
@@ -1317,21 +1204,142 @@ System . . . . .
 .
 .
 .
+.
 
-5 Metodika
-6 Analýza problému
-6.1 Funkční požadavky .
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+23
+23
+23
+23
+23
+24
+24
+
+4 Metodika
+
+25
+
+5 Analýza problému
+5.1 Funkční požadavky .
 Simulace . . . . . . .
 Vizualizace . . . . .
 Experimenty . . . .
-6.2 Nefunkční požadavky
+5.2 Nefunkční požadavky
 
-24
-24
-24
-24
-25
-25
+.
+.
+.
+.
+.
+
+26
+26
+26
+26
+26
 26
 
 .
@@ -1339,627 +1347,6 @@ Experimenty . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-7 Návrh řešení
-7.1 Simulace . . . . . . . . . . . . . . . . . . . .
-Diagram tříd . . . . . . . . . . . . . . . . .
-Entity . . . . . . . . . . . . . . . . . . . . .
-Komponenty . . . . . . . . . . . . . . . . .
-Systémy . . . . . . . . . . . . . . . . . . . .
-7.2 Klientská část . . . . . . . . . . . . . . . . .
-Zobrazení algoritmu v realném čase . . . . .
-Přehrávač . . . . . . . . . . . . . . . . . . .
-7.3 Serverová část . . . . . . . . . . . . . . . . .
-První verze . . . . . . . . . . . . . . . . . .
-Druhá verze . . . . . . . . . . . . . . . . . .
-Databáze . . . . . . . . . . . . . . . . . . .
-7.4 Návrh experimentů a simulačního prostředí
-Simulační prostředí . . . . . . . . . . . . . .
-Agent . . . . . . . . . . . . . . . . . . . . .
-Možné konfigurace agenta . . . . . . . . . .
-Fitness funkce . . . . . . . . . . . . . . . . .
-8 Implementace
-8.1 Simulace . . . . . . . . .
-Fitness funkce . . . . . .
-Simulační prostředí . . .
-8.2 Serverová část . . . . . .
-Konfigurovatelnost . . .
-Výpočetní cluster . . . .
-Docker swarm . . . . . .
-Problémy implementace
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-
-27
-27
-27
-27
-27
-27
-
-.
-.
-.
-.
-.
 .
 .
 .
@@ -1973,53 +1360,946 @@ Problémy implementace
 .
 .
 
+28
+28
+29
 29
 29
 29
 30
 30
-30
-31
-31
 31
 32
 32
+32
+33
 33
 34
 34
 35
 35
+
+.
+.
+.
+.
+.
+.
+.
+
+36
+36
 36
 37
-
-.
-.
-.
-.
-.
-.
-.
-.
-
-38
-38
-38
-39
-42
-42
+40
+40
+41
 43
-45
-46
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+6 Návrh řešení
+6.1 Simulace . . . . . . . . . . . . . . . . . . . .
+Diagram tříd . . . . . . . . . . . . . . . . .
+Entity . . . . . . . . . . . . . . . . . . . . .
+Komponenty . . . . . . . . . . . . . . . . .
+Systémy . . . . . . . . . . . . . . . . . . . .
+6.2 Klientská část . . . . . . . . . . . . . . . . .
+Zobrazení algoritmu v realném čase . . . . .
+Přehrávač . . . . . . . . . . . . . . . . . . .
+6.3 Serverová část . . . . . . . . . . . . . . . . .
+První verze . . . . . . . . . . . . . . . . . .
+Druhá verze . . . . . . . . . . . . . . . . . .
+Databáze . . . . . . . . . . . . . . . . . . .
+6.4 Návrh experimentů a simulačního prostředí
+Simulační prostředí . . . . . . . . . . . . . .
+Agent . . . . . . . . . . . . . . . . . . . . .
+Možné konfigurace agenta . . . . . . . . . .
+Fitness funkce . . . . . . . . . . . . . . . . .
+7 Implementace
+7.1 Simulace . . . . . .
+Fitness funkce . . .
+Simulační prostředí
+7.2 Serverová část . . .
+Konfigurovatelnost
+Výpočetní cluster .
+Docker swarm . . .
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
 7
 
 OBSAH
 
-8.3
+.
+.
+.
+.
+.
+.
+.
 
-8.4
-8.5
+.
+.
+.
+.
+.
+.
+.
 
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+44
+44
+45
+45
+46
+46
+47
+
+8 Experimenty
+8.1 První stupeň - silnice ve tvaru I . . . . . . . .
+Konfigurace bez rozšíření . . . . . . . . . . . .
+Konfigurace s rozšířeními . . . . . . . . . . . .
+8.2 Druhý stupeň - silnice ve tvaru I s překážkami
+Konfigurace bez rozšíření . . . . . . . . . . . .
+Konfigurace s rozšířeními . . . . . . . . . . . .
+8.3 Třetí stupeň - Okruh . . . . . . . . . . . . . .
+Konfigurace bez rozšíření . . . . . . . . . . . .
+Konfigurace s rozšířením . . . . . . . . . . . .
+8.4 Zhodnocení . . . . . . . . . . . . . . . . . . .
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+48
+48
+48
+49
+50
+50
+51
+52
+52
+52
+54
+
+7.3
+
+7.4
+7.5
+
+Problémy implementace .
 Monitorování stavu . . . .
 Uživatelská část . . . . . .
 Vizualizace . . . . . . . .
@@ -2033,98 +2313,8 @@ Nasazení uživatelské části
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-
-9 Experimenty
-9.1 První stupeň - silnice ve tvaru I . . . . . . . .
-Konfigurace bez rozšíření . . . . . . . . . . . .
-Konfigurace s rozšířeními . . . . . . . . . . . .
-9.2 Druhý stupeň - silnice ve tvaru I s překážkami
-Konfigurace bez rozšíření . . . . . . . . . . . .
-Konfigurace s rozšířeními . . . . . . . . . . . .
-9.3 Třetí stupeň - Okruh . . . . . . . . . . . . . .
-Konfigurace bez rozšíření . . . . . . . . . . . .
-Konfigurace s rozšíření . . . . . . . . . . . . .
-9.4 Zhodnocení . . . . . . . . . . . . . . . . . . .
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
 .
 .
 .
@@ -2140,8 +2330,7 @@ Konfigurace s rozšíření . . . . . . . . . . . . .
 .
 .
 .
-.
-.
+
 .
 .
 .
@@ -2157,8 +2346,7 @@ Konfigurace s rozšíření . . . . . . . . . . . . .
 .
 .
 .
-.
-.
+
 .
 .
 .
@@ -2174,8 +2362,7 @@ Konfigurace s rozšíření . . . . . . . . . . . . .
 .
 .
 .
-.
-.
+
 .
 .
 .
@@ -2191,15 +2378,6 @@ Konfigurace s rozšíření . . . . . . . . . . . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
 
 .
 .
@@ -2208,166 +2386,18 @@ Konfigurace s rozšíření . . . . . . . . . . . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
 
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+9 Možná vylepšení
 
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-
-46
-47
-47
-48
-49
-50
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-51
-51
-51
-52
-53
-53
-54
 55
-55
+
+10 Závěr
+
 56
+
+11 Literatura
+
 57
-
-10 Možná vylepšení
-
-58
-
-11 Závěr
-
-59
-
-12 Reference
-
-60
 
 8
 
@@ -2441,21 +2471,21 @@ Schéma distribuovaných výpočtů . . . . . . . . . . . . . . . . . . .
 Kontrolní panel v aplikaci grafana . . . . . . . . . . . . . . . . . . .
 Uživatelské rozhraní klientské části . . . . . . . . . . . . . . . . . .
 Rozhraní přehrávače . . . . . . . . . . . . . . . . . . . . . . . . . .
-Průběh evaluace . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-Výsledná neuronová síť . . . . . . . . . . . . . . . . . . . . . . . . .
-Průběh evaluace . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-Výsledná neuronová síť . . . . . . . . . . . . . . . . . . . . . . . . .
-Graf . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Průběh evaluace - I bez rozšíření . . . . . . . . . . . . . . . . . . .
+Neuronová síť - I bez rozšíření . . . . . . . . . . . . . . . . . . . . .
+Průběh evaluace - I s rozšířeními . . . . . . . . . . . . . . . . . . .
+Neuronová síť - I s překážkami s rozšířeními . . . . . . . . . . . . .
+Graf průběhu fitness - bez překážek . . . . . . . . . . . . . . . . . .
+Neuronová síť - silnice ve tvaru I s překážkami bez rozšíření . . . .
+Graf průběhu fitness funkce - s překážkami . . . . . . . . . . . . . .
+Neuronová síť - silnice ve tvaru I s překážkami s rozšířeními . . . .
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Neuronová síť - Okruh bez rozšíření . . . . . . . . . . . . . . . . . .
 
 . 16
 . 16
+. 17
 . 18
-. 19
 .
 .
 .
@@ -2492,39 +2522,39 @@ Graf . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 .
 
 19
+22
 23
-23
+28
 29
-30
+31
 31
 32
 33
-34
-34
-36
-36
+33
+35
+35
+37
+38
+38
+39
+39
 39
 40
-40
-41
-41
-41
-42
+43
+43
 45
-45
-47
+46
+46
 48
 49
+49
+50
+50
+51
 51
 52
 52
 53
-53
-54
-54
-55
-55
-56
 
 SEZNAM OBRÁZKŮ
 
@@ -2533,8 +2563,8 @@ Graf . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
 9
 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 56
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 57
+Průběh fitness funkce - Okruh bez rozšíření . . . . . . . . . . . . . . 53
+Neuronová síť - Okruh s rozšířením . . . . . . . . . . . . . . . . . . . 53
 
 SEZNAM TABULEK
 
@@ -2544,8 +2574,8 @@ Seznam tabulek
 1
 2
 
-Použitý hardware . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
-Naměřená data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+Použitý hardware . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
+Naměřená data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
 
 1 ÚVOD A CÍL PRÁCE
 
@@ -2554,14 +2584,19 @@ Naměřená data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
 1 Úvod a cíl práce
 1.1 Úvod do problematiky
 S růstem výpočetního výkonu a rozvojem GPUGPU (paralelizace výpočtů na grafické kartě) se neuronové sítě ukázaly jako mocný nástroj pro řešení složitých problémů na které standardní metody umělé inteligence nestačily.
-Další oblastí umělé inteligence, které nárust masivní paralelizace prospěl, jsou
-metaheuristiky, které mohou s nárůstem výpočetního výkonu v rozmném čase pokrýt
-stále větší stavový prostor a jsou tedy schopné rychle řešit stále složitější problémy.
-Neuroevoluce propojuje oba přístupy a využívá je ke generování topologii neuronových sítí a nastavení jejích vah. Výsledkem je neuronová síť, jejiž architektura
+Další oblastí umělé inteligence, které nárust masivní paralelizace prospěl, je oblast genetických algoritmů a různých jiných metaheuristik, které mohou s nárůstem
+výpočetního výkonu v rozumném čase pokrýt stále větší stavový prostor a jsou tedy
+schopné rychle řešit stále složitější problémy.
+Neuroevoluce propojuje oba přístupy a využívá je ke generování topologii neuronových sítí a nastavení jejích vah. Výsledkem je neuronová síť, jejíž architektura
 lépe popisuje daný problém a lze jí aplikovat i na problémy na které by klasické
 neuronové sítě aplikovat nešly. Jedná se například o problémy, u kterých je těžké
 získat trénovací data a nelze tedy neuronovou síť natrénovat klasickými metodami,
 jako je například gradientní sestup.
+Jedním z problémů, které výše zmíněné pokroky v oblasti umělé inteligence
+umožnily je problematika autonomních vozidel, kterou se v současné době zabývá
+mnoho technologických firem. Tato diplomová práce se tohoto tématu také jemně
+dotýká tvorbou simulovaného prostředí a trénováním agenta (automobilu) v různých
+podmínkách.
 
 1.2 Cíl práce
 Cílem této práce je aplikovat neuroevoluci pro učení autonomního agenta. Toto
@@ -2798,7 +2833,7 @@ Selekce
 Selekce je proces výběru dvou jedinců na něž jsou později aplikovány genetické
 operátory jako je křížení a mutace.
 
-2.2 Genetické algoritmy
+2.3 NEAT
 
 17
 
@@ -2807,17 +2842,12 @@ Genetické algoritmy naleznou využití v mnoha optimalizačních úlohách. Př
 může být experiment, který zahrnoval použití gramatické evoluce pro vytvoření regresních modelů pro datasety CASY3 a CASY5 (LÝSEK Jiří, ŠŤASTNÝ Jiří, 2014,
 s. 2-9).
 
-3 NEAT
-
-18
-
-3 NEAT
+2.3 NEAT
 NEAT (neuroevolution of augmenting topologies) kombinuje neuronové sítě s genetickými algoritmy. Hlavní výhodou této metody je, že generuje jak topologii neuronové sítě, tak její váhy. Výsledkem může být neuronová síť jejíž rozložení lépe
 popisuje řešený problém.
 Algoritmus probíhá stejně jako běžný genetický algoritmus. Rozdílem je použitý
 fenotyp a operátory mutace a křížení, které se nad ním provádí.
-
-3.1 Genotyp a fenotyp
+Genotyp a fenotyp
 Genotyp a fenotyp je ilustrován na obrázku 3. Genotyp obsahuje jak údaje o jednotlivých neuronech, tak informace o topologii sítě. Metadata, která se týkají topologie
 neuronové síti jsou údaje o spojení (IN, OUT), váha samotného spojení (weight),
 informace týkající se toho, zda je spojení použito v fenotypu (ENABLED/DISABLED) a inovační skore. Inovační skore je číslo, které reprezentuje pořadí ve kterém
@@ -2827,7 +2857,11 @@ se daný gen objevil v fenotypu (STANLEY, Kenneth O, Risto MIIKKULAINEN.,
 Obrázek 3: Genotyp a fenotyp u algoritmu NEAT převzato z (STANLEY, Kenneth
 O, Risto MIIKKULAINEN., 2002, s. 9)
 
-3.2 Mutace
+2.4 Rozšíření algoritmu NEAT
+
+18
+
+Mutace
 Jak jíž bylo zmíněno nad fenotypem lze provádět různé operace včetně operátoru
 mutace, který provede náhodnou změnu fenotypu s nadějí, že změna povede k zlepšení řešení. V případě algoritmu NEAT je operátor mutace ilustrován na obrázku
 4. Na obrázku je vidět, že mutace může buď přidat další spojení nebo další neuron.
@@ -2835,13 +2869,9 @@ V případě, že je přidávan nový neuron je mu přiřazeno náhodné spojen�
 označeno znakem DISABLED (STANLEY, Kenneth O, Risto MIIKKULAINEN.,
 2002, s. 10).
 
-3.3 Křížení
-
-19
-
 Obrázek 4: Mutace v NEAT převzato z (STANLEY, Kenneth O, Risto MIIKKULAINEN., 2002, s. 10)
 
-3.3 Křížení
+Křížení
 Posledním operátorem používaným při algoritmu NEAT je operátor křížení. Operátor křížení ilustruje obrázek 5. Křížení probíhá na základě inovačního čísla. Spojení
 se stejným inovačním číslem jsou náhodně zděděny z rodičovských genů. Je tu také
 šance na převzetí genů, které vytváří spojení nenacházející se v jednom z rodičů.
@@ -2849,19 +2879,19 @@ Tyto geny jsou převzaty pouze z rodiče, který ma větší fitness. Při kří
 náhodná šance, která může převzatý genom vypnout (STANLEY, Kenneth O, Risto
 MIIKKULAINEN., 2002, s. 12).
 
-Obrázek 5: Křížení v NEAT. Převzato z (STANLEY, Kenneth O, Risto MIIKKULAINEN., 2002, s. 12)
-
-3.4 Rozšíření algoritmu NEAT
-
-20
-
-3.4 Rozšíření algoritmu NEAT
+2.4 Rozšíření algoritmu NEAT
 Jelikož je algoritmus NEAT v současnosti předmětem aktivního výzkumu existuje
 pro něj mnoho rozšíření. Tato sekce se bude zabývat některými z nich.
 Instinct
 Instinct rozšiřuje původní algoritmus o rekurentní neurony. Rozšíření tak umožňuje případnému agentovi reagovat nejen na okamžitou situaci ale i na předchozí
 události ve světě. Tento fakt značně rozšiřuje možnosti neuronových sítí, které jsou
 generované tímto algoritmem ale zároveň je třeba mít na paměti, že se tímto značně
+
+2.4 Rozšíření algoritmu NEAT
+
+19
+
+Obrázek 5: Křížení v NEAT. Převzato z (STANLEY, Kenneth O, Risto MIIKKULAINEN., 2002, s. 12)
 zvětšuje prohledávaný stavový prostor a dochází tím k zvýšené časové náročnosti na
 získání vhodných výsledků.
 odNEAT
@@ -2877,82 +2907,39 @@ cgNEAT
 Rozšíření zaměřující se na generování náhodného obsahu. Obdobně jako tomu je
 například u GAN sítí.
 
-3.5 Alternativy k neuroevoluci
+2.5 Alternativy k neuroevoluci
+
+20
+
+2.5 Alternativy k neuroevoluci
 Neuroevoluce není jediný přístup, který je dostupný k řešení problému typu trénování autonomního agenta.
 Příkladem může být rozsáhlý obor zabývající se zpětnovazebním učením (reinforcement learning). Při zpětnovazebním učení máme agenta, který se nachází v
 prostředí nad kterým může vykonávat různé akce. Agent může před vykonáním akce
 pozorovat stav prostředí na základě čehož se rozhoduje, jakou akci vykoná. Po provedení některé se prostředí nějakým způsobem mění a agent dostává zpětnou vazbu
-
-3.5 Alternativy k neuroevoluci
-
-21
-
 v podobně odměny. Algoritmus zpětnovazebního učení se snaží agenta řídit tak, aby
 maximalizoval jeho odměnu.
-Využití algoritmu NEAT
+
+2.6 Využití algoritmu NEAT
 Algoritmus NEAT a jeho varianty předmětem aktivního výzkumu. Své využítí nalézá
 hlavně v oblasti robotiky a řešení pro počítač obtížných problémů jako je například
 hraní počítačových her. Příkladem může být nedávný výzkum provedený laboratořemi umělé inteligence společnosti Uber, který pojednává o použítí algoritmu NEAT
 k naučení umělé inteligence, která je schopná hrát jednoduché hry na herní platformě
 Atari (PETROSKI SUCH, Felipe a kol., 2018, s. 1).
 
-4 POUŽITÉ TECHNOLOGIE
+3 POUŽITÉ TECHNOLOGIE
 
-22
+21
 
-4 Použité technologie
+3 Použité technologie
 Tato kapitola poskytuje stručný přehled technologii použitých při řešení diplomové
 práce.
 
-4.1 Grafana
-Grafana umožňuje snadnou vizualizaci dat z databáze. Děje se tak definováním
-vhodných dotazů a volbou grafu, který je reprezentuje. V základní instalaci je na
-výběr několik druhů zobrazení a v případě potřeby je lze rozšířit s pomocí přídavných
-pluginů.
-
-4.2 Docker
+3.1 Docker
 Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner poskytuje izolované softwarové prostředí ve kterém lze spouštět jednu nebo více aplikací. V praxi
 to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuální konfiguraci
 hostitelského systému.
 
-4.3 Vue
-Je populární JavaScriptový framework pro snadnou tvorbu uživatelských rozhraní.
-Důvodem jeho volby byla pro autora snadno pochopitelný
-
-4.4 NodeJS
-NodeJS je open-source interpret jazyku JavaScript. Využití najde při psaní serverových aplikací v JavaScriptu a jiné případy, kdy je třeba spustit kód napsaný
-v javascriptu mimo prohlížeč. Lze ho využít například pro spouštění testů při CI
-(continuous integration) nebo pro tvorbu vysoce serverových aplikací v jazyce JavaScript.
-Narozdíl od běžného JavaScriptu obsahuje rozšířenou standardní knihovnu pro
-snadnou tvorbu serverových aplikací. Tato standardní knihovna umožňuje například
-javascript kódu prácí se soubory na hostitelském systému, což je něco, co není z
-bezpečnostních důvodů v klasickém JavaScriptu, který běží v prohlížeči možné.
-
-4.5 Bull
-Bull je knihovna pro NodeJS, která poskytuje frontu úkolů založenou na populární
-in-memory databázi Redis.
-
-23
-
-4.6 Arena
-
-4.6 Arena
-Arena je webová aplikace pro správu a zobrazení aktuálního stavu fronty úkolů
-poskytované knihovnou bull.
-
-Obrázek 6: Webové aplikace Arena
-
-4.7 Portainer
-Portainer je webová aplikace pro zobrazení aktualního stavu a správu instance
-dockeru a docker swarmu.
-
-Obrázek 7: Rozhraní aplikace portainer
-
-4.8 Databáze
-
-24
-
-4.8 Databáze
+3.2 Databáze
 Výsledky experimentů bude nutné někam zapsat. Jako vhodné řešení se jeví relační
 databáze. S důvodů hw omezení je na ní několik praktický nefunkčních požadavků:
 • Musí být schopná běžet na architektuře arm
@@ -2964,29 +2951,74 @@ PostgreSQL je populární databázový systém, který nabízí robustní open-s
 alternativu i ke komerčním řešením. Navíc splňuje všechny podmínky stanovené na
 začátku této sekce.
 
-4.9 PIXI.js
+3.3 Vue
+Je populární JavaScriptový framework pro snadnou tvorbu uživatelských rozhraní.
+Důvodem jeho volby byla pro autora snadno pochopitelný princip a relativní systémová nenáročnost, která je a (Vue.js, 2014)
+
+3.4 NodeJS
+NodeJS je open-source interpret jazyku JavaScript. Využití najde při psaní serverových aplikací v JavaScriptu a jiné případy, kdy je třeba spustit kód napsaný
+v javascriptu mimo prohlížeč. Lze ho využít například pro spouštění testů při CI
+(continuous integration) nebo pro tvorbu vysoce serverových aplikací v jazyce JavaScript.
+Narozdíl od běžného JavaScriptu obsahuje rozšířenou standardní knihovnu pro
+snadnou tvorbu serverových aplikací. Tato standardní knihovna umožňuje například
+javascript kódu prácí se soubory na hostitelském systému, což je něco, co není z
+bezpečnostních důvodů v klasickém JavaScriptu, který běží v prohlížeči možné.
+
+22
+
+3.5 Bull
+
+3.5 Bull
+Bull je knihovna pro NodeJS, která poskytuje frontu úkolů založenou na populární
+in-memory databázi Redis.
+
+3.6 Monitorování
+Výstupy z použitých databázových systémů (PostgreSQL a Redi pro Bull bylo třeba
+monitorovat. PostgreSQL, kvůli průběhu experimentů a Redis při procesu ladění
+výsledné aplikace. Pro tento účel jsou použity níže popsané aplikace.
+Grafana
+Grafana umožňuje snadnou vizualizaci dat z databáze. Děje se tak definováním
+vhodných dotazů a volbou grafu, který je reprezentuje. V základní instalaci je na
+výběr několik druhů zobrazení a v případě potřeby je lze rozšířit s pomocí přídavných
+pluginů.
+Arena
+Arena je webová aplikace pro správu a zobrazení aktuálního stavu fronty úkolů
+poskytované knihovnou bull.
+
+Obrázek 6: Webové aplikace Arena
+Portainer
+Portainer je webová aplikace pro zobrazení aktualního stavu a správu instance
+dockeru a docker swarmu.
+
+23
+
+3.7 PIXI.js
+
+Obrázek 7: Rozhraní aplikace portainer
+
+3.7 PIXI.js
 Grafická knihovna pro snadné vykreslování nad HTML značkou canvas, která byla
 zavedena ve verzi 5. Obaluje jak klasické vykreslovací API, tak modernější WebGL.
 
-4.10 Neataptic
+3.8 Neataptic
 Knihovna implementující samotný algoritmus NEAT ve variantě instinct. Důvodem
 volby této knihovny byl obrovský potenciál, který právě algoritmus instinct představuje. Přidává totiž potenciálnímu agentovi užitečný nástroj a to paměť. Bude tak
 zajímavé sledovat, jak jí použije.
 
-4.11 NPM a YARN
+3.9 NPM a YARN
 NPM i Yarn jsou kolíčkovací systémy pro javascript. Hlavní rozdíl mezi NPM a Yarn
 je, že Yarn stahuje balíčky paralelně. Je tedy značně rychlejší oproti NPM.
 
-4.12 CES
+3.10 CES
 Je knihovna, která implementuje tzv. ECS (entity component system). ECS se používá především ve hrách a nabízí určitý způsob, jak se dívat na herní objekty a
 logiku. Myšlenka je taková, že vše lze rozdělit do níže uvedených podsekcí.
 Komponenta
 Komponenty bývají jednoduché datové struktury, které vyjadřují vlastnosti entity
 u níž jsou přiřazeny.
 
-4.12 CES
+3.10 CES
 
-25
+24
 
 Entita
 K entitě se dá přiřadit jedna nebo více komponent (vlastností). Entita tak může
@@ -3003,11 +3035,11 @@ například propojit grafickou reprezentaci s fyzikálním enginem, můžeme si 
 systém, který po kroku fyzikálního enginu vyhledá všechny entity, které mají grafickou a fyzikální komponentu upraví pozice a rotaci všech grafických objektu tak,
 aby byla identická s pozicí a rotací fyzikálních objektů, které jsou k ním přiřazeny.
 
-5 METODIKA
+4 METODIKA
 
-26
+25
 
-5 Metodika
+4 Metodika
 Na začátku je potřeba provést podrobnou analýzu problému s ohledem na požadavky
 stanovené konzultacemi s vedoucím. Návrh bude také zahrnovat experimenty, které
 budou s neuroevolucí provedeny.
@@ -3018,15 +3050,15 @@ Po implementaci bude následovat realizace a vyhodnocení experimentů popsanýc
 v návrhu.
 Na závěr proběhne vyhodnocení řešení s návrhem možných zlepšení.
 
-6 ANALÝZA PROBLÉMU
+5 ANALÝZA PROBLÉMU
 
-27
+26
 
-6 Analýza problému
+5 Analýza problému
 Tato kapitola se zabývá analýzou funkčních a nefunkčních požadavků pro softwarové
 řešení. Požadavky vznikaly na základě konzultace s vedoucím a vlastní invencí.
 
-6.1 Funkční požadavky
+5.1 Funkční požadavky
 Funkční požadavky jsou rozděleny do několika kategorii.
 Simulace
 Vyhodnocování agenta bude probíhat jeho nasazením v simulovaném prostředí. Fitness bude pak vyhodnocena na základě jeho akcí v prostředí.
@@ -3046,13 +3078,13 @@ Práce zahrnuje vyhodnocování agenta v různých podmínkách z tohoto vycház
 • Schopnost vyhodnocovat více konfigurací zároveň
 • Přehledné zobrazení vývoje různých simulací pro pozdější srovnání
 
-6.2 Nefunkční požadavky
+5.2 Nefunkční požadavky
 Spolu s funkčními požadavky jsou na řešení kladeny také požadavky nefunkční.
 • Škálovatelnost - Možnost spustit a vykreslit libovolné množství simulací
 
-6.2 Nefunkční požadavky
+5.2 Nefunkční požadavky
 
-28
+27
 
 • Rychlost simulace - Simulace by měla být schopná samostatně běžet alespoň
 rychlostí 30 snímků za vteřinu.
@@ -3061,11 +3093,11 @@ v různých konfigurací.
 • Robustnost - Simulace by si měla poradit s neočekávanými vstupy, jako je třeba
 NaN, který vychází z neuronové sítě.
 
-29
+28
 
-7 NÁVRH ŘEŠENÍ
+6 NÁVRH ŘEŠENÍ
 
-7 Návrh řešení
+6 Návrh řešení
 Tato kapitola obsahuje návrh řešení založený na požadavcích identifikovaných v
 předchozí kapitole. Na základě těchto požadavků byl návrh rozdělen do dvou projektů a to webového frontendu, který slouží jako rozhraní ukazující průběh simulace
 v realném čase a serverové části, která slouží pro rychlý výpočet simulace bez vykreslovaní na platformě Node.js.
@@ -3080,27 +3112,29 @@ backend
 
 Obrázek 8: Schéma závislostí
 
-7.1 Simulace
+6.1 Simulace
 Z obrázku 8 je zřejmé, že simulační kód spojuje obě části dohromady. Je tedy důležité, aby byl navržený tak, aby jej bylo co nejjednodušeji integrovat s oběma řešeními.
 Na základě těchto požadavků a podmínek, které jsou stanoveny v předchozí
 kapitole byl vytvořen následující návrh:
-Simulace obsahuje vlastní engine, který je navržen v duchu ECS (Entity component system), podrobný popis lze nalézt v sekci 4.12. Důvodů k implementaci
-vlastního enginu oproti použití existujících řešení je několik. Hlavním je nutnost
-separace grafické reprezentace od
-Není tedy žádným překvapením, že se všechny komponenty nalezené v simulaci
-dají rozložit na systémy, komponenty a entity. Pro lepší představu o implementaci
-je níže uveden přehled všech systému, entit a komponent použitých v simulaci.
+Simulace obsahuje vlastní engine, který je navržen v duchu ECS (Entity component system), podrobný popis lze nalézt v sekci 3.10. Při návrhu simulace bylo
+rozhodnuto o implementaci vlastního enginu oproti použití existujících řešení je několik. Hlavním důvodem byl požadavek na seperaci grafické části simulace od části
+výpočetní, který vznikl z potřeby spouštění aplikace na platformě Node.js kvůli
+serverové části.
+Z použití ECS vyplývá, že se všechny komponenty nalezené v simulaci dají
+rozložit na systémy, komponenty a entity. Pro lepší představu o implementaci je
+níže uveden přehled všech systému, entit a komponent použitých v simulaci.
+
+29
+
+6.1 Simulace
+
 Diagram tříd
 Níže popsaný návrh doplňuje diagram tříd, který zobrazuje jejích návaznost a zároveň také do návrhu zavádí třídu Simulation, která celou simulaci schovává za
 jednoduché rozhraní a umožňuje snadnou integraci simulace do různých aplikací.
 
-30
-
-7.1 Simulace
-
 Obrázek 9: Diagram tříd
 Entity
-Simulace obsahuje následující entity:
+Simulace obsahuje následující entity (prvky simulace):
 PhysicsGroup Seskupuje fyzikální entity do jedné pro snadnou manipulaci s
 nimi.
 RoadPart Entita, která obaluje jednu nebo více překážek tak, aby se s nimi
@@ -3116,25 +3150,25 @@ agenta.
 • Physics komponent, která obsahuje fyzikální entity pro P2.js
 Systémy
 Návrh simulace obsahuje následující systémy:
+
+6.2 Klientská část
+
+30
+
 Car systém, který se stará o ovládání agenta a částečně o vyhodnocování jeho
 fitness. Pro každý snímek prožene vstupy (v závislosti na konfiguraci) neuronovou
 sítí a na základě jejích výstupů řídí agenta.
 Graphics grafický systém, který slouží především k překreslování entit.
 Physics krokuje fyzikální engine a synchronizuje grafickou reprezentaci s fyzikální entitou. Tento proces probíhá pro každý snímek a skládá se z přiřazení nové
 rotace a pozice pro grafickou entitu.
-
-7.2 Klientská část
-
-31
-
 RoadDirector Road director se stará o generování nekonečného prostředí pro
 agenta. Děje se tak na základě předefinovaných dílu vozovky z nichž každý zaplňuje
 celou obrazovku simulace. V případě, že agent dorazí až na konec obrazovky, je mu
 určen nový navazující dílek. Agent je pak přesunut na opačnou stranu obrazovky a
 zároveň je vyměněn díl na kterém se nachází. Tento postup a důvod jeho návrhu je
-rozepsaný v sekci 7.4.
+rozepsaný v sekci 6.4.
 
-7.2 Klientská část
+6.2 Klientská část
 Klientská část je webové rozhraní, které vzniklo z požadavků na vizualizaci a ověření
 funkčnosti simulační knihovny.
 Z požadavků vyšla aplikace, která obsahuje 2 rozdílné obrazovky a to první,
@@ -3144,18 +3178,22 @@ Zobrazení algoritmu v realném čase
 Zobrazení algoritmu v reálném čase nabízí jak nadhled na průběh algoritmu s pomocí grafu, který bude zobrazovat dosaženou fitness jednotlivých generací a přímým
 zobrazením průběhu jednotlivých jedinců (v náčrtu zobrazeno jako obdélníky).
 
+31
+
+6.2 Klientská část
+
 Obrázek 10: Drátkový návrh zobrazení algoritmu v reálném čase
 Přehrávač
 Cílem přehrávače je zobrazit průběh již vyhodnoceného jedince. K tomuto má textové pole s informacemi o jedinci, tlačítko pro spouštění přehrávání a plocha na které
 je vizualizován průběh agenta.
 
-32
-
-7.3 Serverová část
-
 Obrázek 11: Drátkový návrh přehrávače
 
-7.3 Serverová část
+32
+
+6.3 Serverová část
+
+6.3 Serverová část
 Serverová část byla nakonec navržena a vytvořena ve dvou na sebe navazujících
 verzích.
 První verze
@@ -3167,10 +3205,6 @@ daného jedince. Ten si ho uloží a po vyhodnocení všech jedinců tímto způ
 provede algoritmus NEAT. Tento proces se opakuje do té doby, než dojde k naplnění
 ukončujících podmínek (maximální počet generací) nebo přerušení programu.
 
-33
-
-7.3 Serverová část
-
 Obrázek 12: První verze serverové části
 Druhá verze
 Druhá verze rozšiřuje návrh o možnost rozložení výpočtů mezi více počítačů. Byla
@@ -3179,9 +3213,9 @@ Pracuje dle diagramu 25, kde je vidět, že klient zadává do fronty úkoly (ge
 a nastavení simulace). Jednotliví zpracovatelé (počítače v clusteru), si je z ní vyberou, genomy a vyhodnotí a hodnotu fitness funkce pošlou zpět na klienta. Toto je
 ilustrováno v diagramu 13.
 
-7.4 Návrh experimentů a simulačního prostředí
+6.4 Návrh experimentů a simulačního prostředí
 
-34
+33
 
 Obrázek 13: Sekvenční diagram komunikace se serverem
 Jakmile klient dostane všechny hodnoty zpět provede na populaci algoritmus
@@ -3195,13 +3229,13 @@ zároveň, které je popsáno níže.
 
 Obrázek 14: Schéma databáze
 
-7.4 Návrh experimentů a simulačního prostředí
+6.4 Návrh experimentů a simulačního prostředí
 Experiment se bude skládat z agenta - vozidla, který bude vložen do simulovaného
-prostředí (sekce 8.1). Agent bude řízen neuronovou sítí (více v sekci 7.4).
+prostředí (sekce 7.1). Agent bude řízen neuronovou sítí (více v sekci 6.4).
 
-7.4 Návrh experimentů a simulačního prostředí
+6.4 Návrh experimentů a simulačního prostředí
 
-35
+34
 
 Simulační prostředí
 Návrh simulačního prostředí je nesmírně důležitý, protože definuje překážky, které
@@ -3220,7 +3254,7 @@ Tento přístup má následující výhody:
 Agent
 Definice agenta zásadně ovlivňuje výsledek simulace, protože stanovuje vstupy a
 výstupy do a z neuronové sítě. V této práci bude testováno několik konfigurací,
-jejíchž popis lze nalézt v této sekci a v sekci 7.4.
+jejíchž popis lze nalézt v této sekci a v sekci 6.4.
 V případě této práce je agentem auto, které je vybaveno vzdálenostními senzory.
 Měření těchto senzorů je normalizováno (maximální vzdálenost měřícího paprsku je
 800 m) a předáno jako vstup do neuronové sítě.
@@ -3231,14 +3265,14 @@ a) z1 Otočení volantem o určitý počet stupňů doleva
 b) z2 Otočení volantem o určitý počet stupňů doprava
 2. Rychlostní stupně
 a) z3 - zpátečka
-b) z4 - rychlosti dopředu
+b) z4 - rychlost
 Ovládání volantu i volba rychlostního stupňů probíhá zároveň a to tak, že se
 vždy z dané skupiny neuronů vybere ten, který má největší hodnotu. Tento přístup
 je identický tomu, který se používá například u neuronových sítí pro klasifikaci.
 
-36
+35
 
-7.4 Návrh experimentů a simulačního prostředí
+6.4 Návrh experimentů a simulačního prostředí
 
 Obrázek 15: Řízení agenta
 
@@ -3282,23 +3316,17 @@ V práci se vyzkouší následující přidané vstupy:
 Modifikovat lze také výstupy neuronové sítě toto rozšíří nebo omezí možnosti
 agenta:
 • Přidáním/odebráním možnosti udržení volantu ve stejné pozici
-
-7.4 Návrh experimentů a simulačního prostředí
-
-37
-
 Fitness funkce
-Fitness funkce je stejně jako definice prostředí a agenta nesmírně důležitá. Nicméně
-nelze jí předem navrhnout
+Ačkoliv je těžké sim
 
-8 IMPLEMENTACE
+7 IMPLEMENTACE
 
-38
+36
 
-8 Implementace
-Vlastní práce se skládá ze dvou částí. Klientská část která slouží k vizualizaci algoritmu a zobrazení výsledků ze serverové části. Serverová část pro maximální urychlení simulace.
+7 Implementace
+Vlastní práce se skládá ze dvou částí. Klientská část, která slouží k vizualizaci algoritmu a zobrazení výsledků ze serverové části. Serverová část pro maximální urychlení simulace.
 
-8.1 Simulace
+7.1 Simulace
 Simulace je realizovaná jako knihovna pro Node.js, lze jí tedy použít jak u klientské
 částí, tak u serverové části. Poskytuje kompletní fyzikální simulaci agenta, prostředí
 ve kterém se pohybuje, jeho ovládání a výpočet fitness funkce. Součástí simulačního
@@ -3310,12 +3338,12 @@ Výstupem je pak doba, za jakou jí vyhodnotil na jednom jádře procesoru. Tent
 případné změny v kódu ovlivňují rychlost samotné simulace. Dále byla simulace
 podrobena občasnému profilování v klientské částí pomocí vývojářských nástrojů
 prohlížeče chrome, na kterém simulace jede nejlépe.
-Nenáročnost, která souvisí s rychlostí pak byla zajištěna tím, že bylo v průběhu
-psaní kódu dbáno na to, aby v průběhu simulace nedocházelo k přebytečným alokacím, které by nejen že mohli způsobit přebytečný nárůst požadované paměti ale
-způsobovali by také nepředvídatelné zpomalení, které sebou přináší jazyk využívající
+Nenáročnost, která souvisí s rychlostí, pak byla zajištěna tím, že bylo v průběhu psaní kódu dbáno na to, aby v průběhu simulace nedocházelo k přebytečným
+alokacím, které by nejen mohly způsobit přebytečný nárůst požadované paměti, ale
+hrozilo by také nepředvídatelné zpomalení, které sebou přináší jazyk využívající
 garbage kolektor.
-Robustnost je podrobněji vysvětlená v sekci 8.1 a popis toho, jak bylo dosaženo
-stejných podmínek pro všechny agenty lze nalézt v návrhu 7.1 především v popisu
+Robustnost je podrobněji vysvětlená v sekci 7.1 a popis toho, jak bylo dosaženo
+stejných podmínek pro všechny agenty lze nalézt v návrhu 6.1 především v popisu
 RoadManageru.
 Fitness funkce
 Fitness funkce je důležitou součástí simulace, která zásadně ovlivňuje chování výsledných agentů a je tedy nutné jí volit vhodně. Je nutné, aby funkce agenta motivovala
@@ -3328,9 +3356,9 @@ pak součet uražených vzdáleností pro každou místnost. Road direktor si pr
 obrazovku uchovává vzdálenost, kterou agent v dané obrazovce překonal. Výsledným
 fitness je pak součet všech vzdáleností na všech obrazovkách.
 
-39
+37
 
-8.1 Simulace
+7.1 Simulace
 
 Simulační prostředí
 Simulační prostředí poskytuje sadu překážek, kterou agent musí překonat. Testuje
@@ -3338,26 +3366,25 @@ se tak, co je vlastně agent schopný se naučit. V zadání práce lze nalézt 
 pro postupné stupňování obtížnosti, tohoto je dosaženo právě změnou simulovaného
 prostředí. V rámci těchto požadavků byly do road direktoru na-implementovány
 následující dílky.
-Z obrázku 24 a tabulky 2 lze vyčíst, že vyhodnocení 1000 jedinců o 1000 generací
-trvá něco okolo 9 h čistého výpočetního času a to do měření není započítáno to, že
-se agenti postupně zlepšují, což koreluje s delší dobou evaluace.
+Z obrázku 24 a tabulky 2 lze vyčíst, že vyhodnocení 1000 jedinců o 1000 generacích trvá něco okolo 9 h čistého výpočetního času a to do měření není započítáno
+to, že se agenti postupně zlepšují, což koreluje s delší dobou evaluace.
 Z tohoto důvodu bylo ověřování rozděleno do 3 částí různých obtížností. Volba
 obtížnosti pak probíhá volbou vhodného dílků (prostředí), který má nastavené patřičné návaznosti. Protože se dílek I objevuje v simulačním prostředí dvakrát je pro
 jednoduchost duplikován a jsou mu změněny patřičné navazující dílky dle obtížnosti.
 První konfigurace probíhá tak, že je agent postaven doprostřed silnice ve tvaru
-I (obrázek 17). Cílem je zjistit, zda je schopný se agent naučit jezdit (nebo alespoň
+I (obrázek 17). Cílem je zjistit, zda agent je schopný naučit se jezdit (nebo alespoň
 couvat) rovně. V této konfiguraci je jedinou návazností (z obou možných směrů)
 samotný dílek I. Vzniká tak nekonečný tunel, kterým může agent cestovat.
 
 Obrázek 17: Silnice ve tvaru písmene I
 Další stupeň testuje schopnosti agenta vyhýbat se překážkám. Agent je opět
-postaven do silnice ve tvaru I ale tentokrát jsou v ní zdi, kterým se musí vyhnout
+postaven do silnice ve tvaru I, ale tentokrát jsou v ní zdi, kterým se musí vyhnout
 (obrázek 18). Návaznost z obou stran je opět samotný dílek (je to obdobně jako je
 tomu v první konfiguraci).
 
-40
+38
 
-8.1 Simulace
+7.1 Simulace
 
 Obrázek 18: Silnice ve tvaru I s překážkami
 Poslední Konfigurace se skládá z více dílků a testuje, zda a jak moc je schopný
@@ -3370,40 +3397,39 @@ zatáčet.
 
 Obrázek 19: Silnice ve tvaru horizontálně obráceného L
 
-41
+39
 
-8.1 Simulace
+7.1 Simulace
 
 Obrázek 20: Silnice ve tvaru L
-V případě, že odbočí doprava je přesměrován na níže uvedený dílek ve tvaru -.
-Toto ověří, zda se agent dokáže přeorientovat na horizontální pohyb.
+V případě, že agent odbočí doprava je přesměrován na níže uvedený dílek ve
+tvaru -. Toto ověří, zda se agent dokáže přeorientovat na horizontální pohyb.
 
 Obrázek 21: Silnice ve tvaru Po projetí dílku ve tvaru I je přesměrován na jeden z následujících dílků.
 
 Obrázek 22: Silnice ve tvaru zrcadlově obráceného L
 
-42
+40
 
-8.2 Serverová část
+7.2 Serverová část
 
 Obrázek 23: Horizontálně a vertikálně obrácené L
 
-8.2 Serverová část
+7.2 Serverová část
 Jak je jíž zmíněno v návrhu serverová část vyhodnocuje jednotlivé jedince distribuovaně s pomocí fronty úkolů. Frontu poskytuje knihovna Bull, která používá Redis
 pro správu údajů o jednotlivých úkolech.
 Cílem byla implementace robustního systému, který v ideálním případě rozloží
 výpočetní zátěž mezi jednotlivé uzly rovnoměrně. Dalším požadavkem byla možnost
-odpojení kdykoliv kteréhokoliv z počítačů, jelikož ne všechny počítače je možné mít
-puštěné po celou dobu vyhodnocování.
-Samotná implementace je dle návrhu rozdělena do dvou částí a to klientské části
-(implementace ve složce client), která obaluje algoritmus NEAT a posílá genomy na
-serverovou částí. Serverová část obaluje simulaci a vyhodnocuje genomy na základě
-jejích konfigurace.
+odpojení kdykoliv kteréhokoliv z počítačů, jelikož ne všechny počítače je možné
+mít puštěné po celou dobu vyhodnocování. Samotná implementace je dle návrhu
+rozdělena do dvou částí a to klientské části (implementace ve složce client), která
+obaluje algoritmus NEAT a posílá genomy na serverovou část. Serverová část obaluje
+simulaci a vyhodnocuje genomy na základě jejích konfigurace.
 Konfigurovatelnost
 Experimenty, které bude klientská část provádět jsou nastavitelné s pomocí dvou
 konfiguračních souborů. Globální konfigurační soubor config.env, který nastavuje
 proměnné prostředí umožňuje nastavit jedinou proměnnou a to FPS, která řídí jednotný krok simulačního enginu. Fixní krok je tu proto, aby se zajistilo, že všechny
-simulace běží ve stejných podmínkách.
+simulace běžely ve stejných podmínkách.
 Druhým jíž zajímavějším konfiguračním souborem je batch.json. Tento soubor
 obsahuje informace o všech experimentech, které se mají spustit. Data o každém
 experimentu jsou uchována v jednoduchém JSON objektu, který obsahuje následující
@@ -3411,26 +3437,28 @@ informace:
 • Nastavení knihovny Neataptic:
 – INPUTS - Počet neuronů ve vstupní vrstvě ,
 – OUTPUTS - Počet neuronů ve výstupní vrstvě
-
-43
-
-8.2 Serverová část
-
 – POPSIZE - Velikost populace
+
+41
+
+7.2 Serverová část
+
 – MUTATION_RATE - Pravděpodobnost mutace
 – ELITISM - Zkopíruje beze změny N nejlepších jedinců
-– EQUAL • Nastavení simulace
+– EQUAL - Při zapnutí vede k větší diverzitě s ohledem na architekturu
+výsledných neuronových sítí
+• Nastavení simulace
 – STARTING_PIECE - Dílek na kterém agent začíná. Jejích popis lze nalézt
 v RoadManageru
 – OPTIONS - Umožňuje zapnout některé z rozšíření (popsaných v kapitole
-7.4). Následující možnosti
+6.4). Následující možnosti
 ∗ holdWheel - Možnost držení volantu ve fixní pozici
 ∗ inputVelocity - Přidává na vstup neuronové sítě aktuální rychlost
 ∗ inputWheel - Přidává na vstup neuronové sítě aktuální náklon volantu
 – TIME - Počet vteřin, který určuje maximální dobu simulace
 Výpočetní cluster
 Ukázalo se, že vyhodnocování simulace zabírá neúměrné množství času a to i na nejvýkonnějším dostupném počítači. Například vyhodnocení jedné generace populace
-o 1024 jedincích zabralo 290 s na nejsilnějším dostupném pc. Z tohoto důvodu bylo
+o 1024 jedincích zabralo 60 s na nejsilnějším dostupném pc. Z tohoto důvodu bylo
 rozhodnuto o distribuci výpočetní zátěže mezi více počítačů. Byl vytvořen výpočetní
 cluster se specifikací popsanou v tabulce 1.
 Procesor
@@ -3469,15 +3497,15 @@ Pro ověření rychlosti bylo provedeno měření výkonu clusteru a jeho porovn
 s nejvýkonnější dostupnou sestavou. Měření bylo provedeno nad náhodně vygenerovanými populacemi. Jelikož se simulace může ukončit předčasně (například při
 kolizi s překážkou), byla simulace provedena pro každou velikost 10× a výsledek byl
 
-44
+42
 
-8.2 Serverová část
+7.2 Serverová část
 
 zprůměrován. Naměřená data lze nalézt v tabulce 2 ze které vychází obrázek 24 na
 kterém lze vidět výsledky tohoto srovnání.
 Porovnání rychlosti clusteru s nejvýkonnějším dostupným počítačem ukazuje,
 že cluster je ve většině případů skoro stejně nebo výrazně rychlejší než samostatný
-výpočet. Jediné dvě naměřené instance, kde toto neplatí je u populací o velikosti
+výpočet. Jediné dvě naměřené instance, kde toto neplatí, je u populací o velikosti
 100 a 200, kde si cluster vede mírně hůře, než nejvýkonnější dostupná sestava. Toto
 lze vysvětlit jak přítomností méně výkonného hardwaru v clusteru (především se
 jedná o S5P6818) na které se musí u menších populací čekat. Pro ověření této teorie
@@ -3578,9 +3606,9 @@ Je nutné však podotknout, že proměnlivá doba u vyhodnocování jedince znam
 měření není zcela přesné. Nicméně lze na základě dat usoudit, že u větších populací
 dochází k přibližně 2× zrychlení.
 
-45
+43
 
-8.2 Serverová část
+7.2 Serverová část
 
 Obrázek 24: Porovnání rychlosti clusteru s jedním PC
 Docker swarm
@@ -3594,9 +3622,9 @@ Tento přístup má několik výhod a to:
 1. Robustnost - Pokud jeden nebo více zpracovatelů selže (je například odpojen ze
 sítě) je možné pokračovat ve vyhodnocování (neúspěšný úkol lze vrátit zpátky
 
-8.2 Serverová část
+7.2 Serverová část
 
-46
+44
 
 do fronty). Toto v kombinaci s výše zmíněným docker swarmem znamená, že
 jakýkoliv výpočetní uzel lze kdykoliv vypnout a po znovu zapojení do sítě si
@@ -3609,9 +3637,10 @@ jedincích můžeme na ně nasadit až tisíc procesorů.
 Problémy implementace
 Při implementaci serverové části a přehrávače byl objeven zásadní problém. Při vložení výsledného genomu do přehrávače se v některých případech rozcházela výsledná
 fitness agenta s fitness, která byla naměřena v přehrávači.
-Tuto odchylku lze vysvětlit nevyhnutelnou přítomností výpočtů pracující, které
-potřebují čísla s plovoucí desetinnou čárkou, kterou vyžaduje hlavně použitý fyzikální engine a výpočty, které probíhají při vyhodnocování výstupů z neuronové sítě
-a to z několika důvodů:
+Tuto odchylku lze vysvětlit nevyhnutelnou přítomností výpočtů, které potřebují
+čísla s plovoucí desetinnou čárkou, kterou vyžaduje hlavně použitý fyzikální engine a
+výpočty, které probíhají při vyhodnocování výstupů z neuronové sítě a to z několika
+důvodů:
 Ačkoliv je standard IEEE-754 deterministický nezaručuje stejný výsledek na
 rozdílném HW a už vůbec ne na HW v rozdílných architekturách. Problém může
 například nastat u volby zaokrouhlovacího módu, kterých standard IEEE-754 definuje několik a které mírně ovlivňují výslednou hodnotu.
@@ -3623,7 +3652,7 @@ třeba myslet na to, že se akumulují s časem a také na to, že řídící ne
 může za velmi obdobných podmínek zachovat diametrálně odlišně.
 Monitorování stavu
 Pro monitorování stavu algoritmu byla použita webová aplikace Grafana. Jak jíž
-bylo řečeno v sekci 4.1 jedná se o nástroj pro snadnou vizualizaci dat v databázi. V
+bylo řečeno v sekci 3.6 jedná se o nástroj pro snadnou vizualizaci dat v databázi. V
 případě této práce posloužila k vytvoření jednoduchého kontrolního panelu, který
 obsahoval následující informace:
 • Graf zobrazující fitness nejlepšího/nejhoršího jedince dle generací
@@ -3631,15 +3660,15 @@ obsahoval následující informace:
 • Numerické pole, které obsahuje počet generací
 • Textové pole s konfigurací v jsonu
 
-47
+45
 
-8.3 Uživatelská část
+7.3 Uživatelská část
 
 Obrázek 26: Kontrolní panel v aplikaci grafana
 Serverová část má možnost vyhodnocovat více konfigurací zároveň, toto je reflektováno v návrhu kontrolního panelu, který umožňuje nejen zobrazovat a porovnávat jednotlivé konfigurace ale také dle nich filtrovat. Toto probíhá s pomocí menu
 v levém horním rohu.
 
-8.3 Uživatelská část
+7.3 Uživatelská část
 Uživatelská část byla navržena tak, aby byla schopná vizualizovat průběh algoritmu
 NEAT a zároveň měla možnost znovu vyhodnocení existujících genomů vygenerovaných serverovou částí. První požadavek vznikl na základě konzultace s vedoucím,
 který chtěl algoritmus NEAT demonstrovat v hodinách předmětu VUI2. Druhý požadavek vznikl z důvodu potřeby vizualizace řešení, které generoval sever.
@@ -3655,32 +3684,31 @@ prostředí a uživatel může pozorovat vývoj jedinců v reálném čase.
 Poslední tlačítko slouží k urychlení simulace. Způsobí to, že se simulace začne
 obnovovat bez vykreslování. Toto jí značně zrychlí.
 
-48
+46
 
-8.3 Uživatelská část
+7.3 Uživatelská část
 
 Obrázek 27: Uživatelské rozhraní klientské části
 Přehrávač
-Přehrávač genomů, také poskytuje jednoduché rozhraní skládající se z textové částí
+Přehrávač genomů také poskytuje jednoduché rozhraní skládající se z textové částí
 pro vložení genomu (výstup ze serverové části lze zobrazit například v grafaně),
 graf pro zobrazení průběhu fitness agenta a vykreslovací část, která zobrazuje, jak
 si agent vedl. Pro menší výpočetní nároky je do grafu zapisována fitness každou
 vteřinu. Výsledná komponenta se nachází na obrázku 28.
-Díky problémům s implementací naznačených v sekci 8.2 bylo třeba vymyslet alternativní způsob přehrávání. Nakonec byl návrh pozměněn tak, že si serverová část
+Díky problémům s implementací naznačených v sekci 7.2 bylo třeba vymyslet alternativní způsob přehrávání. Nakonec byl návrh pozměněn tak, že si serverová část
 ukládá pro každý snímek pozice, úhel, aktuální fitness a dílek na kterém se agent
 nachází, kterou pak přehrávač interpretuje oproti klasickému přístupu, který by zahrnoval opětovnou simulaci agenta se stejným genomem. Tímto je dosaženo toho,
 že si lze zobrazit průběh agenta tak, jak tomu bylo při jeho vyhodnocování.
 
-49
+47
 
-8.4 Nasazení serverové části
+7.4 Nasazení serverové části
 
 Obrázek 28: Rozhraní přehrávače
 
-8.4 Nasazení serverové části
+7.4 Nasazení serverové části
 Jak jíž bylo zmíněno serverová část je obalená do docker kontejneru jednak pro
-snadné nasazení a jednak z důvodu snadného nasazení do swarmu, tak pro jednotné
-prostředí.
+snadné nasazení a jednak z důvodu zahrnutí do swarmu.
 Nejdříve je potřeba vytvořit swarm. Tohoto lze dosáhnout zadáním příkazu
 docker swarm init na počítači, který chceme používat jako swarm manager (lze
 také použít docker-machines a výpočty dělat na jednom počítači). Po jeho zadání
@@ -3691,51 +3719,52 @@ Nasazení probíhá nejdříve spuštěním příkazu docker-compose up ve slož
 • Databáze
 – Redis - pro Bull
 – Postgresql - pro ukládání informací o průběhu algoritmu
+
+7.5 Nasazení uživatelské části
+
+48
+
 • Služby pro monitorování
 – Grafana (port 3000) - pro monitorování stavu algoritmu NEAT
 – Arena (port 4567) - pro monitorování stavu Bull
-
-8.5 Nasazení uživatelské části
-
-50
-
 – Portainer (port 9000) - pro monitorování swarmu
 – Adminer (port 8080) - pro správu databáze
 Po úspěšném provedení tohoto příkazu je třeba spustit zpracovatele na jednotlivých uzlech swarmu. Lze toho dosáhnout přechodem do složky Server a spuštěním
 příkazu docker deploy Server –compose-file docker-compose.yml. Protože je tento
-příkaz v době psaní práce označená jako experimentální je třeba ho povolit. Tohoto
+příkaz v době psaní práce označen jako experimentální je třeba ho povolit. Tohoto
 je dosaženo modifikací souboru daemon.json (na linuxu je ho nutné vytvořit v
 /etc/docker/daemon.json) přidáním řádku ”experimental”: true.
 Po tomto kroku je třeba ještě nastavit správnou ip adresu a port Redis serveru
 (ip adresa swarm mangeru) v souboru config.env.
 Po provedení těchto kroků je na každém uzlu spuštěn vyhodnocovatel, který
 začne automaticky stahovat a vyhodnocovat jednotlivé jedince. V případě vypnutí/pádu uzlu je úkol po čase vrácen do fronty a vyhodnocení probíhá na jiném uzlu.
-Pokud se uživatel rozhodne používat portainer musí se z bezpečnostních důvodů
-přihlásit do 5 minut od jeho spuštění.
+Pokud se uživatel rozhodne používat portainer, musí se z bezpečnostních důvodů přihlásit do 5 minut od jeho spuštění.
 
-8.5 Nasazení uživatelské části
-Uživatelskou část lze jednoduše nasadit s pomocí manageru závislostí npm. Stačí ve
-složce s implementací spustit příkaz npm run dev a pak si v prohlížeči otevřít adresu
-localhost:8080. V případě přehrávače je to localhost:8080/#/player
+7.5 Nasazení uživatelské části
+Uživatelskou část lze jednoduše nasadit s pomocí manageru závislostí npm. Stačí
+ve složce s implementací spustit příkaz (po nainstalování závislostí) npm run dev
+a pak si v prohlížeči otevřít adresu localhost:8080. V případě přehrávače je to localhost:8080/#/player
 
-51
+49
 
-9 EXPERIMENTY
+8 EXPERIMENTY
 
-9 Experimenty
-Po návrhu simulačního prostředí byl agent vyzkoušen v několika situacích se stupňující se obtížností. Každá simulace probíhala s 100 jedinci po 400 generací. Doba
-vyhodnocování byla nastavena na 60 vteřin. Ačkoliv je pravděpodobné, že by delší
-doba evaluace by pravděpodobně vyústila v lepší výsledky její výpočet v různých
-konfiguracích se ukázal jako příliš časově náročný navíc empirické pozorování ukázalo, že tato konfigurace poskytuje dostatečně dobré výsledky za snesitelný čas.
+8 Experimenty
+Po návrhu simulačního prostředí byl agent vyzkoušen v několika situacích se stupňující se obtížností. Každá simulace probíhala se 100 jedinci do té doby než se fitness
+funkce u všech stabilizovala po dostatečně dlouhou dobu. Toto trvalo 400 generací
+a přibližně 20 hodin čistého výpočetního času. Doba vyhodnocování byla nastavena
+na 120 vteřin. Volba ostatních ostatních hyper-parametru proběhla na základě empirických zkušeností získaných v průběhu implemetnace. Ačkoliv je pravděpodobné,
+že by delší doba evaluace by pravděpodobně vyústila v lepší výsledky její výpočet v
+různých konfiguracích se ukázal jako příliš časově náročný, navíc empirické pozorování ukázalo, že tato konfigurace poskytuje dostatečně dobré výsledky za snesitelný
+čas.
 S ohledem na časovou náročnost výpočtů byly zkoušeny jen konfigurace popsané
-v návrhu (sekce 7.4) na implementovaných dílcích k náhledu v sekci 8.1.
-V rámci časové úspory je každý stupeň testován jen 2x a to bez jakýchkoliv
-rozšíření (vstupů/výstupů) a poté se všemi dostupnými. Cílem je zjistit, jak moc
-tato rozšíření ovlivňují výsledného agenta.
+v návrhu (sekce 6.4) na implementovaných dílcích k náhledu v sekci 7.1.
+V rámci časové úspory je každý stupeň testován jen 2x. První pokus probíhá jakýchkoliv rozšíření (vstupů/výstupů) a poté zopakován se všemi dostupnými. Cílem
+je zjistit, jak moc tato rozšíření ovlivňují výsledného agenta.
 
-9.1 První stupeň - silnice ve tvaru I
+8.1 První stupeň - silnice ve tvaru I
 Silnice ve tvaru I byla v obou případech agentem úspěšně překonána. Je zajímavé,
-že ačkoliv byl výsledný pohyb agenta stejný (jízda dozadu relativně rovně) jsou zde
+že ačkoliv byl výsledný pohyb agenta stejný (relativně rovná jízda dozadu) jsou zde
 odlišnosti ve výsledných neuronových sítí agenta v obou konfiguracích.
 Konfigurace bez rozšíření
 Konfigurace bez rozšíření vygenerovala agenta, který jede dozadu a reguluje směr
@@ -3743,110 +3772,109 @@ jízdy mírným kývavým pohybem. Z průběhu fitness funkce je vidět, že age
 dobrých výsledků jíž v druhé generaci. Další generace přibývaly výsledné neuronové
 sítě na komplexnosti bez větší změny v chování agenta a fitness.
 
-Obrázek 29: Průběh evaluace
+Obrázek 29: Průběh evaluace - I bez rozšíření
 Na výsledné neuronové síti je zajímavá zpětná vazba u prostředního oranžového
 neuronu s aktivační funkcí tanh, která se pravděpodobně stará o onen kývavý pohyb.
 
-9.1 První stupeň - silnice ve tvaru I
+8.1 První stupeň - silnice ve tvaru I
 
-52
+50
 
-Obrázek 30: Výsledná neuronová síť
+Obrázek 30: Neuronová síť - I bez rozšíření
 Konfigurace s rozšířeními
 Konfigurace s rozšířením byla i díky možnosti držení volantu ve fixní poloze schopná
 okamžitě najít možné řešení.
 
-Obrázek 31: Průběh evaluace
-Ačkoliv ve finální verzi přidala neurony do skryté vrstvy. Není jisté, zda jsou
-vůbec k něčemu dobré, protože pro řešení této úlohy stačí v dané konfiguraci pouze
-přidat plyn dozadu/dopředu a držet volant.
+Obrázek 31: Průběh evaluace - I s rozšířeními
+Ve finální verzi přidala neurony do skryté vrstvy. Není jisté, zda jsou vůbec k
+něčemu dobré, protože pro řešení této úlohy stačí v dané konfiguraci pouze přidat
+plyn dozadu/dopředu a držet volant.
 
-9.2 Druhý stupeň - silnice ve tvaru I s překážkami
+8.2 Druhý stupeň - silnice ve tvaru I s překážkami
 
-53
+51
 
-Obrázek 32: Výsledná neuronová síť
+Obrázek 32: Neuronová síť - I s překážkami s rozšířeními
 
-9.2 Druhý stupeň - silnice ve tvaru I s překážkami
-U druhého stupně obtížnosti už dělal agentovi větší problém a nepodařilo se za daný
+8.2 Druhý stupeň - silnice ve tvaru I s překážkami
+Druhý stupeň obtížnosti už dělal agentovi větší problém a nepodařilo se za daný
 časový limit vyvinout agenta, který by ho překonal bez kolize. V tomto stupni je
-také vidět velký rozdíl mezi konfigurací s rozšířeními a bez rozšířeními. Konfigurace
-s rozšířeními si totiž vedla značně lépe.
+také vidět velký rozdíl mezi konfigurací s rozšířeními a bez rozšíření. Konfigurace s
+rozšířeními si totiž vedla značně lépe.
 Konfigurace bez rozšíření
 Na první obrazovce si agent vedl docela dobře. Překážky obešel obdobným kývavým
 pohybem, jako je tomu u první verze, nicméně po přechodu na další obrazovku
 neuspěl a narazil do zdi.
 
-Obrázek 33: Graf
+Obrázek 33: Graf průběhu fitness - bez překážek
 Na výsledné neuronové síti je zajímavá přítomnost neuronu s aktivační funkcí
-absolutní hodnota, který mohl hrát roli právě ve vyhýbání se překážkám. Mohlo by
-totiž sloužit jako přepínač pro zatáčení.
+absolutní hodnota, který by mohl hrát roli právě ve vyhýbání se překážkám. Mohl
+by totiž sloužit jako přepínač pro zatáčení.
 
-9.2 Druhý stupeň - silnice ve tvaru I s překážkami
+8.2 Druhý stupeň - silnice ve tvaru I s překážkami
 
-54
+52
 
-Obrázek 34:
+Obrázek 34: Neuronová síť - silnice ve tvaru I s překážkami bez rozšíření
 Konfigurace s rozšířeními
 Konfigurace s rozšířením byla schopná překonat větší část druhé obrazovky a dosáhnout přibližně dvojnásobku fitness konfigurace bez rozšíření.
 
-Obrázek 35:
+Obrázek 35: Graf průběhu fitness funkce - s překážkami
 Na výsledné neuronové síti je vidět, že je mnohem komplexnější než kterákoliv
-předchozí. V této fázi začíná je opravdu těžké určit účel jednotlivých neuronů. Zajímavé je, že obsahuje jak neuron s aktivační funkcí absolutní hodnot, jako je tomu v
-konfiguraci bez rozšíření, tak neuron s aktivační funkcí sigmoid, která může sloužit
-k dorovnání směru například na základě vstupní rychlosti.
+předchozí. Je opravdu těžké určit účel jednotlivých neuronů. Zajímavé je, že obsahuje jak neuron s aktivační funkcí absolutní hodnot, jako je tomu v konfiguraci
+bez rozšíření, tak neuron s aktivační funkcí sigmoid, která může sloužit k dorovnání
+směru například na základě vstupní rychlosti.
 
-55
+53
 
-9.3 Třetí stupeň - Okruh
+8.3 Třetí stupeň - Okruh
 
-Obrázek 36:
+Obrázek 36: Neuronová síť - silnice ve tvaru I s překážkami s rozšířeními
 
-9.3 Třetí stupeň - Okruh
+8.3 Třetí stupeň - Okruh
 Stejně jako je tomu u předchozího případu se ani jedné konfiguraci nepovedlo překonat simulační prostředí bez kolize s překážkou.
 Konfigurace bez rozšíření
 V základní konfiguraci agent dorazil do vrchní části mapy (dílek ve tvaru obráceného
 L), kde narazil při pokusu o vytočení překážky.
 
 Obrázek 37:
-Co je překvapující je, že toto dokázal bez jakýchkoliv přídavných neuronů.
-Konfigurace s rozšíření
+Překvapující je, že toto dokázal bez jakýchkoliv přídavných neuronů.
+Konfigurace s rozšířením
 Agent si nejprve nacouval do spodní části obrazovky a pak se pokusil pod úhlem
 překonat vrchní část mapy. Dostal se trochu dál než agent bez rozšíření ale také
 kolidoval s překážkou.
 
-56
+8.3 Třetí stupeň - Okruh
 
-9.3 Třetí stupeň - Okruh
+54
 
-Obrázek 38:
+Obrázek 38: Neuronová síť - Okruh bez rozšíření
 
-Obrázek 39:
+Obrázek 39: Průběh fitness funkce - Okruh bez rozšíření
 Ve výsledné neuronové sítí se nachází neuron s aktivační funkcí SELU. SELU
 je variace RELU, která by v této konfiguraci mohla sloužit jako implementace výše
 popsaného manévru.
 
-Obrázek 40:
+Obrázek 40: Neuronová síť - Okruh s rozšířením
 
-9.4 Zhodnocení
+8.4 Zhodnocení
 
-57
+55
 
-9.4 Zhodnocení
-Ačkoliv se výsledným agentům podařilo zdolat pouze první překážku je na provedených experimentech a jejích výsledcích vidět, že lze neuroevoluci použít i pro
+8.4 Zhodnocení
+Ačkoliv se výsledným agentům podařilo zdolat pouze první překážku, je na provedených experimentech a jejích výsledcích vidět, že lze neuroevoluci použít i pro
 obtížnější terén. Jediným limitem je časová, případně HW náročnost experimentu.
 
-10 MOŽNÁ VYLEPŠENÍ
+9 MOŽNÁ VYLEPŠENÍ
 
-58
+56
 
-10 Možná vylepšení
-Při implementaci aktuálního řešení bylo zjištěno, že řešený problém je mnohem
-výpočetně náročnější než se při původním návrhu čekalo. Toto vedlo k navrhu distribuovaného řešení, které ovšem se sebou nese problémy v rozdílech u výpočtů s
-desetinou čárkou.
-Z tohoto důvodu by experimentu prospělo použití homogenního clusteru. Předešlo by se problémům, který se sebou přináší gridový cluster.
-Další možným rozšířením by bylo spuštění řešení na clusteru s větším výpočetním výkonem. Toto by umožnilo vyzkoušet více experimentů a konfigurací, což by
-vedlo k lepší představě o možnostech samotného algoritmu. Navíc by to umožnilo
+9 Možná vylepšení
+Při implementaci aktuálního řešení bylo zjištěno, že řešený problém je mnohem výpočetně náročnější než se při původním návrhu čekalo. Toto vedlo k návrhu distribuovaného řešení, které ovšem sebou nese problémy v rozdílech u výpočtů s desetinou
+čárkou.
+Z tohoto důvodu by experimentu prospělo použití homogenního clusteru. Předešlo by se problémům, které sebou přináší gridový cluster.
+Dalším možným rozšířením by bylo spuštění řešení na clusteru s větším výpočetním výkonem. Toto by umožnilo vyzkoušet více experimentů a konfigurací, což
+by vedlo k lepší představě o možnostech samotného algoritmu. Navíc by to umožnilo
 plně využít potenciál, který nabízí oddělený simulační kód (simulace s dynamickými
 prvky, ...).
 Poslední možností by byla reimplementace existujícího řešení v některém ze
@@ -3855,27 +3883,27 @@ a bylo by tedy možné vyhodnotit více jedinců na jednom počítači než dopo
 Grafickou část aplikace by bylo možné rozšířit o různá nastavení, která jsou v
 tuto chvíli dostupná jen ve zdrojovém kódu aplikace.
 
-11 ZÁVĚR
+10 ZÁVĚR
 
-59
+57
 
-11 Závěr
-Tato práce se zabývala návrhem, tvorbou prostředí pro simulovaného agenta a jeho
-řízení s pomocí upraveného algoritmu neuroevoluce. Následoval návrh, provedení a
-zhodnocení experimentů, které byly navrženy, tak aby testovaly možnosti agenta.
+10 Závěr
+Tato práce se zabývala návrhem a tvorbou prostředí pro simulovaného agenta i jeho
+řízení pomocí upraveného algoritmu neuroevoluce. Následoval návrh, provedení a
+zhodnocení experimentů, které byly navrženy tak, aby testovaly možnosti agenta.
 Z provedených testů vyplývá obrovský potenciál metody neuroevoluce, která demonstrovala svojí schopnost řešení komplexních problémů, jako je řízení automobilu a
-to za použití neuronových sítí jejíchž složitost je oproti konkurenčním řešením, jako
+to za použití neuronových sítí. Jejich složitost je oproti konkurenčním řešením, jako
 je například zpětnovazební učení velmi malá.
 Nevýhodou této metody je ovšem její velká časová náročnost, která limitovala možnosti této práce.
-I přes výše zmíněná omezení se v práci podařilo s pomocí výpočetního clusteru vytvořit testovací systém, který je nejen robustní ale i snadno škálovatelný. S použitím
+I přes výše zmíněná omezení se v práci podařilo pomocí výpočetního clusteru vytvořit testovací systém, který je nejen robustní ale i snadno škálovatelný. Použitím
 většího výpočetního výkonu by tak bylo možné dosáhnout mnohem lepších výsledků
 a podívat se na limity zkoumané metody do větší hloubky.
 
-12 REFERENCE
+11 REFERENCE
 
-60
+58
 
-12 Reference
+11 Literatura
 [BUDUMA, Nikhil 2017] BUDUMA, Nikhil. Fundamentals of deep learning:
 designing next-generation machine intelligence algorithms. Sebastopol:
 O’Reilly, 2017. ISBN 978-149-1925-614..
@@ -3914,9 +3942,9 @@ Stuart J., Peter NORVIG a Ernest DAVIS. Artificial intelligence: a
 modern approach. 3rd ed. Boston: Pearson, c2010. Prentice Hall series in
 artificial intelligence. ISBN 978-0-13-207148-2..
 
-12 REFERENCE
+11 REFERENCE
 
-61
+59
 
 [KOZA, John R., 1992] KOZA, John R. Genetic programming: on the
 programming of computers by means of natural selection. Cambridge, Mass.:
@@ -3930,5 +3958,21 @@ O. STANLEY a Jeff CLUNE. Deep Neuroevolution: Genetic Algorithms
 Are a Competitive Alternative for Training Deep Neural Networks for
 Reinforcement Learning [online]. [cit. 2019-01-01]. DOI: arXiv:1712.06567v1.
 Dostupné z: https://arxiv.org/abs/1712.06567v1.
+[Vue.js, 2014] Vue.js. Vue.js [online]. Copyright © 2014 [cit. 01.01.2019]. Dostupné z:
+https://vuejs.org/.
+[STANTON, Christopher, Jeff CLUNE a a Josh BONGARD, 2016]
+STANTON, Christopher, Jeff CLUNE a Josh BONGARD. Curiosity Search:
+Producing Generalists by Encouraging Individuals to Continually Explore and
+Acquire Skills throughout Their Lifetime. PLOS ONE [online]. 2016, 11(9)
+[cit. 2019-01-02]. DOI: 10.1371/journal.pone.0162235. ISSN 1932-6203.
+Dostupné z: http://dx.plos.org/10.1371/journal.pone.0162235.
+
+[SCHAUL, Tom, Yi SUN, Daan WIERSTRA, Fausino GOMEZ a Jurgen SCHMIDHUBER,
+SCHAUL, Tom, Yi SUN, Daan WIERSTRA, Fausino GOMEZ a
+Jurgen SCHMIDHUBER. Curiosity-driven optimization. In: 2011 IEEE
+Congress of Evolutionary Computation (CEC) [online]. IEEE, 2011, 2011, s.
+1343-1349 [cit. 2019-01-02]. DOI: 10.1109/CEC.2011.5949772. ISBN
+978-1-4244-7834-7. Dostupné z:
+http://ieeexplore.ieee.org/document/5949772/.
 
 

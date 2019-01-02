@@ -90,7 +90,7 @@ Samotná implementace je dle návrhu rozdělena do dvou částí a to klientské
 
 \podsekce{Konfigurovatelnost}
 Experimenty, které bude klientská část provádět jsou nastavitelné s pomocí dvou konfiguračních souborů.
-Globální konfigurační soubor \emph{config.env}, který nastavuje proměnné prostředí umožňuje nastavit jedinou proměnnou a to FPS, která řídí jednotný krok simulačního enginu. Fixní krok je tu proto, aby se zajistilo, že všechny simulace běží ve stejných podmínkách.
+Globální konfigurační soubor \emph{config.env}, který nastavuje proměnné prostředí umožňuje nastavit jedinou proměnnou a to FPS, která řídí jednotný krok simulačního enginu. Fixní krok je tu proto, aby se zajistilo, že všechny simulace běžely ve stejných podmínkách.
 
 Druhým jíž zajímavějším konfiguračním souborem je \emph{batch.json}. Tento soubor obsahuje informace o všech experimentech, které se mají spustit. Data o každém experimentu jsou uchována v jednoduchém JSON objektu, který obsahuje následující informace:
 
@@ -102,7 +102,7 @@ Druhým jíž zajímavějším konfiguračním souborem je \emph{batch.json}. Te
 		\item POPSIZE - Velikost populace
 		\item MUTATION\_RATE - Pravděpodobnost mutace
 		\item ELITISM - Zkopíruje beze změny N nejlepších jedinců
-		\item EQUAL - 
+		\item EQUAL - Při zapnutí vede k větší diverzitě s ohledem na architekturu výsledných neuronových sítí
 	\end{itemize}
 	\item Nastavení simulace
 	\begin{itemize}
@@ -120,7 +120,7 @@ Druhým jíž zajímavějším konfiguračním souborem je \emph{batch.json}. Te
 \podsekce{Výpočetní cluster}
 \label{sec:cluster}
 Ukázalo se, že vyhodnocování simulace zabírá neúměrné množství času a to i na nejvýkonnějším dostupném počítači. 
-Například vyhodnocení jedné generace populace o~1024 jedincích zabralo ~290 s~na nejsilnějším dostupném pc. Z~tohoto důvodu bylo rozhodnuto o~distribuci výpočetní zátěže mezi více počítačů. Byl vytvořen výpočetní cluster se specifikací popsanou v~tabulce \ref{table:hw_table}.
+Například vyhodnocení jedné generace populace o~1024 jedincích zabralo ~60 s~na nejsilnějším dostupném pc. Z~tohoto důvodu bylo rozhodnuto o~distribuci výpočetní zátěže mezi více počítačů. Byl vytvořen výpočetní cluster se specifikací popsanou v~tabulce \ref{table:hw_table}.
 \begin{table}[h!]
 	\centering
 	\begin{tabular}{|l|c|c|c|}
@@ -283,7 +283,7 @@ Díky problémům s implementací naznačených v sekci \ref{sec:ImplementationT
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.4\linewidth]{player}
+	\includegraphics[width=0.5\linewidth]{player}
 	\caption{Rozhraní přehrávače}
 	\label{fig:player}
 \end{figure}
@@ -318,10 +318,11 @@ Po provedení těchto kroků je na každém uzlu spuštěn vyhodnocovatel, kter�
 Pokud se uživatel rozhodne používat portainer, musí se z bezpečnostních důvodů přihlásit do 5 minut od jeho spuštění.
 
 \sekce{Nasazení uživatelské části}
-Uživatelskou část lze jednoduše nasadit s pomocí manageru závislostí \emph{npm}. Stačí ve složce s implementací spustit příkaz \emph{npm run dev} a pak si v prohlížeči otevřít adresu \emph{localhost:8080}. V případě přehrávače je to \emph{localhost:8080/\#/player}
+Uživatelskou část lze jednoduše nasadit s pomocí manageru závislostí \emph{npm}. Stačí ve složce s implementací spustit příkaz (po nainstalování závislostí) \emph{npm run dev} a pak si v prohlížeči otevřít adresu \emph{localhost:8080}. V případě přehrávače je to \emph{localhost:8080/\#/player}
 
 \kapitola{Experimenty}
-Po návrhu simulačního prostředí byl agent vyzkoušen v~několika situacích se stupňující se obtížností. Každá simulace probíhala se~100 jedinci do té doby než se fitness funkce u všech stabilizovala po dostatečně dlouhou dobu. Toto trvalo 400 generací a přibližně 20 hodin čistého výpočetního času. Doba vyhodnocování byla nastavena na 120 vteřin. Ačkoliv je pravděpodobné, že by delší doba evaluace by pravděpodobně vyústila v lepší výsledky její výpočet v různých konfiguracích se ukázal jako příliš časově náročný, navíc empirické pozorování ukázalo, že tato konfigurace poskytuje dostatečně dobré výsledky za snesitelný čas. 
+Po návrhu simulačního prostředí byl agent vyzkoušen v~několika situacích se stupňující se obtížností. Každá simulace probíhala se~100 jedinci do té doby než se fitness funkce u všech stabilizovala po dostatečně dlouhou dobu. Toto trvalo 400 generací a přibližně 20 hodin čistého výpočetního času. Doba vyhodnocování byla nastavena na 120 vteřin. Volba ostatních ostatních hyper-parametru proběhla na základě empirických zkušeností získaných v průběhu implemetnace. 
+Ačkoliv je pravděpodobné, že by delší doba evaluace by pravděpodobně vyústila v lepší výsledky její výpočet v různých konfiguracích se ukázal jako příliš časově náročný, navíc empirické pozorování ukázalo, že tato konfigurace poskytuje dostatečně dobré výsledky za snesitelný čas. 
 
 S ohledem na časovou náročnost výpočtů byly zkoušeny jen konfigurace popsané v návrhu (sekce \ref{sec:extensions}) na implementovaných dílcích k náhledu v sekci \ref{sec:simulationEnvironment}.
 
@@ -358,7 +359,7 @@ Ve finální verzi přidala neurony do skryté vrstvy. Není jisté, zda jsou v�
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{solutions/Ibasic/advanced}
-	\caption{Neuronová síť - I s překážkami s rozšířeními}
+	\caption{Neuronová síť - I s rozšířeními}
 	\label{fig:basicAdvanced}
 \end{figure}
 
@@ -449,4 +450,4 @@ Grafickou část aplikace by bylo možné rozšířit o různá nastavení, kter
 Tato práce se zabývala návrhem a  tvorbou prostředí pro simulovaného agenta i jeho řízení pomocí upraveného algoritmu neuroevoluce. Následoval návrh, provedení a zhodnocení experimentů, které byly navrženy tak, aby testovaly možnosti agenta.\\
 Z provedených testů vyplývá obrovský potenciál metody neuroevoluce, která demonstrovala svojí schopnost řešení komplexních problémů, jako je řízení automobilu a to za použití neuronových sítí.  Jejich složitost je oproti konkurenčním řešením, jako je například zpětnovazební učení velmi malá.\\
 Nevýhodou této metody je ovšem její velká časová náročnost, která limitovala možnosti této práce.\\
-I přes výše zmíněná omezení se v práci podařilo pomocí výpočetního clusteru vytvořit testovací systém, který je nejen robustní ale i snadno škálovatelný. Použitím většího výpočetního výkonu by tak bylo možné dosáhnout mnohem lepších výsledků a podívat se na limity zkoumané metody do větší hloubky.
+I přes výše zmíněná omezení se v práci podařilo pomocí výpočetního clusteru vytvořit testovací systém, který je nejen robustní ale i snadno škálovatelný. Použitím většího výpočetního výkonu by tak bylo možné dosáhnout mnohem lepších výsledků a podívat se na limity zkoumané metody do větší hloubky. Bylo například možné plně využít potenciál navrženého řešení pro tvorbu prostředí s dynamickými prvky, jako jsou například další automobily nebo dopravní značení.
