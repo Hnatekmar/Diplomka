@@ -77,7 +77,7 @@ Zobrazení algoritmu v reálném čase nabízí jak nadhled na průběh algoritm
 Cílem přehrávače je zobrazit průběh již vyhodnoceného jedince. K tomuto má textové pole s informacemi o jedinci, tlačítko pro spouštění přehrávání a plocha na které je vizualizován průběh agenta.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{wireframe/player}
+	\includegraphics[width=0.6\linewidth]{wireframe/player2}
 	\caption{Drátkový návrh přehrávače}
 	\label{fig:player}
 \end{figure}
@@ -208,7 +208,14 @@ Modifikovat lze také výstupy neuronové sítě toto rozšíří nebo omezí mo
 \end{itemize}
 
 \podsekce{Fitness funkce}
-I přesto, že návrh fitness funkce spíše iterativní proces, který lze provést až po implementaci simulačního prostředí, lze si několik pravidel odvodit jíž v návrhu. 
+\label{sec:fitnessDesign}
+I přesto, že návrh fitness funkce spíše iterativní proces, který lze provést až po implementaci simulačního prostředí, lze si několik pravidel odvodit jíž v návrhu.
+
+Je zřejmé, že bude třeba agenta nějakým způsobem penalizovat za nevhodné chování, jako je například kolize s překážkou. Možností penalizace agenta je hodně. Může to být buď předčasné přerušení simulace, které znemožní agentovi získat větší hodnotu fitness nebo to také může nabírat podoby odečtení určitého množství bodů z fitness skore agenta.
+
+Míra a podoba penalizace závisí na odzkoušeném chování agenta, který se může v rámci maximalizace fitness funkce chovat nepředvídatelně a bude jej tedy možné určit, až po implementace práce. Pro ilustraci nepředvídatelných akcí si můžeme například představit agenta auto, které se díky špatně nastavené fitness funkci rozhodne jezdit po chodníku jenom proto, že penalizace srážky chodce je menší, než penalizace za kolizi s vozidlem. 
+
+Dalším faktorem, který musí být do fitness funkce zahrnut je motivace agenta. Na ní totiž ve velké míře závisí jeho výsledky. Může to být například požadavek na maximalizaci rychlosti agenta nebo můžeme například brát ohled na ujetou vzdálenost.
 
 %- na vstup site privest i aktualni rychlost a natoceni volantu (to co
 %ridic prece v kabine vidi, kdyz auto ridi)

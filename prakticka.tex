@@ -20,6 +20,8 @@ Fitness funkce je důležitou součástí simulace, která zásadně ovlivňuje 
 
 Po několika pokusech a konzultaci s vedoucím práce byla jako metrika úspěchu agenta zvolena celková vzdálenost, kterou je agent schopný překonat v průběhu jedné generace. Výpočet je realizován pomocí RoadDirectoru, který si při každém přechodu zaznamená bod, ve kterém se po přesunu agent nachází. Výsledná fitness je pak součet uražených vzdáleností pro každou místnost. Road direktor si pro každou obrazovku uchovává vzdálenost, kterou agent v dané obrazovce překonal. Výsledným fitness je pak součet všech vzdáleností na všech obrazovkách.
 
+Simulace může být také předčasně zastavena v případě, že agent koliduje s překážkou. Znemožní se mu tím získání většího skóre.
+
 \podsekce{Simulační prostředí}
 \label{sec:simulationEnvironment}
 Simulační prostředí poskytuje sadu překážek, kterou agent musí překonat. Testuje se tak, co je vlastně agent schopný se naučit. V zadání práce lze nalézt podmínku pro postupné stupňování obtížnosti, tohoto je dosaženo právě změnou simulovaného prostředí. V rámci těchto požadavků byly do road direktoru na-implementovány následující dílky.
@@ -119,7 +121,8 @@ Druhým jíž zajímavějším konfiguračním souborem je \emph{batch.json}. Te
 
 \podsekce{Výpočetní cluster}
 \label{sec:cluster}
-Ukázalo se, že vyhodnocování simulace zabírá neúměrné množství času a to i na nejvýkonnějším dostupném počítači. 
+Ukázalo se, že vyhodnocování simulace zabírá neúměrné množství času a to i na nejvýkonnějším dostupném počítači.
+
 Například vyhodnocení jedné generace populace o~1024 jedincích zabralo ~60 s~na nejsilnějším dostupném pc. Z~tohoto důvodu bylo rozhodnuto o~distribuci výpočetní zátěže mezi více počítačů. Byl vytvořen výpočetní cluster se specifikací popsanou v~tabulce \ref{table:hw_table}.
 \begin{table}[h!]
 	\centering
@@ -149,7 +152,8 @@ Lze i namítnout, že se zde projevuje určitá režie při síťové komunikaci
 
 Pro ověření rychlosti bylo provedeno měření výkonu clusteru a jeho porovnání s nejvýkonnější dostupnou sestavou. Měření bylo provedeno nad náhodně vygenerovanými populacemi. Jelikož se simulace může ukončit předčasně (například při kolizi s překážkou), byla simulace provedena pro každou velikost $10\times$ a výsledek byl zprůměrován. Naměřená data lze nalézt v tabulce \ref{tbl:benchmark} ze které vychází obrázek \ref{fig:benchmarkcluster} na kterém lze vidět výsledky tohoto srovnání. 
 
-Porovnání rychlosti clusteru s nejvýkonnějším dostupným počítačem ukazuje, že cluster je ve většině případů skoro stejně nebo  výrazně rychlejší než samostatný výpočet. Jediné dvě naměřené instance, kde toto neplatí, je u populací o velikosti 100 a 200, kde si cluster vede mírně hůře, než nejvýkonnější dostupná sestava. 
+Porovnání rychlosti clusteru s nejvýkonnějším dostupným počítačem ukazuje, že cluster je ve většině případů skoro stejně nebo  výrazně rychlejší než samostatný výpočet. Jediné dvě naměřené instance, kde toto neplatí, je u populací o velikosti 100 a 200, kde si cluster vede mírně hůře, než nejvýkonnější dostupná sestava.
+
 Toto lze vysvětlit jak přítomností méně výkonného hardwaru v clusteru (především se jedná o S5P6818) na které se musí u menších populací čekat. Pro ověření této teorie byl cluster spuštěn v dalších konfiguracích, kde byly postupně odebírány jednotlivé počítače a měření bylo opakováno. 
 
 \begin{itemize}
@@ -228,8 +232,6 @@ Tento přístup má několik výhod a to:
 	\item Škálovatelnost - problém lze škálovat až do doby, kdy počet procesorů nepřesáhne počet potřebných simulací. Chceme-li tedy vypočítat generaci o tisíci jedincích můžeme na ně nasadit až tisíc procesorů.
 \end{enumerate}
 
-
-
 \podsekce{Problémy implementace}
 \label{sec:ImplementationTroubles}
 Při implementaci serverové části a přehrávače byl objeven zásadní problém. Při vložení výsledného genomu do přehrávače se v některých případech rozcházela výsledná fitness agenta s fitness, která byla naměřena v přehrávači. 
@@ -240,10 +242,11 @@ Ačkoliv je standard IEEE-754 deterministický nezaručuje stejný výsledek na 
 
 Standard JavaScriptu nespecifikuje přesnou implementaci trigonometrických funkcí, které se hojně používají u vektorové algebry, která se opět využívá hlavně u výpočtů fyzikálního enginu.
 
-I přes to, že odchylky způsobené výše uvedenými jevy jsou relativně malé je třeba myslet na to, že se akumulují s časem a také na to, že řídící neuronová síť se může za velmi obdobných podmínek zachovat diametrálně odlišně. 
+I přes to, že odchylky způsobené výše uvedenými jevy jsou relativně malé je třeba myslet na to, že se akumulují s časem a také na to, že řídící neuronová síť se může za velmi obdobných podmínek zachovat diametrálně odlišně.
 
 \podsekce{Monitorování stavu}
 Pro monitorování stavu algoritmu byla použita webová aplikace Grafana. Jak jíž bylo řečeno v sekci \ref{sec:grafana} jedná se o nástroj pro snadnou vizualizaci dat v databázi. V případě této práce posloužila k vytvoření jednoduchého kontrolního panelu, který obsahoval následující informace:
+
 \begin{itemize}
 	\item Graf zobrazující fitness nejlepšího/nejhoršího jedince dle generací
 	\item Textové pole, které obsahuje nejlepší genom
@@ -278,7 +281,8 @@ Poslední tlačítko slouží k urychlení simulace. Způsobí to, že se simula
 \end{figure}
 
 \podsekce{Přehrávač}
-Přehrávač genomů také poskytuje jednoduché rozhraní skládající se z textové částí pro vložení genomu (výstup ze serverové části lze zobrazit například v grafaně), graf pro zobrazení průběhu fitness agenta a vykreslovací část, která zobrazuje, jak si agent vedl. Pro menší výpočetní nároky je do grafu zapisována fitness každou vteřinu.  Výsledná komponenta se nachází na obrázku \ref{fig:player}.\\
+Přehrávač genomů také poskytuje jednoduché rozhraní skládající se z textové částí pro vložení genomu (výstup ze serverové části lze zobrazit například v grafaně), graf pro zobrazení průběhu fitness agenta a vykreslovací část, která zobrazuje, jak si agent vedl. Pro menší výpočetní nároky je do grafu zapisována fitness každou vteřinu.  Výsledná komponenta se nachází na obrázku \ref{fig:player}.
+
 Díky problémům s implementací naznačených v sekci \ref{sec:ImplementationTroubles} bylo třeba vymyslet alternativní způsob přehrávání. Nakonec byl návrh pozměněn tak, že si serverová část ukládá pro každý snímek pozice, úhel, aktuální fitness a dílek na kterém se agent nachází, kterou pak přehrávač interpretuje oproti klasickému přístupu, který by zahrnoval opětovnou simulaci agenta se stejným genomem. Tímto je dosaženo toho, že si lze zobrazit průběh agenta tak, jak tomu bylo při jeho vyhodnocování.
 
 \begin{figure}[H]
@@ -314,14 +318,19 @@ Po úspěšném provedení tohoto příkazu je třeba spustit zpracovatele na je
 Po tomto kroku je třeba ještě nastavit správnou ip adresu a port \textbf{Redis} serveru (ip adresa swarm mangeru) v souboru \emph{config.env}.
 
 Po provedení těchto kroků je na každém uzlu spuštěn vyhodnocovatel, který začne automaticky stahovat a vyhodnocovat jednotlivé jedince. V případě vypnutí/pádu uzlu je úkol po čase vrácen do fronty a vyhodnocení probíhá na jiném uzlu.
+\podsekce{Grafana}
+Grafana vyžaduje další nastavení v podobě naimportování použitého kontrolního panelu a nastavení databázového zdroje.
 
-Pokud se uživatel rozhodne používat portainer, musí se z bezpečnostních důvodů přihlásit do 5 minut od jeho spuštění.
+Exportovaný kontrolní panel, který je k nalezení v příloze diplomové práce lze naimportovat z menu \emph{Dashboards}->\emph{manage}, které se nachází v levém kontrolním panelu. 
+
+Přihlašovací údaje do PostgreSQL serveru jsou k nalezení také v příloze. 
 
 \sekce{Nasazení uživatelské části}
 Uživatelskou část lze jednoduše nasadit s pomocí manageru závislostí \emph{npm}. Stačí ve složce s implementací spustit příkaz (po nainstalování závislostí) \emph{npm run dev} a pak si v prohlížeči otevřít adresu \emph{localhost:8080}. V případě přehrávače je to \emph{localhost:8080/\#/player}
 
 \kapitola{Experimenty}
 Po návrhu simulačního prostředí byl agent vyzkoušen v~několika situacích se stupňující se obtížností. Každá simulace probíhala se~100 jedinci do té doby než se fitness funkce u všech stabilizovala po dostatečně dlouhou dobu. Toto trvalo 400 generací a přibližně 20 hodin čistého výpočetního času. Doba vyhodnocování byla nastavena na 120 vteřin. Volba ostatních ostatních hyper-parametru proběhla na základě empirických zkušeností získaných v průběhu implemetnace. 
+
 Ačkoliv je pravděpodobné, že by delší doba evaluace by pravděpodobně vyústila v lepší výsledky její výpočet v různých konfiguracích se ukázal jako příliš časově náročný, navíc empirické pozorování ukázalo, že tato konfigurace poskytuje dostatečně dobré výsledky za snesitelný čas. 
 
 S ohledem na časovou náročnost výpočtů byly zkoušeny jen konfigurace popsané v návrhu (sekce \ref{sec:extensions}) na implementovaných dílcích k náhledu v sekci \ref{sec:simulationEnvironment}.
@@ -404,7 +413,7 @@ V základní konfiguraci agent dorazil do vrchní části mapy (dílek ve tvaru 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{solutions/Iadvanced/basicGraph}
-	\caption{}
+	\caption{Průběh fitness - Okruh bez rozšíření}
 	\label{fig:basicgraph}
 \end{figure}
 Překvapující je, že toto dokázal bez jakýchkoliv přídavných neuronů.
@@ -433,7 +442,13 @@ Ve výsledné neuronové sítí se nachází neuron s aktivační funkcí SELU. 
 \end{figure}
 
 \sekce{Zhodnocení}
-Ačkoliv se výsledným agentům podařilo zdolat pouze první překážku, je na provedených experimentech a jejích výsledcích vidět, že lze neuroevoluci použít i pro obtížnější terén. Jediným limitem je časová, případně HW náročnost experimentu.
+Ačkoliv se výsledným agentům podařilo úspěšně zdolat pouze první překážku, je na provedených experimentech a jejích výsledcích vidět, že lze neuroevoluci použít i pro obtížnější terén. Jediným limitem je časová, případně HW náročnost experimentu.
+
+Experiment odhalil, že algoritmus NEAT ve verzi instinct je schopný produkovat jedince, kteří jsou schopní i komplexních akcí (například manévr popsaný u třetího stupně) a to za použití neuronových sítí, jejíchž architektura je relativně jednoduchá. 
+
+Bylo také zjištěno, že navrhovaná rozšíření značně zlepšují fitness zkoumaného agenta oproti verzi bez rozšíření. Toto lze připsat nejen více dostupným informací ale hlavně větší kontrole nad vozidlem, které neuronové síti nabízí možnost držení volantu ve stejném směru.
+
+Je pravděpodobné, že při dostatečném množství času nebo výpočetního výkonu by bylo možné překonat nejen překážky, které jsou implementovány v této práci ale i překážky, které jsou mnohem složitější. Práce tímto otevírá možností na další, podrobnější testování, které se v ní z časových důvodů nepovedlo.
 
 \kapitola{Možná vylepšení}
 Při implementaci aktuálního řešení bylo zjištěno, že řešený problém je mnohem výpočetně náročnější než se při původním návrhu čekalo. Toto vedlo k návrhu distribuovaného řešení, které ovšem sebou nese problémy v rozdílech u výpočtů s desetinou čárkou.
@@ -447,7 +462,10 @@ Poslední možností by byla reimplementace existujícího řešení v některé
 Grafickou část aplikace by bylo možné rozšířit o různá nastavení, která jsou v tuto chvíli dostupná jen ve zdrojovém kódu aplikace.
 
 \kapitola{Závěr}
-Tato práce se zabývala návrhem a  tvorbou prostředí pro simulovaného agenta i jeho řízení pomocí upraveného algoritmu neuroevoluce. Následoval návrh, provedení a zhodnocení experimentů, které byly navrženy tak, aby testovaly možnosti agenta.\\
-Z provedených testů vyplývá obrovský potenciál metody neuroevoluce, která demonstrovala svojí schopnost řešení komplexních problémů, jako je řízení automobilu a to za použití neuronových sítí.  Jejich složitost je oproti konkurenčním řešením, jako je například zpětnovazební učení velmi malá.\\
-Nevýhodou této metody je ovšem její velká časová náročnost, která limitovala možnosti této práce.\\
+Tato práce se zabývala návrhem a  tvorbou prostředí pro simulovaného agenta i jeho řízení pomocí upraveného algoritmu neuroevoluce. Následoval návrh, provedení a zhodnocení experimentů, které byly navrženy tak, aby testovaly možnosti agenta.
+
+Testování agenta proběhlo v různých obtížnostech za různých podmínek. Z provedených testů vyplývá obrovský potenciál metody neuroevoluce, která demonstrovala svojí schopnost řešení komplexních problémů, jako je řízení automobilu a to za použití neuronových sítí. Jejich složitost je oproti konkurenčním řešením, jako je například zpětnovazební učení velmi malá.
+
+Nevýhodou této metody je ovšem její velká časová náročnost, která značně limitovala možnosti této práce a zpomalovala její vývoj.
+
 I přes výše zmíněná omezení se v práci podařilo pomocí výpočetního clusteru vytvořit testovací systém, který je nejen robustní ale i snadno škálovatelný. Použitím většího výpočetního výkonu by tak bylo možné dosáhnout mnohem lepších výsledků a podívat se na limity zkoumané metody do větší hloubky. Bylo například možné plně využít potenciál navrženého řešení pro tvorbu prostředí s dynamickými prvky, jako jsou například další automobily nebo dopravní značení.

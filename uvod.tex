@@ -33,12 +33,13 @@ Na tomto místě je vhodné podotknout, že výše uvedená notace vychází z p
 Vrstva je skupina neuronů se stejnou aktivační funkcí. 
 
 \podsekce{Aktivační funkce}
-Aktivační funkce se používá pro definování výstupu a zavedení nelinearity. Bez nich by byla neuronová síť schopna aproximovat pouze n-dimenzionální rovinu. \cite[s.~65]{fundementalsOfDeepLearning} \\
+Aktivační funkce se používá pro definování výstupu a zavedení nelinearity. Bez nich by byla neuronová síť schopna aproximovat pouze n-dimenzionální rovinu. \cite[s.~65]{fundementalsOfDeepLearning}
+ 
 Dalším využitím je omezení výstupních hodnot. Například aktivační funkce sigmoid se s oblibou používá u výstupní vrstvy neuronových sítí určených ke klasifikačním problémům, protože je to relace $\mathbb{R} \rightarrow \{0..1\}$, která se dá jednoduše jako "jistota" neuronu, že se jedná o výstup, který neuron reprezentuje. Podobně se dá uvažovat i o funkcích jako je například softmax a tanh, které také najdou hojné využití u klasifikačních problémů.
 
 \textbf{Linearní funkce}
 Vrací vstup, tak jak je. Využití najde především u vstupní vrstvy neuronové sítě a u neuronových sítí, které řeší regresní typy úloh.
-\\
+
 \begin{figure}[H]
 	\centering
 \begin{tikzpicture}
@@ -50,7 +51,8 @@ plot (\x, \x);
 \end{figure}
 $$f(x) = x$$
 \textbf{Sigmoid}
-Sigmoid je aktivační funkce, která je schopná potlačit extrémní hodnoty a převést je do rozsahu 0 - 1.\\
+Sigmoid je aktivační funkce, která je schopná potlačit extrémní hodnoty a převést je do rozsahu 0 - 1.
+
 \begin{figure}[H]
 	\centering
 \begin{tikzpicture}
@@ -74,7 +76,8 @@ $$f(x) = \frac{1}{1 + e^{-x}}$$
 \end{figure}
 $$f(x) = tanh(x)$$
 \podsekce{RELU}
-RELU je aktivační funkce, která je podobná lineární aktivační funkci s tím rozdílem, že pokud vstupní hodnota nepřesáhne určitého prahu výstupem je 0. Její hlavní výhodou je to, že zabraňuje problémům s takzvaným explodujícím gradientem \cite[s.~69]{fundementalsOfDeepLearning} \\
+RELU je aktivační funkce, která je podobná lineární aktivační funkci s tím rozdílem, že pokud vstupní hodnota nepřesáhne určitého prahu výstupem je 0. Její hlavní výhodou je to, že zabraňuje problémům s takzvaným explodujícím gradientem \cite[s.~69]{fundementalsOfDeepLearning} 
+
 \begin{figure}[H]
 	\centering
 \begin{tikzpicture}
@@ -96,8 +99,7 @@ Speciální druh neuronů, který si dokáže zapamatovat a reagovat na sekvenci
 
 V praxi se setkáváme s dvěma druhy neuronů a to LSTM a novější GRU. LSTM a GRU jsou si velmi podobné s jedním podstatným rozdílem. U GRU bylo prokázáno, že je značně rychlejší. 
 
-Další běžně používaným typem rekurentních neuronových sítí jsou sítě typu NARX
-
+Další běžně používaným typem rekurentních neuronových sítí jsou sítě typu NARX, které se hojně používají pro predikci časových řad \cite[s.~1]{NARX}.
 
 \sekce{Genetické algoritmy}
 Genetické algoritmy slouží k řízenému prohledávání stavového prostoru založené na teorii evoluce. \cite[s.~17]{kozaGP}
@@ -218,17 +220,21 @@ Rozšíření zaměřující se na generování náhodného obsahu. Obdobně jak
 Neuroevoluce není jediný přístup, který je dostupný k řešení problému typu trénování autonomního agenta.
 
 Příkladem může být rozsáhlý obor zabývající se zpětnovazebním učením (reinforcement learning). Při zpětnovazebním učení máme agenta, který se nachází v prostředí nad kterým může vykonávat různé akce. Agent může před vykonáním akce pozorovat stav prostředí na základě čehož se rozhoduje, jakou akci vykoná. Po provedení některé se prostředí nějakým způsobem mění a agent dostává zpětnou vazbu v podobně odměny. Algoritmus zpětnovazebního učení se snaží agenta řídit tak, aby maximalizoval jeho odměnu. 
+Příkladem může být zajímavý výzkum \cite[s.~1]{Curiosity}, který zkouší s pomocí zpětnovazebního učení vytvořit agenta, který hraje různé počítačové hry.
 
 \sekce{Využití algoritmu NEAT}
 Algoritmus NEAT a jeho varianty předmětem aktivního výzkumu. Své využítí nalézá hlavně v oblasti robotiky a řešení pro počítač obtížných problémů jako je například hraní počítačových her.
 Příkladem může být nedávný výzkum provedený laboratořemi umělé inteligence společnosti Uber, který pojednává o použítí algoritmu NEAT k naučení umělé inteligence, která je schopná hrát jednoduché hry na herní platformě Atari \cite[s.~1]{UBER}.
  
 \kapitola{Použité technologie}
-Tato kapitola poskytuje stručný přehled technologii použitých při řešení diplomové práce.
+Tato kapitola poskytuje stručný přehled technologii použitých při řešení diplomové práce. 
+Při volbě technologii bylo rozhodnuto, že se bude jednat o webovou aplikaci především díky možnosti snadné distribuce aplikace (stačí statická webová stránka), tak možnosti spustit aplikaci na platformě NodeJS, která má nástroje pro její rychlejší vyhodnocení. 
 
 \sekce{Docker}
 Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner poskytuje izolované softwarové prostředí ve kterém lze spouštět jednu nebo více aplikací. 
 V praxi to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuální konfiguraci hostitelského systému.
+V této práci se používá především pro snadné nasazení serverové části za stejných podmínek na různých hardwarových platformách.
+Ačkoliv existují konkurenční řešení (LXD, KVM, ...) byl vybrán právě docker, protože nee
 
 \sekce{Databáze}
 Výsledky experimentů bude nutné někam zapsat. Jako vhodné řešení se jeví relační databáze. S důvodů hw omezení je na ní několik praktický nefunkčních požadavků:
@@ -242,16 +248,21 @@ Z výše uvedených důvodů, z důvodu předchozích zkušeností a s ohledem n
 
 PostgreSQL je populární databázový systém, který nabízí robustní open-source alternativu i ke komerčním řešením. Navíc splňuje všechny podmínky stanovené na začátku této sekce.
 
-\sekce{Vue}
-Je populární JavaScriptový framework pro snadnou tvorbu uživatelských rozhraní. Důvodem jeho volby byla pro autora snadno pochopitelný princip a relativní systémová nenáročnost, která je a \cite{VUE}
-
-\sekce{NodeJS}
+\sekce{Prezentační část}
+Pro tvorbu moderních webových aplikací je dobré zvolit jeden z mnoha frameworků pro jejích tvorbu.
+Po zvážení dostupných možností byl zvolen framework \textbf{Vue.js} populární JavaScriptový framework pro snadnou tvorbu uživatelských rozhraní. Důvodem jeho volby byla pro autora snadno pochopitelný princip a relativní systémová nenáročnost, která je uváděna na webových stránkách autorů tohoto frameworku \cite{VUE}.
+\sekce{Serverová část}
+Pro serverovou část byla vybrána platforma NodeJS spolu s dalšími dodatečnými technologiemi popsanými v této sekci.
+\podsekce{NodeJS}
 NodeJS je open-source interpret jazyku JavaScript. Využití najde při psaní serverových aplikací v JavaScriptu a jiné případy, kdy je třeba spustit kód napsaný v javascriptu mimo prohlížeč. Lze ho využít například pro spouštění testů při CI (continuous integration) nebo pro tvorbu vysoce serverových aplikací v jazyce JavaScript.
 
 Narozdíl od běžného JavaScriptu obsahuje rozšířenou standardní knihovnu pro snadnou tvorbu serverových aplikací. Tato standardní knihovna umožňuje například javascript kódu prácí se soubory na hostitelském systému, což je něco, co není z bezpečnostních důvodů v klasickém JavaScriptu, který běží v prohlížeči možné.
 
-\sekce{Bull}
-Bull je knihovna pro NodeJS, která poskytuje frontu úkolů založenou na populární in-memory databázi Redis.
+\podsekce{Bull}
+Bull je knihovna pro NodeJS, která poskytuje frontu úkolů založenou na populární in-memory databázi Redis. V serverové části se používá pro distribuované výpočty.
+
+\podsekce{Sequelize}
+ORM knihovna pro Node.JS používá se především pro zápis výsledků do databáze.
 
 \sekce{Monitorování}
 Výstupy z použitých databázových systémů (PostgreSQL a Redi pro \textbf{Bull} bylo třeba monitorovat. PostgreSQL, kvůli průběhu experimentů a Redis při procesu ladění výsledné aplikace. Pro tento účel jsou použity níže popsané aplikace. 
@@ -280,19 +291,28 @@ Portainer je webová aplikace pro zobrazení aktualního stavu a správu instanc
 	\label{fig:portainer}
 \end{figure}
 
-\sekce{PIXI.js}
+\sekce{Simulace}
+Na simulaci, která poslouží k evaluaci agenta se lze dívat jako na jednoduchou hru. Z tohoto důvodu byly nejdříve zváženy různé herní enginy dostupné pro javascript. Ve všech případech bylo ovšem naraženo na to, že jsou příliš provázány s frontendovou částí, což by znemožnilo pozdější nasazení na \textbf{Node.JS}. Z tohoto důvodu byly vybrány následující technologie. Výčet nezahrnuje knihovnu CES, která si zaslouží vlastní sekci.
+\podsekce{PIXI.js}
 Grafická knihovna pro snadné vykreslování nad HTML značkou canvas, která byla zavedena ve verzi 5. Obaluje jak klasické vykreslovací API, tak modernější WebGL.
 
-\sekce{Neataptic}
+\podsekce{Neataptic}
 Knihovna implementující samotný algoritmus NEAT ve variantě instinct. Důvodem volby této knihovny byl obrovský potenciál, který právě algoritmus instinct představuje.
 Přidává totiž potenciálnímu agentovi užitečný nástroj a to paměť. Bude tak zajímavé sledovat, jak jí použije.
 
-\sekce{NPM a YARN}
+\podsekce{NPM a YARN}
 NPM i Yarn jsou kolíčkovací systémy pro javascript. Hlavní rozdíl mezi NPM a Yarn je, že Yarn stahuje balíčky paralelně. Je tedy značně rychlejší oproti NPM. 
+
+\podsekce{P2.js}
+Zkoušený problém vyžaduje použití fyzikální simulace. To pomůže jak se snadnější implementací simulace vozidla, tak s detekcí kolizí a implementací případných vzdálenostních senzorů. 
+
+Z tohoto důvodu byl vybrán P2.js, který má oproti ostatním fyzikálním enginům několik výhod.
+První výhodou je idiomatičnost jeho API. Na-rozdíl od některých jiných enginů, které jsou založený na knihovně pro programovací jazyk c Box2D. Byl P2.js napsán v javascriptu.
+Další výhodou je přítomnost před-připraveného fyzikálního modelu vozidla. Toto značně šetří implementační čas, jelikož korektní implementace fyziky vozidla je náročný úkol sám o sobě. 
 
 \sekce{CES}
 \label{sec:ces}
-Je knihovna, která implementuje tzv. ECS (entity component system). ECS se používá především ve hrách a nabízí určitý způsob, jak se dívat na herní objekty a logiku. Myšlenka je taková, že vše lze rozdělit do níže uvedených podsekcí.
+Je knihovna, která implementuje tzv. ECS (entity component system). Problematika ECS je tak rozsáhlá, že si zaslouží vlastní sekci. Používá se především ve hrách a nabízí určitý způsob, jak se dívat na herní objekty a logiku. Myšlenka je taková, že vše lze rozdělit do níže uvedených podsekcí.
 
 \podsekce{Komponenta}
 Komponenty bývají jednoduché datové struktury, které vyjadřují vlastnosti entity u níž jsou přiřazeny.

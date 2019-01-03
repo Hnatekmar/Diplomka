@@ -29,7 +29,7 @@ Dále se zavazuji, že před sepsáním licenční smlouvy o využití díla jin
 není v rozporu s oprávněnými zájmy univerzity, a zavazuji se uhradit případný příspěvek na úhradu nákladů spojených se vznikem díla, a to až do jejich skutečné
 výše.
 
-V Brně dne 2. ledna 2019
+V Brně dne 3. ledna 2019
 
 ................................................................
 
@@ -744,7 +744,7 @@ cgNEAT . . . . . . . . . .
 3 Použité technologie
 3.1 Docker . . . . . .
 3.2 Databáze . . . .
-3.3 Vue . . . . . . .
+3.3 Prezentační část
 3.4 NodeJS . . . . .
 3.5 Bull . . . . . . .
 3.6 Monitorování . .
@@ -1001,7 +1001,7 @@ Portainer . . . .
 22
 22
 22
-22
+23
 
 .
 .
@@ -1058,10 +1058,10 @@ Portainer . . . .
 OBSAH
 
 3.7
-3.8
-3.9
-3.10
 
+3.8
+
+Simulace . . . .
 PIXI.js . . . . .
 Neataptic . . .
 NPM a YARN
@@ -1077,23 +1077,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1109,23 +1095,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1141,23 +1113,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1173,23 +1131,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1205,23 +1149,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1237,23 +1167,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1269,23 +1185,9 @@ System . . . . .
 .
 .
 .
-
-.
-.
-.
-.
-.
-.
 .
 
 .
-.
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -1301,6 +1203,16 @@ System . . . . .
 .
 .
 .
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
 
 .
 .
@@ -1309,18 +1221,136 @@ System . . . . .
 .
 .
 .
+.
 
-23
-23
-23
-23
-23
-24
-24
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
 
 4 Metodika
 
+23
+24
+24
+24
+24
+24
+24
 25
+26
 
 5 Analýza problému
 5.1 Funkční požadavky .
@@ -1335,66 +1365,11 @@ Experimenty . . . .
 .
 .
 
-26
-26
-26
-26
-26
-26
-
 .
 .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-28
-28
-29
-29
-29
-29
-30
-30
-31
-32
-32
-32
-33
-33
-34
-34
-35
-35
-
-.
-.
-.
-.
-.
-.
-.
-
-36
-36
-36
-37
-40
-40
-41
-43
 
 .
 .
@@ -1473,6 +1448,13 @@ Experimenty . . . .
 .
 .
 .
+
+27
+27
+27
+27
+27
+27
 
 6 Návrh řešení
 6.1 Simulace . . . . . . . . . . . . . . . . . . . .
@@ -1492,6 +1474,278 @@ Simulační prostředí . . . . . . . . . . . . . .
 Agent . . . . . . . . . . . . . . . . . . . . .
 Možné konfigurace agenta . . . . . . . . . .
 Fitness funkce . . . . . . . . . . . . . . . . .
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+29
+29
+30
+30
+30
+30
+31
+31
+32
+33
+33
+33
+34
+34
+35
+35
+36
+37
+
 7 Implementace
 7.1 Simulace . . . . . .
 Fitness funkce . . .
@@ -1499,17 +1753,7 @@ Simulační prostředí
 7.2 Serverová část . . .
 Konfigurovatelnost
 Výpočetní cluster .
-Docker swarm . . .
 
-.
-.
-.
-.
-.
-.
-.
-
-.
 .
 .
 .
@@ -1523,17 +1767,7 @@ Docker swarm . . .
 .
 .
 .
-.
 
-.
-.
-.
-.
-.
-.
-.
-
-.
 .
 .
 .
@@ -1547,17 +1781,7 @@ Docker swarm . . .
 .
 .
 .
-.
 
-.
-.
-.
-.
-.
-.
-.
-
-.
 .
 .
 .
@@ -1571,17 +1795,7 @@ Docker swarm . . .
 .
 .
 .
-.
 
-.
-.
-.
-.
-.
-.
-.
-
-.
 .
 .
 .
@@ -1595,17 +1809,7 @@ Docker swarm . . .
 .
 .
 .
-.
 
-.
-.
-.
-.
-.
-.
-.
-
-.
 .
 .
 .
@@ -1619,23 +1823,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1649,23 +1837,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1679,23 +1851,15 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
+38
+38
+38
+39
+42
+42
+43
+
 .
 .
 .
@@ -1708,24 +1872,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1738,24 +1885,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1768,24 +1898,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1798,24 +1911,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1828,24 +1924,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1858,24 +1937,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1888,24 +1950,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1918,24 +1963,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1948,24 +1976,7 @@ Docker swarm . . .
 .
 .
 .
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 .
 .
 .
@@ -1978,24 +1989,40 @@ Docker swarm . . .
 .
 .
 .
+
 .
 .
 .
 .
 .
 .
+
+.
+.
+.
+.
+.
+
 .
 .
 .
 .
 .
 .
+
+.
+.
+.
+.
+.
+
 .
 .
 .
 .
 .
 .
+
 .
 .
 .
@@ -2014,23 +2041,11 @@ OBSAH
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 .
 
 .
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -2046,23 +2061,11 @@ OBSAH
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 .
 
 .
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -2078,23 +2081,11 @@ OBSAH
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 .
 
 .
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -2110,6 +2101,18 @@ OBSAH
 .
 .
 .
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
 .
 .
@@ -2118,14 +2121,68 @@ OBSAH
 .
 .
 .
+.
+.
 
-44
-44
-45
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
 45
 46
 46
 47
+47
+48
+49
+50
+50
 
 8 Experimenty
 8.1 První stupeň - silnice ve tvaru I . . . . . . . .
@@ -2282,29 +2339,31 @@ Konfigurace s rozšířením . . . . . . . . . . . .
 .
 .
 
-48
-48
-48
-49
-50
-50
+51
+51
 51
 52
-52
-52
+53
+53
 54
+55
+55
+55
+57
 
 7.3
 
 7.4
 7.5
 
+Docker swarm . . . . . . .
 Problémy implementace .
 Monitorování stavu . . . .
 Uživatelská část . . . . . .
 Vizualizace . . . . . . . .
 Přehrávač . . . . . . . . .
 Nasazení serverové části .
+Grafana . . . . . . . . . .
 Nasazení uživatelské části
 
 .
@@ -2314,23 +2373,11 @@ Nasazení uživatelské části
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 .
 
 .
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -2346,23 +2393,11 @@ Nasazení uživatelské části
 .
 .
 .
-
-.
-.
-.
-.
-.
 .
 .
 
 .
 .
-.
-.
-.
-.
-.
-
 .
 .
 .
@@ -2378,7 +2413,51 @@ Nasazení uživatelské části
 .
 .
 .
+.
+.
 
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
 .
 .
 .
@@ -2389,15 +2468,23 @@ Nasazení uživatelské části
 
 9 Možná vylepšení
 
-55
+58
 
 10 Závěr
 
-56
+59
 
 11 Literatura
 
-57
+60
+
+Přílohy
+
+62
+
+A Obsah CD
+
+63
 
 8
 
@@ -2474,7 +2561,7 @@ Rozhraní přehrávače . . . . . . . . . . . . . . . . . . . . . . . . . .
 Průběh evaluace - I bez rozšíření . . . . . . . . . . . . . . . . . . .
 Neuronová síť - I bez rozšíření . . . . . . . . . . . . . . . . . . . . .
 Průběh evaluace - I s rozšířeními . . . . . . . . . . . . . . . . . . .
-Neuronová síť - I s překážkami s rozšířeními . . . . . . . . . . . . .
+Neuronová síť - I s rozšířeními . . . . . . . . . . . . . . . . . . . . .
 Graf průběhu fitness - bez překážek . . . . . . . . . . . . . . . . . .
 Neuronová síť - silnice ve tvaru I s překážkami bez rozšíření . . . .
 Graf průběhu fitness funkce - s překážkami . . . . . . . . . . . . . .
@@ -2522,39 +2609,39 @@ Neuronová síť - Okruh bez rozšíření . . . . . . . . . . . . . . . . . .
 .
 
 19
-22
 23
-28
+23
 29
-31
-31
+30
+32
 32
 33
-33
-35
-35
-37
-38
-38
-39
-39
+34
+34
+36
+36
 39
 40
-43
-43
+40
+41
+41
+41
+42
 45
-46
-46
+45
+47
 48
 49
-49
-50
-50
-51
 51
 52
 52
 53
+53
+54
+54
+55
+55
+56
 
 SEZNAM OBRÁZKŮ
 
@@ -2563,8 +2650,8 @@ Neuronová síť - Okruh bez rozšíření . . . . . . . . . . . . . . . . . .
 
 9
 
-Průběh fitness funkce - Okruh bez rozšíření . . . . . . . . . . . . . . 53
-Neuronová síť - Okruh s rozšířením . . . . . . . . . . . . . . . . . . . 53
+Průběh fitness funkce - Okruh bez rozšíření . . . . . . . . . . . . . . 56
+Neuronová síť - Okruh s rozšířením . . . . . . . . . . . . . . . . . . . 56
 
 SEZNAM TABULEK
 
@@ -2574,8 +2661,8 @@ Seznam tabulek
 1
 2
 
-Použitý hardware . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
-Naměřená data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+Použitý hardware . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+Naměřená data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
 
 1 ÚVOD A CÍL PRÁCE
 
@@ -2932,12 +3019,16 @@ Atari (PETROSKI SUCH, Felipe a kol., 2018, s. 1).
 
 3 Použité technologie
 Tato kapitola poskytuje stručný přehled technologii použitých při řešení diplomové
-práce.
+práce. Při volbě technologii bylo rozhodnuto, že se bude jednat o webovou aplikaci
+především díky možnosti snadné distribuce aplikace (stačí statická webová stránka),
+tak možnosti spustit aplikaci na platformě NodeJS, která má nástroje pro její rychlejší vyhodnocení.
 
 3.1 Docker
-Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner poskytuje izolované softwarové prostředí ve kterém lze spouštět jednu nebo více aplikací. V praxi
-to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuální konfiguraci
-hostitelského systému.
+Docker je nástroj, který umožňuje vytvářet tzv. kontejnery. Kontejner poskytuje
+izolované softwarové prostředí ve kterém lze spouštět jednu nebo více aplikací. V
+praxi to umožňuje snadné nasazení libovolné aplikace bez ohledu na aktuální konfiguraci hostitelského systému. V této práci se používá především pro snadné nasazení
+serverové části za stejných podmínek na různých hardwarových platformách. Ačkoliv existují konkurenční řešení (LXD, KVM, ...) byl vybrán právě docker, protože
+nee
 
 3.2 Databáze
 Výsledky experimentů bude nutné někam zapsat. Jako vhodné řešení se jeví relační
@@ -2951,9 +3042,15 @@ PostgreSQL je populární databázový systém, který nabízí robustní open-s
 alternativu i ke komerčním řešením. Navíc splňuje všechny podmínky stanovené na
 začátku této sekce.
 
-3.3 Vue
-Je populární JavaScriptový framework pro snadnou tvorbu uživatelských rozhraní.
-Důvodem jeho volby byla pro autora snadno pochopitelný princip a relativní systémová nenáročnost, která je a (Vue.js, 2014)
+3.3 Prezentační část
+Pro tvorbu moderních webových aplikací je dobré zvolit jeden z mnoha frameworků
+pro jejích tvorbu. Po zvážení dostupných možností byl zvolen framework Vue.js populární JavaScriptový framework pro snadnou tvorbu uživatelských rozhraní. Důvodem jeho volby byla pro autora snadno pochopitelný princip a relativní systémová
+nenáročnost, která je uváděna na webových stránkách autorů tohoto frameworku
+(Vue.js, 2014).
+
+3.4 NodeJS
+
+22
 
 3.4 NodeJS
 NodeJS je open-source interpret jazyku JavaScript. Využití najde při psaní serverových aplikací v JavaScriptu a jiné případy, kdy je třeba spustit kód napsaný
@@ -2963,10 +3060,6 @@ Narozdíl od běžného JavaScriptu obsahuje rozšířenou standardní knihovnu 
 snadnou tvorbu serverových aplikací. Tato standardní knihovna umožňuje například
 javascript kódu prácí se soubory na hostitelském systému, což je něco, co není z
 bezpečnostních důvodů v klasickém JavaScriptu, který běží v prohlížeči možné.
-
-22
-
-3.5 Bull
 
 3.5 Bull
 Bull je knihovna pro NodeJS, která poskytuje frontu úkolů založenou na populární
@@ -2985,41 +3078,48 @@ Arena
 Arena je webová aplikace pro správu a zobrazení aktuálního stavu fronty úkolů
 poskytované knihovnou bull.
 
+23
+
+3.7 Simulace
+
 Obrázek 6: Webové aplikace Arena
 Portainer
 Portainer je webová aplikace pro zobrazení aktualního stavu a správu instance
 dockeru a docker swarmu.
 
-23
-
-3.7 PIXI.js
-
 Obrázek 7: Rozhraní aplikace portainer
 
-3.7 PIXI.js
-Grafická knihovna pro snadné vykreslování nad HTML značkou canvas, která byla
-zavedena ve verzi 5. Obaluje jak klasické vykreslovací API, tak modernější WebGL.
+3.7 Simulace
+Na simulaci, která poslouží k evaluaci agenta se lze dívat jako na jednoduchou hru. Z
+tohoto důvodu byly nejdříve zváženy různé herní enginy dostupné pro javascript. Ve
 
-3.8 Neataptic
-Knihovna implementující samotný algoritmus NEAT ve variantě instinct. Důvodem
-volby této knihovny byl obrovský potenciál, který právě algoritmus instinct představuje. Přidává totiž potenciálnímu agentovi užitečný nástroj a to paměť. Bude tak
-zajímavé sledovat, jak jí použije.
-
-3.9 NPM a YARN
-NPM i Yarn jsou kolíčkovací systémy pro javascript. Hlavní rozdíl mezi NPM a Yarn
-je, že Yarn stahuje balíčky paralelně. Je tedy značně rychlejší oproti NPM.
-
-3.10 CES
-Je knihovna, která implementuje tzv. ECS (entity component system). ECS se používá především ve hrách a nabízí určitý způsob, jak se dívat na herní objekty a
-logiku. Myšlenka je taková, že vše lze rozdělit do níže uvedených podsekcí.
-Komponenta
-Komponenty bývají jednoduché datové struktury, které vyjadřují vlastnosti entity
-u níž jsou přiřazeny.
-
-3.10 CES
+3.8 CES
 
 24
 
+všech případech bylo ovšem naraženo na to, že jsou příliš provázány s frontendovou
+částí, což by znemožnilo pozdější nasazení na Node.JS. Z tohoto důvodu byly
+vybrány následující technologie. Výčet nezahrnuje knihovnu CES, která si zaslouží
+vlastní sekci.
+PIXI.js
+Grafická knihovna pro snadné vykreslování nad HTML značkou canvas, která byla
+zavedena ve verzi 5. Obaluje jak klasické vykreslovací API, tak modernější WebGL.
+Neataptic
+Knihovna implementující samotný algoritmus NEAT ve variantě instinct. Důvodem
+volby této knihovny byl obrovský potenciál, který právě algoritmus instinct představuje. Přidává totiž potenciálnímu agentovi užitečný nástroj a to paměť. Bude tak
+zajímavé sledovat, jak jí použije.
+NPM a YARN
+NPM i Yarn jsou kolíčkovací systémy pro javascript. Hlavní rozdíl mezi NPM a Yarn
+je, že Yarn stahuje balíčky paralelně. Je tedy značně rychlejší oproti NPM.
+
+3.8 CES
+Je knihovna, která implementuje tzv. ECS (entity component system). Problematika
+ECS je tak rozsáhlá, že si zaslouží vlastní sekci. Používá se především ve hrách a
+nabízí určitý způsob, jak se dívat na herní objekty a logiku. Myšlenka je taková, že
+vše lze rozdělit do níže uvedených podsekcí.
+Komponenta
+Komponenty bývají jednoduché datové struktury, které vyjadřují vlastnosti entity
+u níž jsou přiřazeny.
 Entita
 K entitě se dá přiřadit jedna nebo více komponent (vlastností). Entita tak může
 představovat libovolný herní objekt.
@@ -3029,6 +3129,11 @@ lze pak na jakoukoliv entitu, která má tyto komponenty nahlížet jako na auto
 Je důležité si uvědomit, že na rozdíl od klasického systému dědičnosti je možné
 entity snadno rozšířit tak, že do nich přidáme další komponenty. Můžeme například
 k entitě auta přiřadit komponentu životy a udělat ho tak zranitelným.
+
+3.8 CES
+
+25
+
 System
 Systém provádí určité akce nad entitami, které mají dané komponent. Chceme-li
 například propojit grafickou reprezentaci s fyzikálním enginem, můžeme si napsat
@@ -3037,12 +3142,12 @@ aby byla identická s pozicí a rotací fyzikálních objektů, které jsou k n�
 
 4 METODIKA
 
-25
+26
 
 4 Metodika
-Na začátku je potřeba provést podrobnou analýzu problému s ohledem na požadavky
-stanovené konzultacemi s vedoucím. Návrh bude také zahrnovat experimenty, které
-budou s neuroevolucí provedeny.
+Na začátku je potřeba provést analýzu problému s ohledem na požadavky stanovené
+konzultacemi s vedoucím. Návrh bude také zahrnovat experimenty, které budou s
+neuroevolucí provedeny.
 Po návrhu bude následovat implementace daného řešení. Popis řešení bude přidán do
 této práce. V průběhu implementace bude také kód a návrh postupně upravován na
 základě požadavků, které se mohou objevit až při implementaci navrženého řešení.
@@ -3052,7 +3157,7 @@ Na závěr proběhne vyhodnocení řešení s návrhem možných zlepšení.
 
 5 ANALÝZA PROBLÉMU
 
-26
+27
 
 5 Analýza problému
 Tato kapitola se zabývá analýzou funkčních a nefunkčních požadavků pro softwarové
@@ -3084,7 +3189,7 @@ Spolu s funkčními požadavky jsou na řešení kladeny také požadavky nefunk
 
 5.2 Nefunkční požadavky
 
-27
+28
 
 • Rychlost simulace - Simulace by měla být schopná samostatně běžet alespoň
 rychlostí 30 snímků za vteřinu.
@@ -3093,7 +3198,7 @@ v různých konfigurací.
 • Robustnost - Simulace by si měla poradit s neočekávanými vstupy, jako je třeba
 NaN, který vychází z neuronové sítě.
 
-28
+29
 
 6 NÁVRH ŘEŠENÍ
 
@@ -3116,7 +3221,7 @@ Obrázek 8: Schéma závislostí
 Z obrázku 8 je zřejmé, že simulační kód spojuje obě části dohromady. Je tedy důležité, aby byl navržený tak, aby jej bylo co nejjednodušeji integrovat s oběma řešeními.
 Na základě těchto požadavků a podmínek, které jsou stanoveny v předchozí
 kapitole byl vytvořen následující návrh:
-Simulace obsahuje vlastní engine, který je navržen v duchu ECS (Entity component system), podrobný popis lze nalézt v sekci 3.10. Při návrhu simulace bylo
+Simulace obsahuje vlastní engine, který je navržen v duchu ECS (Entity component system), podrobný popis lze nalézt v sekci 3.8. Při návrhu simulace bylo
 rozhodnuto o implementaci vlastního enginu oproti použití existujících řešení je několik. Hlavním důvodem byl požadavek na seperaci grafické části simulace od části
 výpočetní, který vznikl z potřeby spouštění aplikace na platformě Node.js kvůli
 serverové části.
@@ -3124,7 +3229,7 @@ Z použití ECS vyplývá, že se všechny komponenty nalezené v simulaci dají
 rozložit na systémy, komponenty a entity. Pro lepší představu o implementaci je
 níže uveden přehled všech systému, entit a komponent použitých v simulaci.
 
-29
+30
 
 6.1 Simulace
 
@@ -3153,7 +3258,7 @@ Návrh simulace obsahuje následující systémy:
 
 6.2 Klientská část
 
-30
+31
 
 Car systém, který se stará o ovládání agenta a částečně o vyhodnocování jeho
 fitness. Pro každý snímek prožene vstupy (v závislosti na konfiguraci) neuronovou
@@ -3178,7 +3283,7 @@ Zobrazení algoritmu v realném čase
 Zobrazení algoritmu v reálném čase nabízí jak nadhled na průběh algoritmu s pomocí grafu, který bude zobrazovat dosaženou fitness jednotlivých generací a přímým
 zobrazením průběhu jednotlivých jedinců (v náčrtu zobrazeno jako obdélníky).
 
-31
+32
 
 6.2 Klientská část
 
@@ -3189,7 +3294,7 @@ je vizualizován průběh agenta.
 
 Obrázek 11: Drátkový návrh přehrávače
 
-32
+33
 
 6.3 Serverová část
 
@@ -3215,7 +3320,7 @@ ilustrováno v diagramu 13.
 
 6.4 Návrh experimentů a simulačního prostředí
 
-33
+34
 
 Obrázek 13: Sekvenční diagram komunikace se serverem
 Jakmile klient dostane všechny hodnoty zpět provede na populaci algoritmus
@@ -3235,7 +3340,7 @@ prostředí (sekce 7.1). Agent bude řízen neuronovou sítí (více v sekci 6.4
 
 6.4 Návrh experimentů a simulačního prostředí
 
-34
+35
 
 Simulační prostředí
 Návrh simulačního prostředí je nesmírně důležitý, protože definuje překážky, které
@@ -3270,7 +3375,7 @@ Ovládání volantu i volba rychlostního stupňů probíhá zároveň a to tak,
 vždy z dané skupiny neuronů vybere ten, který má největší hodnotu. Tento přístup
 je identický tomu, který se používá například u neuronových sítí pro klasifikaci.
 
-35
+36
 
 6.4 Návrh experimentů a simulačního prostředí
 
@@ -3316,12 +3421,31 @@ V práci se vyzkouší následující přidané vstupy:
 Modifikovat lze také výstupy neuronové sítě toto rozšíří nebo omezí možnosti
 agenta:
 • Přidáním/odebráním možnosti udržení volantu ve stejné pozici
+
+6.4 Návrh experimentů a simulačního prostředí
+
+37
+
 Fitness funkce
-Ačkoliv je těžké sim
+I přesto, že návrh fitness funkce spíše iterativní proces, který lze provést až po
+implementaci simulačního prostředí, lze si několik pravidel odvodit jíž v návrhu.
+Je zřejmé, že bude třeba agenta nějakým způsobem penalizovat za nevhodné
+chování, jako je například kolize s překážkou. Možností penalizace agenta je hodně.
+Může to být buď předčasné přerušení simulace, které znemožní agentovi získat větší
+hodnotu fitness nebo to také může nabírat podoby odečtení určitého množství bodů
+z fitness skore agenta.
+Míra a podoba penalizace závisí na odzkoušeném chování agenta, který se může
+v rámci maximalizace fitness funkce chovat nepředvídatelně a bude jej tedy možné
+určit, až po implementace práce. Pro ilustraci nepředvídatelných akcí si můžeme
+například představit agenta auto, které se díky špatně nastavené fitness funkci rozhodne jezdit po chodníku jenom proto, že penalizace srážky chodce je menší, než
+penalizace za kolizi s vozidlem.
+Dalším faktorem, který musí být do fitness funkce zahrnut je motivace agenta.
+Na ní totiž ve velké míře závisí jeho výsledky. Může to být například požadavek na
+maximalizaci rychlosti agenta nebo můžeme například brát ohled na ujetou vzdálenost.
 
 7 IMPLEMENTACE
 
-36
+38
 
 7 Implementace
 Vlastní práce se skládá ze dvou částí. Klientská část, která slouží k vizualizaci algoritmu a zobrazení výsledků ze serverové části. Serverová část pro maximální urychlení simulace.
@@ -3355,8 +3479,10 @@ přechodu zaznamená bod, ve kterém se po přesunu agent nachází. Výsledná 
 pak součet uražených vzdáleností pro každou místnost. Road direktor si pro každou
 obrazovku uchovává vzdálenost, kterou agent v dané obrazovce překonal. Výsledným
 fitness je pak součet všech vzdáleností na všech obrazovkách.
+Simulace může být také předčasně zastavena v případě, že agent koliduje s
+překážkou. Znemožní se mu tím získání většího skóre.
 
-37
+39
 
 7.1 Simulace
 
@@ -3382,7 +3508,7 @@ postaven do silnice ve tvaru I, ale tentokrát jsou v ní zdi, kterým se musí 
 (obrázek 18). Návaznost z obou stran je opět samotný dílek (je to obdobně jako je
 tomu v první konfiguraci).
 
-38
+40
 
 7.1 Simulace
 
@@ -3397,7 +3523,7 @@ zatáčet.
 
 Obrázek 19: Silnice ve tvaru horizontálně obráceného L
 
-39
+41
 
 7.1 Simulace
 
@@ -3409,7 +3535,7 @@ Obrázek 21: Silnice ve tvaru Po projetí dílku ve tvaru I je přesměrován na
 
 Obrázek 22: Silnice ve tvaru zrcadlově obráceného L
 
-40
+42
 
 7.2 Serverová část
 
@@ -3439,7 +3565,7 @@ informace:
 – OUTPUTS - Počet neuronů ve výstupní vrstvě
 – POPSIZE - Velikost populace
 
-41
+43
 
 7.2 Serverová část
 
@@ -3497,7 +3623,7 @@ Pro ověření rychlosti bylo provedeno měření výkonu clusteru a jeho porovn
 s nejvýkonnější dostupnou sestavou. Měření bylo provedeno nad náhodně vygenerovanými populacemi. Jelikož se simulace může ukončit předčasně (například při
 kolizi s překážkou), byla simulace provedena pro každou velikost 10× a výsledek byl
 
-42
+44
 
 7.2 Serverová část
 
@@ -3606,7 +3732,7 @@ Je nutné však podotknout, že proměnlivá doba u vyhodnocování jedince znam
 měření není zcela přesné. Nicméně lze na základě dat usoudit, že u větších populací
 dochází k přibližně 2× zrychlení.
 
-43
+45
 
 7.2 Serverová část
 
@@ -3624,7 +3750,7 @@ sítě) je možné pokračovat ve vyhodnocování (neúspěšný úkol lze vrát
 
 7.2 Serverová část
 
-44
+46
 
 do fronty). Toto v kombinaci s výše zmíněným docker swarmem znamená, že
 jakýkoliv výpočetní uzel lze kdykoliv vypnout a po znovu zapojení do sítě si
@@ -3660,7 +3786,7 @@ obsahoval následující informace:
 • Numerické pole, které obsahuje počet generací
 • Textové pole s konfigurací v jsonu
 
-45
+47
 
 7.3 Uživatelská část
 
@@ -3684,7 +3810,7 @@ prostředí a uživatel může pozorovat vývoj jedinců v reálném čase.
 Poslední tlačítko slouží k urychlení simulace. Způsobí to, že se simulace začne
 obnovovat bez vykreslování. Toto jí značně zrychlí.
 
-46
+48
 
 7.3 Uživatelská část
 
@@ -3700,7 +3826,7 @@ ukládá pro každý snímek pozice, úhel, aktuální fitness a dílek na kter�
 nachází, kterou pak přehrávač interpretuje oproti klasickému přístupu, který by zahrnoval opětovnou simulaci agenta se stejným genomem. Tímto je dosaženo toho,
 že si lze zobrazit průběh agenta tak, jak tomu bylo při jeho vyhodnocování.
 
-47
+49
 
 7.4 Nasazení serverové části
 
@@ -3722,7 +3848,7 @@ Nasazení probíhá nejdříve spuštěním příkazu docker-compose up ve slož
 
 7.5 Nasazení uživatelské části
 
-48
+50
 
 • Služby pro monitorování
 – Grafana (port 3000) - pro monitorování stavu algoritmu NEAT
@@ -3738,14 +3864,20 @@ Po tomto kroku je třeba ještě nastavit správnou ip adresu a port Redis serve
 (ip adresa swarm mangeru) v souboru config.env.
 Po provedení těchto kroků je na každém uzlu spuštěn vyhodnocovatel, který
 začne automaticky stahovat a vyhodnocovat jednotlivé jedince. V případě vypnutí/pádu uzlu je úkol po čase vrácen do fronty a vyhodnocení probíhá na jiném uzlu.
-Pokud se uživatel rozhodne používat portainer, musí se z bezpečnostních důvodů přihlásit do 5 minut od jeho spuštění.
+Grafana
+Grafana vyžaduje další nastavení v podobě naimportování použitého kontrolního
+panelu a nastavení databázového zdroje.
+Exportovaný kontrolní panel, který je k nalezení v příloze diplomové práce lze
+naimportovat z menu Dashboards->manage, které se nachází v levém kontrolním
+panelu.
+Přihlašovací údaje do PostgreSQL serveru jsou k nalezení také v příloze.
 
 7.5 Nasazení uživatelské části
 Uživatelskou část lze jednoduše nasadit s pomocí manageru závislostí npm. Stačí
 ve složce s implementací spustit příkaz (po nainstalování závislostí) npm run dev
 a pak si v prohlížeči otevřít adresu localhost:8080. V případě přehrávače je to localhost:8080/#/player
 
-49
+51
 
 8 EXPERIMENTY
 
@@ -3778,7 +3910,7 @@ neuronu s aktivační funkcí tanh, která se pravděpodobně stará o onen kýv
 
 8.1 První stupeň - silnice ve tvaru I
 
-50
+52
 
 Obrázek 30: Neuronová síť - I bez rozšíření
 Konfigurace s rozšířeními
@@ -3792,9 +3924,9 @@ plyn dozadu/dopředu a držet volant.
 
 8.2 Druhý stupeň - silnice ve tvaru I s překážkami
 
-51
+53
 
-Obrázek 32: Neuronová síť - I s překážkami s rozšířeními
+Obrázek 32: Neuronová síť - I s rozšířeními
 
 8.2 Druhý stupeň - silnice ve tvaru I s překážkami
 Druhý stupeň obtížnosti už dělal agentovi větší problém a nepodařilo se za daný
@@ -3813,7 +3945,7 @@ by totiž sloužit jako přepínač pro zatáčení.
 
 8.2 Druhý stupeň - silnice ve tvaru I s překážkami
 
-52
+54
 
 Obrázek 34: Neuronová síť - silnice ve tvaru I s překážkami bez rozšíření
 Konfigurace s rozšířeními
@@ -3825,7 +3957,7 @@ předchozí. Je opravdu těžké určit účel jednotlivých neuronů. Zajímav�
 bez rozšíření, tak neuron s aktivační funkcí sigmoid, která může sloužit k dorovnání
 směru například na základě vstupní rychlosti.
 
-53
+55
 
 8.3 Třetí stupeň - Okruh
 
@@ -3846,7 +3978,7 @@ kolidoval s překážkou.
 
 8.3 Třetí stupeň - Okruh
 
-54
+56
 
 Obrázek 38: Neuronová síť - Okruh bez rozšíření
 
@@ -3859,7 +3991,7 @@ Obrázek 40: Neuronová síť - Okruh s rozšířením
 
 8.4 Zhodnocení
 
-55
+57
 
 8.4 Zhodnocení
 Ačkoliv se výsledným agentům podařilo zdolat pouze první překážku, je na provedených experimentech a jejích výsledcích vidět, že lze neuroevoluci použít i pro
@@ -3867,7 +3999,7 @@ obtížnější terén. Jediným limitem je časová, případně HW náročnost
 
 9 MOŽNÁ VYLEPŠENÍ
 
-56
+58
 
 9 Možná vylepšení
 Při implementaci aktuálního řešení bylo zjištěno, že řešený problém je mnohem výpočetně náročnější než se při původním návrhu čekalo. Toto vedlo k návrhu distribuovaného řešení, které ovšem sebou nese problémy v rozdílech u výpočtů s desetinou
@@ -3885,7 +4017,7 @@ tuto chvíli dostupná jen ve zdrojovém kódu aplikace.
 
 10 ZÁVĚR
 
-57
+59
 
 10 Závěr
 Tato práce se zabývala návrhem a tvorbou prostředí pro simulovaného agenta i jeho
@@ -3897,11 +4029,13 @@ je například zpětnovazební učení velmi malá.
 Nevýhodou této metody je ovšem její velká časová náročnost, která limitovala možnosti této práce.
 I přes výše zmíněná omezení se v práci podařilo pomocí výpočetního clusteru vytvořit testovací systém, který je nejen robustní ale i snadno škálovatelný. Použitím
 většího výpočetního výkonu by tak bylo možné dosáhnout mnohem lepších výsledků
-a podívat se na limity zkoumané metody do větší hloubky.
+a podívat se na limity zkoumané metody do větší hloubky. Bylo například možné
+plně využít potenciál navrženého řešení pro tvorbu prostředí s dynamickými prvky,
+jako jsou například další automobily nebo dopravní značení.
 
 11 REFERENCE
 
-58
+60
 
 11 Literatura
 [BUDUMA, Nikhil 2017] BUDUMA, Nikhil. Fundamentals of deep learning:
@@ -3944,7 +4078,7 @@ artificial intelligence. ISBN 978-0-13-207148-2..
 
 11 REFERENCE
 
-59
+61
 
 [KOZA, John R., 1992] KOZA, John R. Genetic programming: on the
 programming of computers by means of natural selection. Cambridge, Mass.:
@@ -3974,5 +4108,13 @@ Congress of Evolutionary Computation (CEC) [online]. IEEE, 2011, 2011, s.
 1343-1349 [cit. 2019-01-02]. DOI: 10.1109/CEC.2011.5949772. ISBN
 978-1-4244-7834-7. Dostupné z:
 http://ieeexplore.ieee.org/document/5949772/.
+
+Přílohy
+
+A OBSAH CD
+
+A Obsah CD
+
+63
 
 
